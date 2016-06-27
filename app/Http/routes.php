@@ -12,5 +12,18 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts.admin');
+});
+
+//Rutas del Frontend
+
+Route::get('/hola','FrontController@index');
+
+
+//Rutas del Backend
+
+Route::group(['prefix'=>'admin'], function(){
+
+
+
 });
