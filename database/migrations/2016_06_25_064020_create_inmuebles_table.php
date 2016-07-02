@@ -50,7 +50,9 @@ class CreateInmueblesTable extends Migration
             $table->foreign('sector_id')
                 ->references('id')->on('sectores')
                 ->onDelete('cascade');
+            $table->string('slug')->nullable();
             $table->timestamps();
+
         });
     }
 

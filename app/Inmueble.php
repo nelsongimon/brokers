@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Inmueble extends Model
 {
@@ -10,12 +11,28 @@ class Inmueble extends Model
     *
     *
     */
+    use Sluggable;
     protected $table = 'inmuebles';
+
     protected $fillable = ['titulo','descripcion','area_parcela','area_construccion','cuartos','banos','estacionamientos','status','user_id','tipo_id','negociacion_id','asesor_id','estado_id','ciudad_id','sector_id'];
     /*
     *
     *
     */
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'titulo'
+            ]
+        ];
+    }
+
     public function user(){
     	return $this->belongsTo('App\User');
     }
@@ -55,4 +72,6 @@ class Inmueble extends Model
     public function imagen(){
     	return $this->hasOne('App\Imagen');
     }
+
+
 }

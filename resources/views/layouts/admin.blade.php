@@ -24,6 +24,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     -->
     <link rel="stylesheet" href="{{ asset('admin/dist/css/skins/skin-blue.min.css') }}">
 
+    @yield('css')
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -51,7 +53,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   |               | sidebar-mini                            |
   |---------------------------------------------------------|
   -->
-  <body class="hold-transition skin-blue fixed">
+  <body class="hold-transition skin-blue fixed sidebar-mini">
     <div class="wrapper">
 
       <!-- Main Header -->
@@ -60,9 +62,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Logo -->
         <a href="index2.html" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>A</b>LT</span>
+          <span class="logo-mini"><b>B</b>ro</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>Admin</b>LTE</span>
+          <span class="logo-lg"><b>Admin</b>Brokers</span>
         </a>
 
         <!-- Header Navbar -->
@@ -265,8 +267,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Page Header
-            <small>Optional description</small>
+            @yield('page-header','Page Header')
+            <small>@yield('optional-description','Optional description')</small>
           </h1>
           <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
@@ -361,10 +363,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- jQuery 2.1.4 -->
     <script src="{{ asset('admin/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
+
+    <script src="{{ asset('admin/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="{{ asset('admin/bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('admin/dist/js/app.min.js') }}"></script>
+
+    @yield('javascript')
 
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
          Both of these plugins are recommended to enhance the
