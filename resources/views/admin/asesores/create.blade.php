@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title','Usuarios')
+@section('title','Asesores')
 
 @section('css')
 
@@ -8,21 +8,19 @@
 
 @endsection
 
-@section('page-header','Usuarios')
+@section('page-header','Asesores')
 
-@section('optional-description','Crea un nuevo usuario y añádelo a este sitio')
+@section('optional-description','Añade un nuevo asesor al sitio')
 
 @section('content')
-
-
 			<div class="col-md-6">
               <!-- Horizontal Form -->
               <div class="box box-primary">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Añadir Usuario</h3>
+                  <h3 class="box-title">Añadir Asesor</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                {!! Form::open(['route'=>'admin.usuarios.store','method'=>'post','class'=>'form-horizontal','name'=>'form']) !!}
+                {!! Form::open(['route'=>'admin.asesores.store','method'=>'post','class'=>'form-horizontal','name'=>'form','files'=>true]) !!}
                 
                   <div class="box-body">
                     <div class="form-group">
@@ -38,24 +36,21 @@
                       </div>
                     </div>
                     <div class="form-group">
+                      <label for="" class="col-sm-2 control-label">Teléfono</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="" name="telefono" placeholder="Teléfono">
+                      </div>
+                    </div>
+                    <div class="form-group">
                       <label for="" class="col-sm-2 control-label">Email</label>
                       <div class="col-sm-10">
                         <input type="email" class="form-control" id=""  name="email" placeholder="Email">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="" class="col-sm-2 control-label">Password</label>
+                      <label for="" class="col-sm-2 control-label">Foto</label>
                       <div class="col-sm-10">
-                        <input type="password" class="form-control" id="" name="password" placeholder="Password">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="" class="col-sm-2 control-label">Perfil</label>
-                      <div class="col-sm-10">
-                        <select name="perfil" class="form-control">
-                          <option value="member">Miembro</option>
-                          <option value="admin">Administrador</option>                        
-                        </select>
+                        <input type="file" class="" id="" name="foto">
                       </div>
                     </div>
                   </div><!-- /.box-body -->

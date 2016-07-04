@@ -1,14 +1,26 @@
 @if(count($errors)>0)
-
-	<div class="alert alert-danger">
-		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-		@foreach($errors->all() as $error)
-			<li>{{$error}}</li>
-		@endforeach
-	</div>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            
+            demo.initChartist();
+            
+            $.notify({
+                icon: '',
+                message: "@foreach($errors->all() as $error) <li style='list-style:none'><i class='fa fa-times' aria-hidden='true'></i>  &nbsp;&nbsp; {{$error}}</li> @endforeach"
+                
+            },{
+                type: 'danger',
+                timer: 2000,
+                placement: {
+                    from: 'top',
+                    align: 'center'
+                }
+            });
+            
+        });
+    </script>
 
 @endif
-
 
 <!-- ---------------------------------------------------------------------------------------------- -->
 

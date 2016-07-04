@@ -30,4 +30,10 @@ Route::group(['prefix'=>'admin'], function(){
 		'as'=>'admin.usuarios.destroy'
 		]);
 
+	Route::resource('/asesores','AsesoresController');
+	Route::get('asesores/{id}/destroy',[
+		'uses'=>'asesoresController@destroy',
+		'as'=>'admin.asesores.destroy'
+		]);
+
 });

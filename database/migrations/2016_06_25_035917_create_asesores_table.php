@@ -18,6 +18,7 @@ class CreateAsesoresTable extends Migration
             $table->string('apellido');
             $table->string('telefono');
             $table->string('email');
+            $table->string('foto');
             $table->timestamps();
         });
     }

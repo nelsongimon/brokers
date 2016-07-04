@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\Http\Requests\StoreUsuariosRequest;
+use App\Http\Requests\UpdateUsuariosRequest;
 use App\Http\Controllers\Controller;
 use App\User;
 use Session;
@@ -38,12 +40,12 @@ class UsuariosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUsuariosRequest $request)
     {
         $user=User::create($request->all());
         $user->password=bcrypt($request->password);
         $user->save();
-        Session::flash('mensaje-success','El usuario '. $user->nombre. ' se ha creado con éxito');
+        Session::flash('mensaje-success','El usuario '.$user->nombre. ' se ha creado con éxito');
         return redirect('/admin/usuarios');
 
     }
@@ -73,7 +75,8 @@ class UsuariosController extends Controller
                 'id' => $user->id,
                 'nombre' => $user->nombre,
                 'apellido' => $user->apellido,
-                'email' => $user->email
+                'email' => $user->email,
+                'perfil' => $user->perfil
             ]);
     
     }
@@ -85,13 +88,15 @@ class UsuariosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(UpdateUsuariosRequest $request)
     {
+
         $user=User::find($request->id);
         $user->fill($request->all());
         $user->save();
-        Session::flash('mensaje-success','El usuario '. $user->nombre. ' se ha modificado con éxito');
+        Session::flash('mensaje-success','El usuario '.$user->nombre. ' se ha modificado con éxito');
         return redirect('/admin/usuarios');
+    
     }
 
     /**
@@ -104,7 +109,7 @@ class UsuariosController extends Controller
     {
         $user=User::find($id);
         $user->delete();
-        Session::flash('mensaje-success','El usuario '. $user->nombre. ' se ha eliminado con éxito');
+        Session::flash('mensaje-success','El usuario '.$user->nombre. ' se ha eliminado con éxito');
         return redirect('/admin/usuarios');
     }
 }

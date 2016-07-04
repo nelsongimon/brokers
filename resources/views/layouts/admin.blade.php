@@ -249,12 +249,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <li class="header">HEADER</li>
             <!-- Optionally, you can add icons to the links -->
             <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-            <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
             <li class="treeview">
-              <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span> <i class="fa fa-angle-left pull-right"></i></a>
+              <a href="{{ route('admin.usuarios.index') }}"><i class="fa fa-users" aria-hidden="true"></i> <span>Usuarios</span> <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
-                <li><a href="#">Link in level 2</a></li>
-                <li><a href="#">Link in level 2</a></li>
+                <li><a href="{{ route('admin.usuarios.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Todos los usuarios</a></li>
+                <li><a href="{{ route('admin.usuarios.create') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Añadir usuario</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="{{ route('admin.asesores.index') }}"><i class="fa fa-thumbs-up" aria-hidden="true"></i> <span>Asesores</span> <i class="fa fa-angle-left pull-right"></i></a>
+              <ul class="treeview-menu">
+                <li><a href="{{ route('admin.asesores.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Todos los asesores</a></li>
+                <li><a href="{{ route('admin.asesores.create') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Añadir asesor</a></li>
               </ul>
             </li>
           </ul><!-- /.sidebar-menu -->
