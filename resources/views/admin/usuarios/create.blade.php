@@ -66,7 +66,7 @@
                
                 {!! Form::close() !!}
               </div><!-- /.box -->   
-            </div>	
+      </div>	
 @endsection
 
 @section('javascript')

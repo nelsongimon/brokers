@@ -257,7 +257,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </ul>
             </li>
             <li class="treeview">
-              <a href="{{ route('admin.asesores.index') }}"><i class="fa fa-thumbs-up" aria-hidden="true"></i> <span>Asesores</span> <i class="fa fa-angle-left pull-right"></i></a>
+              <a href="{{ route('admin.asesores.index') }}"><i class="fa fa-male" aria-hidden="true"></i> <span>Asesores</span> <i class="fa fa-angle-left pull-right"></i></a>
+              <ul class="treeview-menu">
+                <li><a href="{{ route('admin.asesores.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Todos los asesores</a></li>
+                <li><a href="{{ route('admin.asesores.create') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Añadir asesor</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="{{ route('admin.asesores.index') }}"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Ajustes</span> <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
                 <li><a href="{{ route('admin.asesores.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Todos los asesores</a></li>
                 <li><a href="{{ route('admin.asesores.create') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Añadir asesor</a></li>

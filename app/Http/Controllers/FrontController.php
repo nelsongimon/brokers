@@ -18,6 +18,15 @@ class FrontController extends Controller
     {
         return 'hola bienvenido al front';
     }
+    /**
+    *
+    *
+    *
+    **/
+    public function login(){
+        
+        return view('front.login');
+    }
 
     /**
      * Show the form for creating a new resource.
