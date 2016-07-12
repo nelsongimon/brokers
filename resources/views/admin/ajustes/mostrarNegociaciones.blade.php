@@ -53,7 +53,9 @@
 	                  </tbody></table>
 	                </div><!-- /.box-body -->
 	                <div class="box-footer clearfix">
+	                  
 	        			{!! $negos->render() !!}
+	                 
 	                </div>
 	            </div>
 			</div>

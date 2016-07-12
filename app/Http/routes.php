@@ -23,6 +23,10 @@ Route::get('/login','FrontController@login');
 
 Route::group(['prefix'=>'admin'], function(){
 
+	Route::get('/',function(){
+
+	});
+
 	Route::resource('/usuarios','UsuariosController');
 	Route::get('usuarios/{id}/destroy',[
 		'uses'=>'UsuariosController@destroy',
@@ -63,7 +67,6 @@ Route::group(['prefix'=>'admin'], function(){
 				'as'=>'admin.ajustes.tipos.delete'
 			]);
 
-/*****************************************************************************************/
 
 		Route::get('/tipos-de-negociacion','AjustesController@mostrarNegociacion');
 
@@ -85,6 +88,22 @@ Route::group(['prefix'=>'admin'], function(){
 			]);
 
 
+	});
+
+
+	Route::group(['prefix'=>'localizacion'], function(){
+
+		Route::resource('estados','EstadosController');
+		Route::get('estados/{id}/destroy',[
+			'uses'=>'EstadosController@destroy',
+			'as'=>'admin.localizacion.estados.destroy'
+		]);
+
+		Route::resource('ciudades','CiudadesController');
+		Route::get('ciudades/{id}/destroy',[
+			'uses'=>'CiudadesController@destroy',
+			'as'=>'admin.localizacion.ciudades.destroy'
+		]);
 	});
 
 });

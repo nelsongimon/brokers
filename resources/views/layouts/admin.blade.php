@@ -64,7 +64,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>B</b>ro</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>Admin</b>Brokers</span>
+          <span class="logo-lg"><b>Panel</b> Admin</span>
         </a>
 
         <!-- Header Navbar -->
@@ -171,14 +171,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- Menu Toggle Button -->
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <!-- The user image in the navbar-->
-                  <img src="{{ asset('admin/dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
+                  <i class="fa fa-user" aria-hidden="true"></i>
                   <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                  <span class="hidden-xs">Alexander Pierce</span>
+                  <span class="hidden-xs">Nelson Gimón</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- The user image in the menu -->
                   <li class="user-header">
-                    <img src="{{ asset('admin/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+                    <i class="fa fa-user" aria-hidden="true"></i>
                     <p>
                       Nelson Gimon - Web Developer
                       <small>Member since Nov. 2012</small>
@@ -224,31 +224,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- Sidebar user panel (optional) -->
           <div class="user-panel">
             <div class="pull-left image">
-              <img src="{{ asset('admin/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+              <img src="http://i.imgur.com/uMGuEiB.png" alt="Logo Brokers" style="max-width: 100%;">
             </div>
             <div class="pull-left info">
-              <p>Alexander Pierce</p>
+              <p style="font-size: 15px"></p>
               <!-- Status -->
-              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+              
             </div>
           </div>
 
-          <!-- search form (Optional) -->
-          <form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-              <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-            </div>
-          </form>
-          <!-- /.search form -->
 
           <!-- Sidebar Menu -->
           <ul class="sidebar-menu">
-            <li class="header">HEADER</li>
+            
             <!-- Optionally, you can add icons to the links -->
-            <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
+            <li><a href="#"><i class="fa fa-tachometer" aria-hidden="true"></i> <span>Escritorio</span></a></li>
             <li class="treeview">
               <a href="{{ route('admin.usuarios.index') }}"><i class="fa fa-users" aria-hidden="true"></i> <span>Usuarios</span> <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
@@ -264,11 +254,34 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </ul>
             </li>
             <li class="treeview">
-              <a href="{{ route('admin.asesores.index') }}"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Ajustes</span> <i class="fa fa-angle-left pull-right"></i></a>
+              <a href="{{ route('admin.asesores.index') }}"><i class="fa fa-map" aria-hidden="true"></i> <span>Localización</span> <i class="fa fa-angle-left pull-right"></i></a>
+              <ul class="treeview-menu">
+                <li><a href="{{ route('admin.localizacion.estados.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Estados</a></li>
+                <li><a href="{{ route('admin.asesores.create') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Ciudades</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="{{ route('admin.asesores.index') }}"><i class="fa fa-home" aria-hidden="true"></i> <span>Inmuebles</span> <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
                 <li><a href="{{ route('admin.asesores.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Todos los asesores</a></li>
                 <li><a href="{{ route('admin.asesores.create') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Añadir asesor</a></li>
               </ul>
+            </li>
+            <li class="treeview">
+              <a href="{{ route('admin.asesores.index') }}"><i class="fa fa-street-view" aria-hidden="true"></i> <span>Aspirantes</span> <i class="fa fa-angle-left pull-right"></i></a>
+              <ul class="treeview-menu">
+                <li><a href="{{ route('admin.asesores.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Todos los asesores</a></li>
+                <li><a href="{{ route('admin.asesores.create') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Añadir asesor</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Ajustes</span> <i class="fa fa-angle-left pull-right"></i></a>
+              <ul class="treeview-menu">
+                <li><a href="{{ url('admin/ajustes/precio-dolar') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i>Precio del Dolar</a></li>
+                <li><a href="{{ url('admin/ajustes/tipos-de-inmuebles') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Tipos de Inmueble</a></li>
+                <li><a href="{{ url('admin/ajustes/tipos-de-negociacion') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Tipos de Negociación</a></li>
+              </ul>
+
             </li>
           </ul><!-- /.sidebar-menu -->
         </section>

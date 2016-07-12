@@ -216,6 +216,63 @@ $('document').ready(function(){
 	});
 
 });
+
+function editarEstado(url, token){
+
+		$.ajax({
+			headers: {
+	            'X-CSRF-TOKEN': token
+	        },
+			//Lo que se va a ejecutar antes de hacer la peticion se coloca el pre-loader
+			beforeSend: function(){
+				$('#contenedor-form-edit-estado').show();
+				$('#estado').val('Cargando...');
+			},
+			url: url,
+			type: 'GET',
+			dataTye: 'json',
+			success: function(data){
+				$('#estado').val(data.estado);
+				$('#id').val(data.id);
+				console.log(data);
+
+			},
+			error: function(xhr, status){
+				console.log(status);
+			}
+
+		});
+	
+}
+
+function editarCiudad(url, token){
+
+		$.ajax({
+			headers: {
+	            'X-CSRF-TOKEN': token
+	        },
+			//Lo que se va a ejecutar antes de hacer la peticion se coloca el pre-loader
+			beforeSend: function(){
+				$('#contenedor-form-ciudades').hide();
+				$('#contenedor-form-edit-ciudad').show();
+				$('#ciudad').val('Cargando...');
+			},
+			url: url,
+			type: 'GET',
+			dataTye: 'json',
+			success: function(data){
+				$('#ciudad').val(data.ciudad);
+				$('#id').val(data.id);
+				console.log(data);
+
+			},
+			error: function(xhr, status){
+				console.log(status);
+			}
+
+		});
+	
+}
 	
 //------------------Funciones---------------------------------------------
 
@@ -232,7 +289,21 @@ function eliminarAsesor(url){
 	
 }
 
+function eliminarEstado(url){
+
+	$('#button-eliminar-estado').attr('href',url);
+	
+}
+
+function eliminarCiudad(url){
+
+	$('#button-eliminar-estado').attr('href',url);
+	
+}
+
+
 $('document').ready(function(){
+	$('.box-footer .pagination').css('margin','0px');
 	$('#contenedor-form-tipo').hide();
 	$('#contenedor-form-negociacion').hide();
 	$('#contenedor-form-edit-tipo').hide();
@@ -243,6 +314,9 @@ $('document').ready(function(){
 	$('#botan-mostar-form-negociacion').click(function(){
 		$('#contenedor-form-negociacion').toggle()
 	});
+	$('#contenedor-form-edit-estado').hide();
+	$('#contenedor-form-edit-ciudad').hide();
+	$('#contenedor-form-ciudades').show();
 });
 
 
