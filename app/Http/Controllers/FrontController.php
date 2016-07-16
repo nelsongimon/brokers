@@ -3,12 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Auth;
 use App\Http\Requests;
+use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
+use Session;
 
 class FrontController extends Controller
 {
+    /*
+    *
+    *
+    *
+    **/
+    public function __construct(){
+        
+        $this->middleware('guest',['only'=>'login']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,6 +37,33 @@ class FrontController extends Controller
     public function login(){
         
         return view('front.login');
+    }
+    /*
+    *
+    *
+    *
+    **/
+    public function loginAuth(LoginRequest $request){
+        
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+            Session::flash('mensaje-success', 'Bienvenido '.Auth::user()->nombre);
+            return redirect('admin/usuarios');
+        }
+        Session::flash('mensaje-error','Email y/o password incorrectos');
+        return redirect('/login');
+
+
+    }
+    /*
+    *
+    *
+    *
+    **/
+    public function logout(){
+        Auth::logout();
+        Session::flash('mensaje-success', 'Su sesión se ha cerrado con éxito');
+        return redirect('/login');
+
     }
 
     /**

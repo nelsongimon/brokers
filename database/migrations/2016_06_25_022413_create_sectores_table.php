@@ -17,6 +17,8 @@ class CreateSectoresTable extends Migration
             $table->string('sector')->unique();
             $table->integer('ciudad_id')->unsigned();
             $table->foreign('ciudad_id')->references('id')->on('ciudades')->onDelete('cascade');
+            $table->integer('estado_id')->unsigned();
+            $table->foreign('estado_id')->references('id')->on('estados')->onDelete('cascade');
             $table->timestamps();
         });
     }

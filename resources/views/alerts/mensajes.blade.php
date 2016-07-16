@@ -63,7 +63,7 @@
             	message: "{{ Session::get('mensaje-error') }}"
             	
             },{
-                type: 'success',
+                type: 'danger',
                 timer: 2000,
                 placement: {
 	                from: 'top',

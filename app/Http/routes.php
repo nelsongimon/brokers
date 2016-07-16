@@ -13,15 +13,20 @@
 
 
 
-//Rutas del Frontend
+//Rutas del Frontend --------------------------------------------------------
 
 Route::get('/','FrontController@index');
 Route::get('/login','FrontController@login');
+Route::post('/login',[
+	'uses'=>'FrontController@loginAuth', 
+	'as'=>'front.login'
+	]);
+Route::get('/logout','FrontController@logout');
 
 
-//Rutas del Backend
+//Rutas del Backend ---------------------------------------------------------
 
-Route::group(['prefix'=>'admin'], function(){
+Route::group(['prefix'=>'admin','middleware' => 'auth'], function(){
 
 	Route::get('/',function(){
 
@@ -104,6 +109,45 @@ Route::group(['prefix'=>'admin'], function(){
 			'uses'=>'CiudadesController@destroy',
 			'as'=>'admin.localizacion.ciudades.destroy'
 		]);
+
+		Route::resource('sectores','SectoresController');
+		Route::get('sectores/{id}/destroy',[
+			'uses'=>'SectoresController@destroy',
+			'as'=>'admin.localizacion.sectores.destroy'
+		]);
+
+		Route::post('sectores/estados/ciudades',[
+			'uses'=>'SectoresController@estadosCiudades',
+			'as'=>'admin.localizacion.sectores.estadosCiudades'
+		]);
+
+		Route::post('estados/ciudades/sectores',[
+			'uses'=>'SectoresController@ciudadesSectores',
+			'as'=>'admin.localizacion.sectores.ciudadesSectores'
+		]);
 	});
+
+	Route::resource('/inmuebles','InmueblesController');
+
+	Route::post('inmuebles/create',[
+		'uses'=>'InmueblesController@storeLocalizacion',
+		'as'=>'admin.inmuebles.storeLocalizacion'
+		]);
+
+	Route::post('inmuebles/create/imagenes-restantes',[
+		'uses'=>'InmueblesController@storeImagenesRestantes',
+		'as'=>'admin.inmuebles.storeImagenesRestantes'
+		]);
+
+	Route::post('inmuebles/create/imagen-principal',[
+		'uses'=>'InmueblesController@storeImagenPrincipal',
+		'as'=>'admin.inmuebles.storeImagenPrincipal'
+		]);
+
+	Route::get('inmuebles/create/localizacion','InmueblesController@createLocalizacion');
+
+
+	//ruta para prueba de imagenes
+	Route::get('imagenes','InmueblesController@viewImagenes');
 
 });

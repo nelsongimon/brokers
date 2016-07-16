@@ -17,7 +17,11 @@ class Estado extends Model
     public function ciudades(){
     	return $this->hasMany('App\Ciudad');
     }
-
+    
+    public function sectores(){
+        return $this->hasMany('App\Sector');
+    }
+   
     public function inmuebles(){
     	return $this->hasMany('App\Inmueble');
     }

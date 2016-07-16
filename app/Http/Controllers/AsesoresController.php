@@ -120,10 +120,14 @@ class AsesoresController extends Controller
     public function destroy($id)
     {
         $asesor=Asesor::find($id);
-        $asesor->delete();
-        Session::flash('mensaje-success','El Asesor '
-            .$asesor->nombre.' '.$asesor->apellido.' se ha eliminado con éxito');
-        return redirect('/admin/asesores');
+        //Borrado de la imagen
+        if(unlink(public_path().'/images/asesores/'.$asesor->foto)){
+
+            $asesor->delete();
+            Session::flash('mensaje-success','El Asesor '
+                .$asesor->nombre.' '.$asesor->apellido.' se ha eliminado con éxito');
+            return redirect('/admin/asesores');
+        }
 
     }
 }

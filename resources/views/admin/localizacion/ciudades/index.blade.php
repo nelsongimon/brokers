@@ -73,6 +73,7 @@
 	                    <div class="form-group">
 	                      <label for="">Estado</label>
 	                      <select name="estado_id" class="form-control" >
+	                      		<option value="0">--Seleccione--</option>
 	                      	@foreach ($estados as $estado)
 	                      		<option value="{{ $estado->id }}">{{ $estado->estado }}</option>
 	                      	@endforeach
@@ -116,7 +117,7 @@
 		        </div>
 		        <div class="modal-footer">
 		            <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
-		            <a id="button-eliminar-estado" href="#" class="btn btn-outline">Aceptar</a>
+		            <a id="button-eliminar-ciudad" href="#" class="btn btn-outline">Aceptar</a>
 		        </div>
 		    </div>
 	    </div>

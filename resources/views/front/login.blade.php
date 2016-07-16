@@ -17,6 +17,8 @@
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('admin/dist/css/skins/skin-blue.min.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('admin/dist/css/animate.min.css') }}">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -24,39 +26,35 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body class="hold-transition login-page" style="background-image:url(http://i.imgur.com/vLuV1Xo.png);">
+  <body class="hold-transition login-page" style="background-image:url(http://i.imgur.com/is7VvUY.png);background-image:url(http://i.imgur.com/lhK6EAu.png);">
     <div class="login-box">
       <div class="login-logo">
-          <img src="http://i.imgur.com/aF57Zbu.png" width="200px">
+          <img src="http://i.imgur.com/uMGuEiB.png" width="330px">
       </div><!-- /.login-logo -->
       <div class="login-box-body">
 
-        <p class="login-box-msg"><img src="http://i.imgur.com/aF57Zbu.png" width="200px"></p>
-        <form action="../../index2.html" method="post">
+        <p class="login-box-msg" style="font-size: 20px; font-weight: bold;">Panel Admin</p>
+        {!! Form::open(['route'=>'front.login', 'method'=>'POST']) !!}
           <div class="form-group has-feedback">
-            <input type="email" class="form-control" placeholder="Email">
+            <input type="email" name="email" class="form-control" placeholder="Email">
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
-            <input type="password" class="form-control" placeholder="Password">
+            <input type="password" name="password" class="form-control" placeholder="Password">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
           <div class="row">
             <div class="col-xs-8">
-              <div class="checkbox icheck">
-                <label>
-                  <input type="checkbox"> Remember Me
-                </label>
-              </div>
+              
             </div><!-- /.col -->
             <div class="col-xs-4">
               <button type="submit" class="btn btn-primary btn-block btn-flat">Ingresar</button>
             </div><!-- /.col -->
           </div>
-        </form>
-
-        <a href="#">I forgot my password</a><br>
-        <a href="register.html" class="text-center">Register a new membership</a>
+        {!! Form::close() !!}
+        <a href="#">¿Olvidaste tu Password?</a><br>
+        
+        
 
       </div><!-- /.login-box-body -->
     </div><!-- /.login-box -->
@@ -67,6 +65,10 @@
     <script src="{{ asset('admin/bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- iCheck -->
     <script src="{{ asset('admin/plugins/iCheck/icheck.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('admin/plugins/fastclick/fastclick.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('admin/plugins/chartist/chartist.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('admin/plugins/chartist/bootstrap-notify.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('admin/plugins/chartist/demo.js') }}"></script>
     <script>
       $(function () {
         $('input').iCheck({
@@ -76,5 +78,7 @@
         });
       });
     </script>
+
+    @include('alerts.mensajes')
   </body>
 </html>

@@ -234,7 +234,7 @@ function editarEstado(url, token){
 			success: function(data){
 				$('#estado').val(data.estado);
 				$('#id').val(data.id);
-				console.log(data);
+				//console.log(data);
 
 			},
 			error: function(xhr, status){
@@ -263,7 +263,7 @@ function editarCiudad(url, token){
 			success: function(data){
 				$('#ciudad').val(data.ciudad);
 				$('#id').val(data.id);
-				console.log(data);
+				//console.log(data);
 
 			},
 			error: function(xhr, status){
@@ -273,9 +273,132 @@ function editarCiudad(url, token){
 		});
 	
 }
-	
-//------------------Funciones---------------------------------------------
+function editarSector(url, token){
 
+		$.ajax({
+			headers: {
+	            'X-CSRF-TOKEN': token
+	        },
+			//Lo que se va a ejecutar antes de hacer la peticion se coloca el pre-loader
+			beforeSend: function(){
+				$('#contenedor-form-sectores').hide();
+				$('#contenedor-form-edit-sector').show();
+				$('#sector').val('Cargando...');
+			},
+			url: url,
+			type: 'GET',
+			dataTye: 'json',
+			success: function(data){
+				$('#sector').val(data.sector);
+				$('#id').val(data.id);
+				//console.log(data);
+
+			},
+			error: function(xhr, status){
+				console.log(status);
+			}
+
+		});
+	
+}
+//Carga dinamica del select ciudad
+$('document').ready(function(){
+	$('#select-estado').change(function(){
+
+		$('#select-sector').html('<option value="0">--Seleccione--</option>');
+
+		$.ajax({
+			headers: {
+	            'X-CSRF-TOKEN': $('#token-estado').val()
+	        },
+			//Lo que se va a ejecutar antes de hacer la peticion se coloca el pre-loader
+			beforeSend: function(){
+				$('#select-ciudad').html('<option value="0">--Cargando--</option>');
+			},
+			url: $('#url-estado').val(),
+			data:{id:$('#select-estado').val()},
+			type: 'POST',
+			dataTye: 'json',
+			success: function(data){
+				if(data.mensaje=="error"){
+					$('#select-ciudad').html('<option value="0">--Seleccione--</option>');
+					return false;
+				}
+				$('#select-ciudad').html('<option value="0">--Seleccione--</option>');
+				for(var i=0; i<data.ciudades.length; i++){
+					console.log(data.ciudades[i].ciudad);
+					$('#select-ciudad').append('<option value="'+data.ciudades[i].id+'">'+data.ciudades[i].ciudad+'</option>');
+				}
+			},
+			error: function(xhr, status){
+				console.log(status);
+			}
+
+		});
+	});
+});
+
+//Carga dinamica de las opciones de los sectores
+$('document').ready(function(){
+	$('#select-ciudad').change(function(){
+
+		$.ajax({
+			headers: {
+	            'X-CSRF-TOKEN': $('#token-ciudad').val()
+	        },
+			//Lo que se va a ejecutar antes de hacer la peticion se coloca el pre-loader
+			beforeSend: function(){
+				$('#select-sector').html('<option value="0">--Cargando--</option>');
+			},
+			url: $('#url-ciudad').val(),
+			data:{id:$('#select-ciudad').val()},
+			type: 'POST',
+			dataTye: 'json',
+			success: function(data){
+				if(data.mensaje=="error"){
+					$('#select-sector').html('<option value="0">--Seleccione--</option>');
+					return false;
+				}
+				$('#select-sector').html('<option value="0">--Seleccione--</option>');
+				for(var i=0; i<data.sectores.length; i++){
+					console.log(data.sectores[i].sector);
+					$('#select-sector').append('<option value="'+data.sectores[i].id+'">'+data.sectores[i].sector+'</option>');
+				}
+			},
+			error: function(xhr, status){
+				console.log(status);
+			}
+
+		});
+	});
+});
+	
+//------------------Jquery---------------------------------------------
+
+$('document').ready(function(){
+	$('.box-footer .pagination').css('margin','0px');
+	$('#contenedor-form-tipo').hide();
+	$('#contenedor-form-negociacion').hide();
+	$('#contenedor-form-edit-tipo').hide();
+	$('#contenedor-form-edit-negociacion').hide();
+	$('#botan-mostar-form-tipo').click(function(){
+		$('#contenedor-form-tipo').toggle()
+	});
+	$('#botan-mostar-form-negociacion').click(function(){
+		$('#contenedor-form-negociacion').toggle()
+	});
+	$('#contenedor-form-edit-estado').hide();
+	$('#contenedor-form-edit-ciudad').hide();
+	$('#contenedor-form-edit-sector').hide();
+	$('#contenedor-form-ciudades').show();
+	$('#contenedor-form-sectores').show();
+
+
+
+
+});
+
+//-------------------Funciones-----------------------------------------
 
 function eliminarUsuario(url){
 
@@ -301,22 +424,19 @@ function eliminarCiudad(url){
 	
 }
 
+function eliminarSector(url){
+	$('#button-eliminar-sector').attr('href',url);
+}
 
-$('document').ready(function(){
-	$('.box-footer .pagination').css('margin','0px');
-	$('#contenedor-form-tipo').hide();
-	$('#contenedor-form-negociacion').hide();
-	$('#contenedor-form-edit-tipo').hide();
-	$('#contenedor-form-edit-negociacion').hide();
-	$('#botan-mostar-form-tipo').click(function(){
-		$('#contenedor-form-tipo').toggle()
-	});
-	$('#botan-mostar-form-negociacion').click(function(){
-		$('#contenedor-form-negociacion').toggle()
-	});
-	$('#contenedor-form-edit-estado').hide();
-	$('#contenedor-form-edit-ciudad').hide();
-	$('#contenedor-form-ciudades').show();
-});
+function moverMarker(marker, map){
+
+	$('#latitud').val(marker.lat());
+	$('#longitud').val(marker.lng());
+	$('#zoom').val(map.getZoom());
+}
+
+
+
+
 
 

@@ -14,7 +14,7 @@ class Inmueble extends Model
     use Sluggable;
     protected $table = 'inmuebles';
 
-    protected $fillable = ['titulo','descripcion','area_parcela','area_construccion','cuartos','banos','estacionamientos','status','user_id','tipo_id','negociacion_id','asesor_id','estado_id','ciudad_id','sector_id'];
+    protected $fillable = ['titulo','descripcion','nota','area_parcela','area_construccion','cuartos','banos','estacionamientos','status','user_id','tipo_id','negociacion_id','asesor_id','estado_id','ciudad_id','sector_id'];
     /*
     *
     *
@@ -69,8 +69,8 @@ class Inmueble extends Model
     	return $this->hasOne('App\Localizacion');
     }
 
-    public function imagen(){
-    	return $this->hasOne('App\Imagen');
+    public function imagenes(){
+    	return $this->hasMany('App\Imagen');
     }
 
 

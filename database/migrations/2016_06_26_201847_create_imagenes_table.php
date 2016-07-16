@@ -15,6 +15,7 @@ class CreateImagenesTable extends Migration
         Schema::create('imagenes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('imagen');
+            $table->enum('principal',['yes','no'])->default('no');
             $table->integer('inmueble_id')->unsigned();
             $table->foreign('inmueble_id')
                 ->references('id')->on('inmuebles')

@@ -10,12 +10,16 @@ class Sector extends Model
 	*
 	*/
     protected $table = 'sectores'; 
-    protected $fillable = ['sector','ciudad_id'];
+    protected $fillable = ['sector','estado_id','ciudad_id'];
     /*
     *
     */
     public function ciudad(){
     	return $this->belongsTo('App\Ciudad');
+    }
+
+    public function estado(){
+        return $this->belongsTo('App\Estado');
     }
 
     public function inmuebles(){

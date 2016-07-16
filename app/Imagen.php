@@ -11,7 +11,7 @@ class Imagen extends Model
     *
     */
     protected $table = 'imagenes';
-    protected $fillable = ['imagen','inmueble_id'];
+    protected $fillable = ['imagen','principal','inmueble_id'];
     /*
     *
     *

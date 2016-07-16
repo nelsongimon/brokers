@@ -14,9 +14,10 @@ class CreateLocalizacionesTable extends Migration
     {
         Schema::create('localizaciones', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('descripcion');
-            $table->float('latitud');
-            $table->float('longitud');
+            $table->text('localizacion');
+            $table->double('latitud', 15, 8);
+            $table->double('longitud', 15, 8);
+            $table->integer('zoom');
             $table->integer('inmueble_id')->unsigned();
             $table->foreign('inmueble_id')
                 ->references('id')->on('inmuebles')

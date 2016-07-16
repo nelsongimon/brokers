@@ -11,7 +11,7 @@ class Localizacion extends Model
     *
     */
     protected $table = 'localizaciones';
-    protected $fillable = ['descripcion','latitud','longitud','inmueble_id'];
+    protected $fillable = ['localizacion','latitud','longitud','zoom','inmueble_id'];
     /*
     *
     *

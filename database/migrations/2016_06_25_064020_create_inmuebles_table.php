@@ -16,6 +16,7 @@ class CreateInmueblesTable extends Migration
             $table->increments('id');
             $table->string('titulo');
             $table->text('descripcion');
+            $table->text('nota');
             $table->float('area_parcela');
             $table->float('area_construccion');
             $table->integer('cuartos');
@@ -24,8 +25,7 @@ class CreateInmueblesTable extends Migration
             $table->enum('status',['en_venta','vendido'])->default('en_venta');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')
-                ->references('id')->on('users')
-                ->onDelete('cascade');
+                ->references('id')->on('users');
             $table->integer('tipo_id')->unsigned();
             $table->foreign('tipo_id')
                 ->references('id')->on('tipos')
