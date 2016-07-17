@@ -202,8 +202,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <li class="treeview">
               <a href="{{ route('admin.asesores.index') }}"><i class="fa fa-home" aria-hidden="true"></i> <span>Inmuebles</span> <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
-                <li><a href="{{ route('admin.asesores.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Todos los asesores</a></li>
-                <li><a href="{{ route('admin.asesores.create') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Añadir asesor</a></li>
+                <li><a href="{{ route('admin.inmuebles.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Todos los Inmuebles</a></li>
+                <li><a href="{{ route('admin.inmuebles.create') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Añadir Inmueble</a></li>
               </ul>
             </li>
             <li class="treeview">

@@ -129,6 +129,7 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function(){
 
 	Route::resource('/inmuebles','InmueblesController');
 
+
 	Route::post('inmuebles/create',[
 		'uses'=>'InmueblesController@storeLocalizacion',
 		'as'=>'admin.inmuebles.storeLocalizacion'
@@ -144,10 +145,12 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function(){
 		'as'=>'admin.inmuebles.storeImagenPrincipal'
 		]);
 
-	Route::get('inmuebles/create/localizacion','InmueblesController@createLocalizacion');
+	Route::get('inmuebles/create/localizacion',[
+		'uses'=>'InmueblesController@createLocalizacion',
+		'as'=>'admin.inmuebles.createLocalizacion'
+		]);
+	
+	Route::get('inmuebles/{id}/{titulo?}','InmueblesController@show');
 
-
-	//ruta para prueba de imagenes
-	Route::get('imagenes','InmueblesController@viewImagenes');
 
 });

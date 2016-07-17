@@ -16,30 +16,28 @@ use App\Sector;
 use App\Precio;
 use App\Localizacion;
 use App\Imagen;
+use App\DolarValor;
 use Auth;
+use Session;
+use Image;
 
 
 class InmueblesController extends Controller
 {
 
-    protected $id;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function viewImagenes()
-    {
-        return view('admin.inmuebles.createImagenes',['id'=>1]);
-    }
-    /*
-    *
-    *
-    *
-    **/
+
     public function index()
     {
-        return 'hola';
+        $inmuebles=Inmueble::all();
+        $dolar_valor=DolarValor::all();
+        $valor=$dolar_valor->last()->valor;
+
+        return view('admin.inmuebles.index',['inmuebles'=>$inmuebles,'valor'=>$valor]);
     }
 
     /**
@@ -78,19 +76,23 @@ class InmueblesController extends Controller
     **/
     public function storeLocalizacion(Request $request){
 
+        
+        $inmuebles=Inmueble::all();
+        
         $localizacion= new Localizacion;
 
         $localizacion->localizacion=$request->localizacion;
         $localizacion->latitud=$request->latitud;
         $localizacion->longitud=$request->longitud;
         $localizacion->zoom=$request->zoom;
-        $localizacion->inmueble_id=$this->id;
+        $localizacion->inmueble_id=$inmuebles->last()->id;
         $localizacion->save();
 
-        $inmueble=Inmueble::find($this->id);
+        $inmueble=Inmueble::find($inmuebles->last()->id);
 
         Session::flash('mensaje-success','El inmueble '. $inmueble->titulo .' fue creado con éxito');
         return redirect('/admin/inmuebles');
+        
 
     }
     /*
@@ -101,16 +103,30 @@ class InmueblesController extends Controller
     **/
     public function storeImagenPrincipal(Request $request){
 
+        $inmuebles=Inmueble::all();
+
         $file=$request->file('foto');
+        $image = Image::make($file);
         $file_name = 'Principal_'.time().'_'.$file->getClientOriginalName();
-        $path=public_path().'/images/inmuebles';
-        $file->move($path,$file_name);
+        $path=public_path().'/images/inmuebles/';
+        $image->save($path.$file_name);
+
+        //Redimensionar la imagen
+        $dimensiones=getimagesize(asset('images/inmuebles').'/'.$file_name);
+        $ancho=$dimensiones[0]; //Ancho
+        $alto=$dimensiones[1]; //Alto
+        if($ancho > 300){
+            $pro=$ancho/300;
+            $alto=$alto/$pro;
+            $image->resize(300,$alto);
+            $image->save($path.'Thumb_'.$file_name);
+        }
 
         $imagen= new Imagen;
         $imagen->imagen = $file_name;
         $imagen->principal = 'yes';
-        $imagen->inmueble_id = $this->id;  
-        //$imagen->save();  
+        $imagen->inmueble_id = $inmuebles->last()->id;  
+        $imagen->save();  
         
     }
     /*
@@ -120,6 +136,7 @@ class InmueblesController extends Controller
     **/
     public function storeImagenesRestantes(Request $request){
 
+        $inmuebles=Inmueble::all();
         $file=$request->file('foto');
         $file_name = time().'_'.$file->getClientOriginalName();
         $path=public_path().'/images/inmuebles';
@@ -128,8 +145,8 @@ class InmueblesController extends Controller
         $imagen= new Imagen;
         $imagen->imagen = $file_name;
         $imagen->principal = 'no';
-        $imagen->inmueble_id = $this->id;  
-        //$imagen->save();
+        $imagen->inmueble_id = $inmuebles->last()->id;   
+        $imagen->save();
 
         
     }
@@ -150,10 +167,11 @@ class InmueblesController extends Controller
         }
 
         $precio= new Precio;
-        $precio->bolivares=$request->bolivares;
+        $precio->dolares=$request->dolares;
         $precio->inmueble()->associate($inmueble);
         $precio->save();
-        $this->id=$inmueble->id;
+
+        //return $this->id;
         return view('admin.inmuebles.createImagenes');
         
 
@@ -169,7 +187,8 @@ class InmueblesController extends Controller
      */
     public function show($id)
     {
-        //
+        $inmueble=Inmueble::find($id);
+        return view('admin.inmuebles.show',['inmueble'=>$inmueble]);
     }
 
     /**

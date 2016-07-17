@@ -47,7 +47,7 @@
                     {!! Form::close() !!}
                     <br>
                     <div class="col-md-12">
-                      <a  href="{{ url('admin/inmuebles/create/localizacion') }}" class="btn btn-primary btn-lg pull-right">Siguiente</a>
+                      <a  href="{{ route('admin.inmuebles.createLocalizacion') }}" class="btn btn-primary btn-lg pull-right">Siguiente</a>
                     </div>
                   </div>
                     

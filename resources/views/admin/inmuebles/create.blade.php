@@ -43,19 +43,19 @@
                     <!-- text input -->
                     <div class="form-group col-md-6">
                       <label>Precio</label>
-                      <input type="text" class="form-control" placeholder="Precio" name="bolivares">
+                      <input type="text" class="form-control" placeholder="Precio" name="dolares">
                     </div>
 
                     <!-- textarea -->
                     <div class="form-group col-md-6">
                       <label>Descripción</label>
-                      <textarea class="form-control" rows="4" placeholder="Descripción" name="descripcion"></textarea>
+                      <textarea class="form-control" rows="4" name="descripcion"></textarea>
                     </div>
 
                     <!-- textarea -->
                     <div class="form-group col-md-6">
                       <label>Nota</label>
-                      <textarea class="form-control" rows="4" placeholder="Nota" name="nota"></textarea>
+                      <textarea class="form-control" rows="4" name="nota"></textarea>
                     </div>
 
                     <!-- text input -->

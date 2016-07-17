@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Asesor;
 use Session;
+use Image;
 
 class AsesoresController extends Controller
 {
@@ -42,17 +43,31 @@ class AsesoresController extends Controller
     {
         //Manipulacion de imagen
         $file=$request->file('foto');
+        $image=Image::make($request->file('foto'));
         $file_name=time().'_'.$file->getClientOriginalName();
-        $path=public_path().'/images/asesores';
-        $file->move($path,$file_name);
-        //fin de la manipulacion de imagen
+        $path=public_path().'/images/asesores/';
+        $image->save($path.$file_name);
 
+        //Redimensionar la imagen
+        $dimensiones=getimagesize(asset('images/asesores').'/'.$file_name);
+        $ancho=$dimensiones[0]; //Ancho
+        $alto=$dimensiones[1]; //Alto
+        if($ancho > 400){
+            $pro=$ancho/400;
+            $alto=$alto/$pro;
+            $image->resize(400,$alto);
+            $image->save($path.$file_name);
+        }
+
+        //fin de la manipulacion de imagen
+        
         $asesor=Asesor::create($request->all());
         $asesor->foto=$file_name;
         $asesor->save();
         Session::flash('mensaje-success','El Asesor '
             .$asesor->nombre.' '.$asesor->apellido. ' se ha añadido con éxito');
         return redirect('/admin/asesores');
+        
     }
 
     /**

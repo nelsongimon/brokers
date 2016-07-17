@@ -14,8 +14,8 @@ class CreatePreciosTable extends Migration
     {
         Schema::create('precios', function (Blueprint $table) {
             $table->increments('id');
-            $table->float('bolivares');
-            $table->float('dolares');
+            $table->text('bolivares');
+            $table->text('dolares');
             $table->integer('inmueble_id')->unsigned();
             $table->foreign('inmueble_id')
                 ->references('id')->on('inmuebles')
