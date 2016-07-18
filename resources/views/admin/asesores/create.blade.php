@@ -13,6 +13,7 @@
 @section('optional-description','Añade un nuevo asesor al sitio')
 
 @section('content')
+  <div class="row">
 			<div class="col-md-6">
               <!-- Horizontal Form -->
               <div class="box box-primary">
@@ -26,25 +27,26 @@
                     <div class="form-group">
                       <label for="" class="col-sm-2 control-label">Nombre</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" id="" name="nombre" placeholder="Nombre">
+                        <input type="text" class="form-control" id="" name="nombre">
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="" class="col-sm-2 control-label">Apellido</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" id="" name="apellido" placeholder="Apellido">
+                        <input type="text" class="form-control" id="" name="apellido" >
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="" class="col-sm-2 control-label">Teléfono</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" id="" name="telefono" placeholder="Teléfono">
+                     
+                        <input type="text" id="telefono" class="form-control" name="telefono">
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="" class="col-sm-2 control-label">Email</label>
                       <div class="col-sm-10">
-                        <input type="email" class="form-control" id=""  name="email" placeholder="Email">
+                        <input type="email" class="form-control" id=""  name="email">
                       </div>
                     </div>
                     <div class="form-group">
@@ -61,7 +63,8 @@
                
                 {!! Form::close() !!}
               </div><!-- /.box -->   
-            </div>	
+      </div>	
+  </div>
 @endsection
 
 @section('javascript')
@@ -71,6 +74,14 @@
   <script type="text/javascript" src="{{ asset('admin/plugins/chartist/chartist.min.js') }}"></script>
   <script type="text/javascript" src="{{ asset('admin/plugins/chartist/bootstrap-notify.js') }}"></script>
   <script type="text/javascript" src="{{ asset('admin/plugins/chartist/demo.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('admin/plugins/input-mask/jquery.inputmask.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('admin/plugins/input-mask/jquery.inputmask.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('admin/plugins/input-mask/jquery.inputmask.phone.extensions.js') }}"></script>
+
+  <script type="text/javascript">
+    
+    $('#telefono').inputmask({"mask": "(9999) 999-9999"});
+  </script>
  
 
   @include('alerts.mensajes')

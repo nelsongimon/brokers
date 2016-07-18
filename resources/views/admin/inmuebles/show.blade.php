@@ -9,15 +9,20 @@
 
 @section('page-header','Inmuebles')
 
-@section('optional-description','Visualiza todos los Inmuebles')
+@section('optional-description')
+  
+  <a class="btn btn-info" href="{{ url('admin/inmuebles') }}"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver</a>
+
+@endsection
 
 @section('content')
 
 	<div class="container">
+
 		<div class="row">
 
        		<div class="col-md-6">
-              <div class="box box-solid">
+              <div class="box box-primary">
                 <div class="box-header with-border">
                   <h3 class="box-title">{{ $inmueble->titulo }}</h3>
                 </div><!-- /.box-header -->
@@ -53,56 +58,62 @@
             </div>
 
 			<div class="col-md-5">
+                <div class="box-body">
+                  <div class="box box-widget widget-user-2">
+                                  <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header" style="padding: 10px 40px; background:#325970; border-radius:0px;color:white">
+                        
+                        <div class="widget-user-image">
+                            <img class="img-circle" src="{{ asset('images/asesores').'/'.$inmueble->asesor->foto }}" alt="User Avatar" style="width: 70px;margin-right: 15px;">
+                        </div><!-- /.widget-user-image -->
+                        <h1 class="widget-user-desc" style="font-size: 25px;">{{ $inmueble->asesor->nombre.' '.$inmueble->asesor->apellido }}</h1>
+                        <h3 class="widget-user-username" style="font-size: 20px;">Asesor</h3>
+                    </div>
+                  </div>           
+                </div>
+
+
               <div class="box box-solid">
                 <div class="box-header with-border">
-                  <i class="fa fa-text-width"></i>
+                  
                   <h3 class="box-title">Detalles</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                  <ul>
-                    <li style="font-size: 30px;">{{ nl2br($inmueble->descripcion) }}</li>
-                    <li>Consectetur adipiscing elit</li>
-                    <li>Integer molestie lorem at massa</li>
-                    <li>Facilisis in pretium nisl aliquet</li>
-                    <li>Faucibus porta lacus fringilla vel</li>
-                    <li>Aenean sit amet erat nunc</li>
-                    <li>Eget porttitor lorem</li>
+                  <ul style="list-style: none; font-size: 16px">
+                    <li><i class="fa fa-home" aria-hidden="true"></i> {{ $inmueble->tipo->tipo }}</li>
+                    <li><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> {{ $inmueble->negociacion->negociacion }}</li>
+                    <li><i class="fa fa-money" aria-hidden="true"></i> Precio desde {{ number_format($inmueble->precio->dolares,'0',',','.') }} $  </li>
+                    <li><i class="fa fa-tint" aria-hidden="true"></i> {{ $inmueble->banos }} Baños </li>
+                    <li><i class="fa fa-bed" aria-hidden="true"></i> {{ $inmueble->cuartos }} cuartos</li>
+                    <li><i class="fa fa-car" aria-hidden="true"></i> {{ $inmueble->estacionamientos }} puestos de estacionamientos</li>
+                    <li><i class="fa fa-expand" aria-hidden="true"></i> {{ $inmueble->area_parcela }} metros Tamaño parcela</li>
+                    <li><i class="fa fa-expand" aria-hidden="true"></i> {{ $inmueble->area_construccion }} metros   Tamaño parcela</li>
                   </ul>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div>
 
 
-        </div>
+    </div>
 
-        <div class="row">
-			<div class="col-md-6">
-              <div class="box box-solid">
+    <div class="row">
+            <div class="col-md-6">
+              <div class="box box-primary">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Información</h3>
+                  
+                  <h3 class="box-title">Ubicación: {{ $inmueble->sector->sector.', '.$inmueble->ciudad->ciudad.' Estado '.$inmueble->estado->estado }}</h3>
                 </div><!-- /.box-header -->
+                <div class="box-body">
+                  <div id="map" style="height: 375px"></div>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div>  
+			     <div class="col-md-5">
+              <div class="box box-solid">
                 <div class="box-body">
                   <div class="box-group" id="accordion">
                     <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
                     <div class="panel box box-primary">
-                      <div class="box-header with-border">
-                        <h4 class="box-title">
-                          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
-                            Descripcion
-                          </a>
-                        </h4>
-                      </div>
-                      <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-                        <div class="box-body">
-                          
-                          {{ $inmueble->descripcion }}
-
-
-                         
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel box box-danger">
                       <div class="box-header with-border">
                         <h4 class="box-title">
                           <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed" aria-expanded="false">
@@ -116,17 +127,17 @@
                         </div>
                       </div>
                     </div>
-                    <div class="panel box box-success">
+                    <div class="panel box box-primary">
                       <div class="box-header with-border">
                         <h4 class="box-title">
                           <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="" aria-expanded="true">
-                            Collapsible Group Success
+                            Descripción
                           </a>
                         </h4>
                       </div>
                       <div id="collapseThree" class="panel-collapse collapse in" aria-expanded="true">
                         <div class="box-body">
-                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                          {{ $inmueble->descripcion }}
                         </div>
                       </div>
                     </div>
@@ -134,9 +145,10 @@
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div> 
-			    	
 
         </div>
+
+     
 
 
 
@@ -152,7 +164,32 @@
 
 @section('javascript')
 
+  <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpKnb-8ufsQ4kfOnSVHa12H2gbpy2RkFI&callback=initMap">
+  </script>
 
+  <script type="text/javascript">
+
+        //Manipulacion de mapas
+        function initMap() {
+          var myLatlng = new google.maps.LatLng({{ $inmueble->localizacion->latitud }}, {{ $inmueble->localizacion->longitud }});
+          var mapOptions = {
+            zoom: {{ $inmueble->localizacion->zoom }},
+            center: myLatlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          };
+          var map = new google.maps.Map(document.getElementById("map"),
+              mapOptions);
+
+          var marker = new google.maps.Marker({
+            map: map, 
+            draggable: false,
+            position: myLatlng
+          });
+
+        }
+
+  </script>
 
 	
 @endsection

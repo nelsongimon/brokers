@@ -199,7 +199,19 @@ class InmueblesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $inmueble=Inmueble::find($id);
+        $asesores=Asesor::orderBy('nombre','asc')->get();
+        $tipos=Tipo::orderBy('id','asc')->get();
+        $negos=Negociacion::orderBy('id','asc')->get();
+        $estados=Estado::orderBy('estado','asc')->get();
+        //$sectores=Sector::orderBy('','asc')->get();
+        return view('admin.inmuebles.edit',[
+            'inmueble'=>$inmueble,
+            'asesores'=>$asesores,
+            'tipos'=>$tipos,
+            'negos'=>$negos, 
+            'estados'=>$estados
+            ]);
     }
 
     /**

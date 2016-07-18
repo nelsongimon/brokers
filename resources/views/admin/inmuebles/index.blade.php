@@ -56,7 +56,7 @@
 						 			
 									<a  href="{{ url('admin/inmuebles/'.$inmueble->id.'/'.$inmueble->slug) }}" class="btn btn-warning"><i class="fa fa-eye" aria-hidden="true"></i></a>
 		
-						    		<button class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true" ></i></button>
+						    		<a href="{{ route('admin.inmuebles.edit',$inmueble->id) }}" class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true" ></i></a>
 
 						    		<button class="btn btn-danger" ><i class="fa fa-trash" aria-hidden="true" ></i></button> 
 

@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(EstadoSeeder::class);
         $this->call(CiudadSeeder::class);
         $this->call(SectorSeeder::class);
+        $this->call(DolarSeeder::class);
         // $this->call(UserTableSeeder::class);
 
         Model::reguard();
