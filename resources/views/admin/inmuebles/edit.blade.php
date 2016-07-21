@@ -7,13 +7,13 @@
   <link rel="stylesheet" href="{{ asset('admin/dist/css/animate.min.css') }}">
   <!-- iCheck for checkboxes and radio inputs -->
   <link rel="stylesheet" href="{{ asset('admin/plugins/iCheck/all.css') }}">
-  <link href="{{ asset('admin/plugins/fileInput/css/fileinput.min.css') }}" media="all" rel="stylesheet" type="text/css" />
+ 
 
 @endsection
 
 @section('page-header','Inmuebles')
 
-@section('optional-description','Crea un nuevo Inmueble y añádelo a este sitio')
+@section('optional-description','boton')
 
 @section('content')
 
@@ -23,10 +23,19 @@
         <div class="col-md-11">
               <div class="box box-primary">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Añadir Inmueble</h3>
+                  <h3 class="box-title">Editar Inmueble</h3>
+                    <div class="col-md-5 pull-right">
+                    {!! Form::open(['route'=>'admin.inmuebles.editImagenes','method'=>'post']) !!}
+                        <button type="submit" class="btn btn-block btn-social btn-bitbucket">
+                          <i class="fa fa-camera-retro" aria-hidden="true"></i> Actualizar el grupo de imagenes del inmueble
+                        </button>
+                        <input type="hidden" name="id" value="{{ $inmueble->id }}"></input>
+                    
+                      {!! Form::close() !!}
+                    </div>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                  {!! Form::open(['route'=>'admin.inmuebles.update','method'=>'put']) !!}
+                  {!! Form::open(['route'=>['admin.inmuebles.update',$inmueble->id],'method'=>'put']) !!}
                     <!-- text input -->
                     <div class="form-group col-md-6">
                       <label>Título</label>
@@ -121,7 +130,7 @@
                   <div class="form-group col-md-6">
                       <label>Ciudad</label>
                       <select class="form-control" name="ciudad_id" id="select-ciudad">
-                        <option>{{ $inmueble->sector->ciudad->ciudad }}</option>
+                        <option value="{{ $inmueble->sector->ciudad->id }}">{{ $inmueble->sector->ciudad->ciudad }}</option>
                   
                       </select>
                       <input type="hidden" id="token-ciudad" value="{{ csrf_token() }}"></input>
@@ -138,7 +147,7 @@
                   <div class="form-group col-md-6">
                       <label>Sector</label>
                       <select class="form-control" name="sector_id" id="select-sector">
-                        <option>{{ $inmueble->sector->sector }}</option>
+                        <option value="{{ $inmueble->sector->id }}">{{ $inmueble->sector->sector }}</option>
                
                       </select>
                   </div>
@@ -169,13 +178,24 @@
                         
                       </label>
                   </div>
-                  <div class="form-group col-md-6">
-                    <button type="submit" class="btn btn-primary btn-lg pull-right">Siguiente</button>
+                    <!-- text input -->
+                  <div class="form-group col-md-12">
+                      <label>Ubicación</label>
+                      <input type="text" class="form-control" value="{{ $inmueble->localizacion->localizacion }}" name="localizacion">
+                  </div>
+                  <div class="form-group col-md-12">
+                    <div id="map" style="height: 350px"></div>
+                    <input type="hidden" id="latitud" name="latitud" value="{{ $inmueble->localizacion->latitud }}">
+                    <input type="hidden" id="longitud" name="longitud" value="{{ $inmueble->localizacion->longitud }}">
+                    <input type="hidden" id="zoom" name="zoom" value="{{ $inmueble->localizacion->zoom }}">
                   </div>
 
                   <input type="hidden" name="user_id" value="{{ Auth::user()->id }}"></input>
 
+                  <button type="submit" class="btn btn-primary btn-lg pull-right">Guardar</button>
+                  
                   {!! Form::close() !!}
+
                 </div><!-- /.box-body -->
               </div>
       </div>  
@@ -193,7 +213,10 @@
   <script type="text/javascript" src="{{ asset('admin/plugins/chartist/bootstrap-notify.js') }}"></script>
   <script type="text/javascript" src="{{ asset('admin/plugins/chartist/demo.js') }}"></script>
   <!-- iCheck 1.0.1 -->
-  <script src="{{ asset('admin/plugins/iCheck/icheck.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('admin/plugins/iCheck/icheck.min.js') }}"></script>
+  <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpKnb-8ufsQ4kfOnSVHa12H2gbpy2RkFI&callback=initMap">
+  </script>
 
 
 
@@ -205,6 +228,28 @@
           checkboxClass: 'icheckbox_minimal-blue',
           radioClass: 'iradio_minimal-blue'
         });
+
+        //Manipulacion de mapas
+        function initMap() {
+          var myLatlng = new google.maps.LatLng({{ $inmueble->localizacion->latitud }},{{ $inmueble->localizacion->longitud }});
+          var mapOptions = {
+            zoom: {{ $inmueble->localizacion->zoom }},
+            center: myLatlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          };
+          var map = new google.maps.Map(document.getElementById("map"),
+              mapOptions);
+
+          var marker = new google.maps.Marker({
+            map: map, 
+            draggable: true,
+            position: myLatlng
+          });
+
+          google.maps.event.addListener(marker, 'mouseup', function(){
+            moverMarker(marker.getPosition(),map);
+          });
+        }
     
 
   </script>

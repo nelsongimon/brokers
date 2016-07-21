@@ -99,57 +99,69 @@ class InmueblesController extends Controller
     *
     *
     *
-    *
-    **/
-    public function storeImagenPrincipal(Request $request){
+    */
+    public function createImagenes(){
 
-        $inmuebles=Inmueble::all();
-
-        $file=$request->file('foto');
-        $image = Image::make($file);
-        $file_name = 'Principal_'.time().'_'.$file->getClientOriginalName();
-        $path=public_path().'/images/inmuebles/';
-        $image->save($path.$file_name);
-
-        //Redimensionar la imagen
-        $dimensiones=getimagesize(asset('images/inmuebles').'/'.$file_name);
-        $ancho=$dimensiones[0]; //Ancho
-        $alto=$dimensiones[1]; //Alto
-        if($ancho > 300){
-            $pro=$ancho/300;
-            $alto=$alto/$pro;
-            $image->resize(300,$alto);
-            $image->save($path.'Thumb_'.$file_name);
-        }
-
-        $imagen= new Imagen;
-        $imagen->imagen = $file_name;
-        $imagen->principal = 'yes';
-        $imagen->inmueble_id = $inmuebles->last()->id;  
-        $imagen->save();  
-        
+        return view('admin.inmuebles.createImagenes');
     }
     /*
     *
     *
     *
+    *
     **/
-    public function storeImagenesRestantes(Request $request){
+    public function storeImagenes(Request $request){
 
-        $inmuebles=Inmueble::all();
-        $file=$request->file('foto');
-        $file_name = time().'_'.$file->getClientOriginalName();
-        $path=public_path().'/images/inmuebles';
-        $file->move($path,$file_name);
-
-        $imagen= new Imagen;
-        $imagen->imagen = $file_name;
-        $imagen->principal = 'no';
-        $imagen->inmueble_id = $inmuebles->last()->id;   
-        $imagen->save();
 
         
+        $files=$request->file('foto');
+        $count=0;
+        foreach($files as $file){
+            
+            if($count==0){
+                $image = Image::make($file);
+                $file_name = 'Principal_'.time().'_'.$file->getClientOriginalName();
+                $path=public_path().'/images/inmuebles/';
+                $image->save($path.$file_name);
+                //Redimensionar la imagen
+                $dimensiones=getimagesize(asset('images/inmuebles').'/'.$file_name);
+                $ancho=$dimensiones[0]; //Ancho
+                $alto=$dimensiones[1]; //Alto
+                if($ancho > 300){
+                    $pro=$ancho/300;
+                    $alto=$alto/$pro;
+                    $image->resize(300,$alto);
+                    $image->save($path.'Thumb_'.$file_name);
+                }
+                $inmuebles=Inmueble::all();
+                $imagen= new Imagen;
+                $imagen->imagen = $file_name;
+                $imagen->principal = 'yes'; 
+                $imagen->inmueble_id = $inmuebles->last()->id;
+                $imagen->save();
+            }
+            else{
+
+                $image = Image::make($file);
+                $file_name = time().'_'.$file->getClientOriginalName();
+                $path=public_path().'/images/inmuebles/';
+                $image->save($path.$file_name);
+
+                $inmuebles=Inmueble::all();
+                $imagen= new Imagen;
+                $imagen->imagen = $file_name;
+                $imagen->principal = 'no'; 
+                $imagen->inmueble_id = $inmuebles->last()->id;
+                $imagen->save();               
+            }
+
+            $count++;
+
+        } 
+        
+        
     }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -171,12 +183,8 @@ class InmueblesController extends Controller
         $precio->inmueble()->associate($inmueble);
         $precio->save();
 
-        //return $this->id;
-        return view('admin.inmuebles.createImagenes');
+        $this->createImagenes();
         
-
-
-
     }
 
     /**
@@ -187,8 +195,10 @@ class InmueblesController extends Controller
      */
     public function show($id)
     {
+        
         $inmueble=Inmueble::find($id);
         return view('admin.inmuebles.show',['inmueble'=>$inmueble]);
+        
     }
 
     /**
@@ -204,7 +214,7 @@ class InmueblesController extends Controller
         $tipos=Tipo::orderBy('id','asc')->get();
         $negos=Negociacion::orderBy('id','asc')->get();
         $estados=Estado::orderBy('estado','asc')->get();
-        //$sectores=Sector::orderBy('','asc')->get();
+
         return view('admin.inmuebles.edit',[
             'inmueble'=>$inmueble,
             'asesores'=>$asesores,
@@ -221,11 +231,121 @@ class InmueblesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
-        //
-    }
+      
+        $inmueble=Inmueble::find($id);
+        $inmueble->titulo=$request->titulo;
+        $inmueble->descripcion=$request->descripcion;
+        $inmueble->nota=$request->nota;
+        $inmueble->area_parcela=$request->area_parcela;
+        $inmueble->tipo_id=$request->tipo_id;
+        $inmueble->area_construccion=$request->area_construccion;
+        $inmueble->negociacion_id=$request->negociacion_id;
+        $inmueble->cuartos=$request->cuartos;
+        $inmueble->banos=$request->banos;
+        $inmueble->estado_id=$request->estado_id;
+        $inmueble->ciudad_id=$request->ciudad_id;
+        $inmueble->sector_id=$request->sector_id;
+        $inmueble->estacionamientos=$request->estacionamientos;
+        $inmueble->asesor_id=$request->asesor_id;
+        $inmueble->user_id=$request->user_id;
+        if(isset($request->status)){
+            $inmueble->status='vendido';
+            
+        }
 
+        $inmueble->precio->dolares=$request->dolares;
+
+        $inmueble->localizacion->localizacion=$request->localizacion;
+        $inmueble->localizacion->latitud=$request->latitud;
+        $inmueble->localizacion->longitud=$request->longitud;
+        $inmueble->localizacion->zoom=$request->zoom;
+
+        $inmueble->save();
+
+        Session::flash('mensaje-success','El inmueble se ha actualizado con éxito');
+        return redirect('/admin/inmuebles');
+
+    }
+    /*
+    *
+    *
+    *
+    **/
+    public function editImagenes(Request $request){
+
+        return view('admin.inmuebles.editImagenes',['id'=>$request->id]);
+        
+    }
+    /*
+    *
+    *
+    *
+    **/
+    public function updateImagenes(Request $request){
+        //borrado de imagenes
+        $inmueble=Inmueble::find($request->id);
+        $files=$inmueble->imagenes;
+        foreach($files as $file){
+            //Borrado de la imagen
+            if($file->principal=="yes"){
+                unlink(public_path().'/images/inmuebles/'.$file->imagen);
+                unlink(public_path().'/images/inmuebles/Thumb_'.$file->imagen);
+            }
+            else{
+                unlink(public_path().'/images/inmuebles/'.$file->imagen);
+            } 
+            
+            $file->delete();           
+        }
+
+        // Carga del nuevo grupo de imagenes
+        $files=$request->file('foto');
+        $count=0;
+        foreach($files as $file){
+            
+            if($count==0){
+                $image = Image::make($file);
+                $file_name = 'Principal_'.time().'_'.$file->getClientOriginalName();
+                $path=public_path().'/images/inmuebles/';
+                $image->save($path.$file_name);
+                //Redimensionar la imagen
+                $dimensiones=getimagesize(asset('images/inmuebles').'/'.$file_name);
+                $ancho=$dimensiones[0]; //Ancho
+                $alto=$dimensiones[1]; //Alto
+                if($ancho > 300){
+                    $pro=$ancho/300;
+                    $alto=$alto/$pro;
+                    $image->resize(300,$alto);
+                    $image->save($path.'Thumb_'.$file_name);
+                }
+
+                $imagen= new Imagen;
+                $imagen->imagen = $file_name;
+                $imagen->principal = 'yes'; 
+                $imagen->inmueble_id = $request->id; 
+                $imagen->save();
+            }
+            else{
+
+                $image = Image::make($file);
+                $file_name = time().'_'.$file->getClientOriginalName();
+                $path=public_path().'/images/inmuebles/';
+                $image->save($path.$file_name);
+
+                $imagen=new Imagen;
+                $imagen->imagen = $file_name;
+                $imagen->principal = 'no'; 
+                $imagen->inmueble_id = $request->id; 
+                $imagen->save();                
+            }
+
+            $count++;
+
+        }
+
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -234,6 +354,22 @@ class InmueblesController extends Controller
      */
     public function destroy($id)
     {
-        //
+       $inmueble=Inmueble::find($id);
+       $files=$inmueble->imagenes;
+       foreach($files as $file){
+            //Borrado de la imagen
+            if($file->principal=="yes"){
+                unlink(public_path().'/images/inmuebles/'.$file->imagen);
+                unlink(public_path().'/images/inmuebles/Thumb_'.$file->imagen);
+            }
+            else{
+                unlink(public_path().'/images/inmuebles/'.$file->imagen);
+            }
+                        
+       }
+
+        $inmueble->delete();
+        Session::flash('mensaje-success','El Inmueble se ha eliminado con éxito');
+        return redirect('/admin/inmuebles');
     }
 }

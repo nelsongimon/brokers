@@ -428,6 +428,10 @@ function eliminarSector(url){
 	$('#button-eliminar-sector').attr('href',url);
 }
 
+function eliminarInmueble(url){
+	$('#button-eliminar-inmueble').attr('href',url);
+}
+
 function moverMarker(marker, map){
 
 	$('#latitud').val(marker.lat());

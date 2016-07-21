@@ -69,6 +69,10 @@ class Inmueble extends Model
     	return $this->hasOne('App\Localizacion');
     }
 
+    public function localizacion(){
+        return $this->hasOne('App\Cliente');
+    }
+
     public function imagenes(){
     	return $this->hasMany('App\Imagen');
     }

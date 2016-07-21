@@ -38,11 +38,16 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function(){
 		'as'=>'admin.usuarios.destroy'
 		]);
 
+
 	Route::resource('/asesores','AsesoresController');
 	Route::get('asesores/{id}/destroy',[
 		'uses'=>'asesoresController@destroy',
 		'as'=>'admin.asesores.destroy'
 		]);
+
+
+
+
 
 	Route::group(['prefix'=>'ajustes'], function(){
 		
@@ -127,30 +132,34 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function(){
 		]);
 	});
 
+
 	Route::resource('/inmuebles','InmueblesController');
-
-
+	Route::get('inmuebles/{id}/destroy',[
+		'uses'=>'InmueblesController@destroy',
+		'as'=>'admin.inmuebles.destroy'
+		]);
 	Route::post('inmuebles/create',[
 		'uses'=>'InmueblesController@storeLocalizacion',
 		'as'=>'admin.inmuebles.storeLocalizacion'
 		]);
-
-	Route::post('inmuebles/create/imagenes-restantes',[
-		'uses'=>'InmueblesController@storeImagenesRestantes',
-		'as'=>'admin.inmuebles.storeImagenesRestantes'
-		]);
-
-	Route::post('inmuebles/create/imagen-principal',[
-		'uses'=>'InmueblesController@storeImagenPrincipal',
-		'as'=>'admin.inmuebles.storeImagenPrincipal'
+	Route::post('inmuebles/create/imagenes',[
+		'uses'=>'InmueblesController@storeImagenes',
+		'as'=>'admin.inmuebles.storeImagenes'
 		]);
 
 	Route::get('inmuebles/create/localizacion',[
 		'uses'=>'InmueblesController@createLocalizacion',
 		'as'=>'admin.inmuebles.createLocalizacion'
 		]);
-	
-	Route::get('inmuebles/{id}/{titulo?}','InmueblesController@show');
+	Route::post('inmuebles/edit-imagenes',[
+		'uses'=>'InmueblesController@editImagenes',
+		'as'=>'admin.inmuebles.editImagenes'
+		]);
+	Route::post('inmuebles/update-imagenes',[
+		'uses'=>'InmueblesController@updateImagenes',
+		'as'=>'admin.inmuebles.updateImagenes'
+		]);
+
 
 
 });
