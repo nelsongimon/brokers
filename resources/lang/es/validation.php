@@ -110,12 +110,15 @@ return [
     */
 
     'attributes'           => [
-        'name'                  => 'nombre',
+        'nombre'                => 'Nombre',
+        'apellido'              => 'Apellido',
+        'telefono'              => 'Teléfono',
+        'foto'                  => 'Foto',
         'username'              => 'usuario',
-        'email'                 => 'correo electrónico',
+        'email'                 => 'Email',
         'first_name'            => 'nombre',
         'last_name'             => 'apellidos',
-        'password'              => 'contraseña',
+        'password'              => 'Password',
         'password_confirmation' => 'confirmación de la contraseña',
         'city'                  => 'ciudad',
         'country'               => 'país',

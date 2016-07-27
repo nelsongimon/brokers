@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class StoreUsuariosRequest extends Request
+class UpdateAsesoresRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,11 @@ class StoreUsuariosRequest extends Request
     public function rules()
     {
         return [
-            'nombre' => 'required|Alpha|min:2|max:50',
-            'apellido' => 'required|Alpha|min:2|max:50',
-            'email' => 'required|E-Mail|unique:users',
-            'password' => 'required|min:4',
-            'perfil' => 'required'
+            'nombre'   => 'required|min:2|max:50|Alpha',
+            'apellido' => 'required|min:2|max:50|Alpha',
+            'telefono' => 'required|min:11',
+            'email'    => 'required|E-Mail',
+            'foto'     => 'Image'
         ];
     }
 }

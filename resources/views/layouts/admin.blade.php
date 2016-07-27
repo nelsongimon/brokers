@@ -173,52 +173,54 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
           <!-- Sidebar Menu -->
-          <ul class="sidebar-menu">
+          <ul class="sidebar-menu" style="color: white;">
             
             <!-- Optionally, you can add icons to the links -->
-            <li><a href="#"><i class="fa fa-tachometer" aria-hidden="true"></i> <span>Escritorio</span></a></li>
+            <li><a href="#" style="color: white; font-size: 15px;" ><i class="fa fa-tachometer" aria-hidden="true"></i> <span>Escritorio</span></a></li>
+            @if(Auth::user()->perfil == 'admin')
             <li class="treeview">
-              <a href="{{ route('admin.usuarios.index') }}"><i class="fa fa-users" aria-hidden="true"></i> <span>Usuarios</span> <i class="fa fa-angle-left pull-right"></i></a>
+              <a style="color: white; font-size: 15px;" href="{{ route('admin.usuarios.index') }}"><i class="fa fa-users" aria-hidden="true"></i> <span>Usuarios</span> <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
-                <li><a href="{{ route('admin.usuarios.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Todos los usuarios</a></li>
-                <li><a href="{{ route('admin.usuarios.create') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Añadir usuario</a></li>
+                <li><a style="color: #DDDDDD; font-size: 15px;" href="{{ route('admin.usuarios.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Todos los usuarios</a></li>
+                <li><a style="color: white; font-size: 15px;" href="{{ route('admin.usuarios.create') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Añadir usuario</a></li>
+              </ul>
+            </li>
+            @endif
+            <li class="treeview">
+              <a style="color: white; font-size: 15px;" href="{{ route('admin.asesores.index') }}"><i class="fa fa-male" aria-hidden="true"></i> <span>Asesores</span> <i class="fa fa-angle-left pull-right"></i></a>
+              <ul class="treeview-menu">
+                <li><a style="color: #DDDDDD; font-size: 15px;" href="{{ route('admin.asesores.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Todos los asesores</a></li>
+                <li><a style="color: #DDDDDD; font-size: 15px;" href="{{ route('admin.asesores.create') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Añadir asesor</a></li>
               </ul>
             </li>
             <li class="treeview">
-              <a href="{{ route('admin.asesores.index') }}"><i class="fa fa-male" aria-hidden="true"></i> <span>Asesores</span> <i class="fa fa-angle-left pull-right"></i></a>
+              <a style="color: white; font-size: 15px;" href="{{ route('admin.asesores.index') }}"><i class="fa fa-map" aria-hidden="true"></i> <span>Localización</span> <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
-                <li><a href="{{ route('admin.asesores.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Todos los asesores</a></li>
-                <li><a href="{{ route('admin.asesores.create') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Añadir asesor</a></li>
+                <li><a style="color: #DDDDDD; font-size: 15px;" href="{{ route('admin.localizacion.estados.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Estados</a></li>
+                <li><a style="color: #DDDDDD; font-size: 15px;" href="{{ route('admin.localizacion.ciudades.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Ciudades</a></li>
+                <li><a style="color: #DDDDDD; font-size: 15px;" href="{{ route('admin.localizacion.sectores.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Sectores</a></li>
               </ul>
             </li>
             <li class="treeview">
-              <a href="{{ route('admin.asesores.index') }}"><i class="fa fa-map" aria-hidden="true"></i> <span>Localización</span> <i class="fa fa-angle-left pull-right"></i></a>
+              <a style="color: white; font-size: 15px;" href="{{ route('admin.asesores.index') }}"><i class="fa fa-home" aria-hidden="true"></i> <span>Inmuebles</span> <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
-                <li><a href="{{ route('admin.localizacion.estados.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Estados</a></li>
-                <li><a href="{{ route('admin.localizacion.ciudades.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Ciudades</a></li>
-                <li><a href="{{ route('admin.localizacion.sectores.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Sectores</a></li>
+                <li><a style="color: #DDDDDD; font-size: 15px;" href="{{ route('admin.inmuebles.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Todos los Inmuebles</a></li>
+                <li><a style="color: #DDDDDD; font-size: 15px;" href="{{ route('admin.inmuebles.create') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Añadir Inmueble</a></li>
               </ul>
             </li>
             <li class="treeview">
-              <a href="{{ route('admin.asesores.index') }}"><i class="fa fa-home" aria-hidden="true"></i> <span>Inmuebles</span> <i class="fa fa-angle-left pull-right"></i></a>
+              <a style="color: white; font-size: 15px;" href="{{ route('admin.asesores.index') }}"><i class="fa fa-street-view" aria-hidden="true"></i> <span>Aspirantes</span> <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
-                <li><a href="{{ route('admin.inmuebles.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Todos los Inmuebles</a></li>
-                <li><a href="{{ route('admin.inmuebles.create') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Añadir Inmueble</a></li>
+                <li><a style="color: #DDDDDD; font-size: 15px;" href="{{ route('admin.asesores.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Todos los asesores</a></li>
+                <li><a style="color: #DDDDDD; font-size: 15px;" href="{{ route('admin.asesores.create') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Añadir asesor</a></li>
               </ul>
             </li>
             <li class="treeview">
-              <a href="{{ route('admin.asesores.index') }}"><i class="fa fa-street-view" aria-hidden="true"></i> <span>Aspirantes</span> <i class="fa fa-angle-left pull-right"></i></a>
+              <a style="color: white; font-size: 15px;" href="#"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Ajustes</span> <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
-                <li><a href="{{ route('admin.asesores.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Todos los asesores</a></li>
-                <li><a href="{{ route('admin.asesores.create') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Añadir asesor</a></li>
-              </ul>
-            </li>
-            <li class="treeview">
-              <a href="#"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Ajustes</span> <i class="fa fa-angle-left pull-right"></i></a>
-              <ul class="treeview-menu">
-                <li><a href="{{ url('admin/ajustes/precio-dolar') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i>Precio del Dolar</a></li>
-                <li><a href="{{ url('admin/ajustes/tipos-de-inmuebles') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Tipos de Inmueble</a></li>
-                <li><a href="{{ url('admin/ajustes/tipos-de-negociacion') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Tipos de Negociación</a></li>
+                <li><a style="color: #DDDDDD; font-size: 15px;" href="{{ url('admin/ajustes/precio-dolar') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i>Precio del Dolar</a></li>
+                <li><a style="color: #DDDDDD; font-size: 15px;" href="{{ url('admin/ajustes/tipos-de-inmuebles') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Tipos de Inmueble</a></li>
+                <li><a style="color: #DDDDDD; font-size: 15px;" href="{{ url('admin/ajustes/tipos-de-negociacion') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Tipos de Negociación</a></li>
               </ul>
 
             </li>

@@ -46,8 +46,8 @@ class FrontController extends Controller
     public function loginAuth(LoginRequest $request){
         
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])){
-            Session::flash('mensaje-success', 'Bienvenido '.Auth::user()->nombre);
-            return redirect('admin/usuarios');
+            Session::flash('mensaje-success', 'Bienvenido '.Auth::user()->nombre.' '.Auth::user()->apellido);
+            return redirect('admin/home');
         }
         Session::flash('mensaje-error','Email y/o password incorrectos');
         return redirect('/login');

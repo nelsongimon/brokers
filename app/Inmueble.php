@@ -69,7 +69,7 @@ class Inmueble extends Model
     	return $this->hasOne('App\Localizacion');
     }
 
-    public function localizacion(){
+    public function cliente(){
         return $this->hasOne('App\Cliente');
     }
 

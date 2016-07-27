@@ -35,6 +35,7 @@
                 <div class="box-body">
                   {!! Form::open(['route'=>'admin.inmuebles.store','method'=>'post']) !!}
                     <!-- text input -->
+                    <legend style="text-align: center;">Datos del Inmuebles</legend>
                     <div class="form-group col-md-6">
                       <label>Título</label>
                       <input type="text" class="form-control" placeholder="Título" name="titulo">
@@ -42,26 +43,26 @@
 
                     <!-- text input -->
                     <div class="form-group col-md-6">
-                      <label>Precio</label>
-                      <input type="text" class="form-control" placeholder="Precio" name="dolares">
+                      <label>Precio ($)</label>
+                      <input type="number"  min="0" class="form-control" placeholder="Precio" name="dolares">
                     </div>
 
                     <!-- textarea -->
                     <div class="form-group col-md-6">
                       <label>Descripción</label>
-                      <textarea class="form-control" rows="4" name="descripcion"></textarea>
+                      <textarea class="form-control" rows="4" name="descripcion" placeholder="Descripción..."></textarea>
                     </div>
 
                     <!-- textarea -->
                     <div class="form-group col-md-6">
                       <label>Nota</label>
-                      <textarea class="form-control" rows="4" name="nota"></textarea>
+                      <textarea class="form-control" rows="4" name="nota" placeholder="Nota..."></textarea>
                     </div>
 
                     <!-- text input -->
                     <div class="form-group col-md-6">
                       <label>Tamaño de parcela</label>
-                      <input type="text" class="form-control" placeholder="Tamaño de parcela (m²)" name="area_parcela">
+                      <input type="number"  min="0" class="form-control" placeholder="Tamaño de parcela (m²)" name="area_parcela">
                     </div>
 
                     <!-- select -->
@@ -78,7 +79,7 @@
                     <!-- text input -->
                     <div class="form-group col-md-6">
                       <label>Tamaño de construcción</label>
-                      <input type="text" class="form-control" placeholder="Tamaño de construcción (m²)" name="area_construccion">
+                      <input type="number"  min="0" class="form-control" placeholder="Tamaño de construcción (m²)" name="area_construccion">
                     </div>
 
                     <!-- select -->
@@ -153,13 +154,36 @@
                   </div>
 
                     <!-- checkbox -->
-                    <div class="form-group col-md-6">
+                  <div class="form-group col-md-6">
                       <label class="">
-                        <input type="checkbox" class="minimal" name="status"> &nbsp;&nbsp;&nbsp; Status vendida
+                        <input type="checkbox" class="minimal" name="status" checked> &nbsp;&nbsp;&nbsp; Disponible
                         
                       </label>
                   </div>
+
+                  <legend style="text-align: center;">Datos del Cliente</legend>
+
                   <div class="form-group col-md-6">
+                      <label>Nombre</label>
+                      <input type="text" class="form-control" placeholder="Nombre" name="nombre">
+                  </div>
+
+                  <div class="form-group col-md-6">
+                      <label>Apellido</label>
+                      <input type="text" class="form-control" placeholder="Apellido" name="apellido">
+                  </div>
+
+                  <div class="form-group col-md-6">
+                      <label>Teléfono</label>
+                      <input type="text" class="form-control" placeholder="Telefono" name="telefono">
+                  </div>
+
+                  <div class="form-group col-md-6">
+                      <label>Email</label>
+                      <input type="text" class="form-control" placeholder="Email" name="email">
+                  </div>
+
+                  <div class="form-group col-md-12">
                     <button type="submit" class="btn btn-primary btn-lg pull-right">Siguiente</button>
                   </div>
 

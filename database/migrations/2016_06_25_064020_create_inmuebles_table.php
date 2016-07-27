@@ -22,7 +22,7 @@ class CreateInmueblesTable extends Migration
             $table->integer('cuartos');
             $table->integer('banos');
             $table->integer('estacionamientos');
-            $table->enum('status',['en_venta','vendido'])->default('en_venta');
+            $table->enum('status',['yes','no'])->default('yes');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')
                 ->references('id')->on('users');

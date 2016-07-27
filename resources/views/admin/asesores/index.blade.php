@@ -12,14 +12,13 @@
 
 @section('page-header','Asesores')
 
-@section('optional-description','Visualiza a todos los asesores')
+@section('optional-description','Administra a todos los Asesores')
 
 @section('content')
 
-	<section class="content">
           <div class="row">
             <div class="col-xs-12 col-md-10">
-              <div class="box">
+              <div class="box box-primary">
                 <div class="box-header">
                   <h3 class="box-title">Tabla de Asesores</h3>
                 </div><!-- /.box-header -->
@@ -60,7 +59,7 @@
                 </div>
              </div>
           </div>
- 	</section>
+ 
 
 
 
@@ -78,16 +77,16 @@
 									  <div class="widget-user-header" style="padding: 20px 40px; background:#325970; border-radius:0px;color:white">
 									  		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 									      <div class="widget-user-image">
-									          <img class="img-circle" id="foto-asesor" src="" alt="User Avatar" style="width: 95px;margin-right: 15px;">
+									          <img class="img-circle" id="foto-asesor" src="" alt="User Avatar" style="width: 80px;margin-right: 15px;">
 									      </div><!-- /.widget-user-image -->
-									      <h1 class="widget-user-desc" id="ver-nombre"></h1>
+									      <h1 class="widget-user-desc" id="ver-nombre" style="font-size: 27px;"></h1>
 									      <h3 class="widget-user-username">Asesor</h3>
 									  </div>
 									  <div class="box-footer no-padding">
 									      <ul class="nav nav-stacked" style="padding: 20px 50px; font-size: 17px">
 									          <li><a href="#">Email <span class="pull-right badge bg-blue" id="ver-email" style="font-size: 17px"></span></a></li>
 									          <li><a href="#">Teléfono <span class="pull-right badge bg-aqua"id="ver-telefono" style="font-size: 17px"></span></a></li>
-									          <li><a href="#">Cantidad de inmuebles <span class="pull-right badge bg-green" style="font-size: 17px"style="font-size: 17px">2</span></a></li>
+									          <li><a href="#">Cantidad de inmuebles <span class="pull-right badge bg-green" id="ver-inmuebles" style="font-size: 17px"style="font-size: 17px"></span></a></li>
 									       
 									      </ul>
 									  </div>
@@ -103,9 +102,9 @@
 
 	<div class="modal fade" id="editar-asesor">	
 		<div class="modal-dialog">
-		 	<div class="modal-content col-xs-offset-2 col-xs-8">
+		 	<div class="modal-content col-xs-offset-1 col-xs-10">
 
-		 		{!! Form::open(["route"=>"admin.asesores.update","method"=>"put","class"=>"form-horizontal","name"=>"form",'file'=>true]) !!}
+		 		{!! Form::open(["route"=>"admin.asesores.update","method"=>"put","class"=>"form-horizontal","name"=>"form",'files'=>true]) !!}
 
 		        <div class="modal-header">
 		            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -132,6 +131,10 @@
 				                    <div class="form-group">
 				                      <label for="">Email</label>            
 				                      <input type="email" class="form-control" id="email" name="email">
+				                    </div>
+				                	<div class="form-group">
+				                      <label for="">Cambiar Foto</label>            
+				                      <input type="file" class=""  name="foto">
 				                    </div>
 				                 </div>
 				                 <input type="hidden" name="id" id="id"></input>

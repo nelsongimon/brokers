@@ -17,9 +17,11 @@ use App\Precio;
 use App\Localizacion;
 use App\Imagen;
 use App\DolarValor;
+use App\Cliente;
 use Auth;
 use Session;
 use Image;
+
 
 
 class InmueblesController extends Controller
@@ -174,7 +176,11 @@ class InmueblesController extends Controller
         
         $inmueble=Inmueble::create($request->all());
         if(isset($request->status)){
-            $inmueble->status='vendido';
+            $inmueble->status='yes';
+            $inmueble->save();
+        }
+        else{
+            $inmueble->status='no';
             $inmueble->save();
         }
 
@@ -183,7 +189,14 @@ class InmueblesController extends Controller
         $precio->inmueble()->associate($inmueble);
         $precio->save();
 
-        $this->createImagenes();
+        $cliente= new Cliente;
+        $cliente->nombre=$request->nombre;
+        $cliente->apellido=$request->apellido;
+        $cliente->telefono=$request->telefono;
+        $cliente->inmueble()->associate($inmueble);
+        $cliente->save();
+
+        return redirect('admin/inmuebles/create/imagenes');
         
     }
 
@@ -251,8 +264,10 @@ class InmueblesController extends Controller
         $inmueble->asesor_id=$request->asesor_id;
         $inmueble->user_id=$request->user_id;
         if(isset($request->status)){
-            $inmueble->status='vendido';
-            
+            $inmueble->status='yes'; 
+        }
+        else{
+            $inmueble->status='no';
         }
 
         $inmueble->precio->dolares=$request->dolares;
@@ -371,5 +386,24 @@ class InmueblesController extends Controller
         $inmueble->delete();
         Session::flash('mensaje-success','El Inmueble se ha eliminado con éxito');
         return redirect('/admin/inmuebles');
+    }
+    /*
+    *
+    *
+    *
+    */
+    public function updateStatus(Request $request){
+        $inmueble=Inmueble::find($request->id);
+        if($inmueble->status=='yes'){
+            $inmueble->status='no';
+            $inmueble->save();
+        }
+        else{
+            $inmueble->status='yes';
+            $inmueble->save();
+        }
+        return response()->json([
+            'status'=>$inmueble->status
+            ]);
     }
 }

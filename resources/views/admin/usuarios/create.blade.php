@@ -14,7 +14,7 @@
 
 @section('content')
 
-
+<div class="row">
 			<div class="col-md-6">
               <!-- Horizontal Form -->
               <div class="box box-primary">
@@ -28,25 +28,25 @@
                     <div class="form-group">
                       <label for="" class="col-sm-2 control-label">Nombre</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" id="" name="nombre" placeholder="Nombre">
+                        <input type="text" class="form-control" value="{{ old('nombre') }}" name="nombre" placeholder="Nombre">
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="" class="col-sm-2 control-label">Apellido</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" id="" name="apellido" placeholder="Apellido">
+                        <input type="text" class="form-control" value="{{ old('apellido') }}" name="apellido" placeholder="Apellido">
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="" class="col-sm-2 control-label">Email</label>
                       <div class="col-sm-10">
-                        <input type="email" class="form-control" id=""  name="email" placeholder="Email">
+                        <input type="email" class="form-control" value="{{ old('email') }}"  name="email" placeholder="Email">
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="" class="col-sm-2 control-label">Password</label>
                       <div class="col-sm-10">
-                        <input type="password" class="form-control" id="" name="password" placeholder="Password">
+                        <input type="password" class="form-control" value="{{ old('password') }}" name="password" placeholder="Password">
                       </div>
                     </div>
                     <div class="form-group">
@@ -67,6 +67,8 @@
                 {!! Form::close() !!}
               </div><!-- /.box -->   
       </div>	
+
+</div>
 @endsection
 
 @section('javascript')

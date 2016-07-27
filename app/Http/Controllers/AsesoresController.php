@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\StoreAsesoresRequest;
+use App\Http\Requests\UpdateAsesoresRequest;
 use App\Http\Controllers\Controller;
 use App\Asesor;
 use Session;
@@ -39,7 +41,7 @@ class AsesoresController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreAsesoresRequest $request)
     {
         //Manipulacion de imagen
         $file=$request->file('foto');
@@ -81,11 +83,12 @@ class AsesoresController extends Controller
         $asesor=Asesor::find($id);
 
         return response()->json([
-                'nombre'=>$asesor->nombre,
-                'apellido'=>$asesor->apellido,
-                'telefono'=>$asesor->telefono,
-                'email'=>$asesor->email,
-                'foto'=>asset('images/asesores/'.$asesor->foto)
+                'nombre'    => $asesor->nombre,
+                'apellido'  => $asesor->apellido,
+                'telefono'  => $asesor->telefono,
+                'email'     => $asesor->email,
+                'foto'      => asset('images/asesores/'.$asesor->foto),
+                'inmuebles' => count($asesor->inmuebles)
 
             ]);
     }
@@ -101,11 +104,11 @@ class AsesoresController extends Controller
         $asesor=Asesor::find($id);
 
         return response()->json([
-                'nombre'=>$asesor->nombre,
-                'apellido'=>$asesor->apellido,
-                'telefono'=>$asesor->telefono,
-                'email'=>$asesor->email,
-                'id'=>$asesor->id
+                'nombre'   => $asesor->nombre,
+                'apellido' => $asesor->apellido,
+                'telefono' => $asesor->telefono,
+                'email'    => $asesor->email,
+                'id'       => $asesor->id
             ]);
     }
 
@@ -116,11 +119,37 @@ class AsesoresController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateAsesoresRequest $request, $id)
     {
         $asesor=Asesor::find($request->id);
         $asesor->fill($request->all());
+
+        //Actualizacion de la imagen
+        if($request->file('foto')){
+
+            unlink(public_path().'/images/asesores/'.$asesor->foto);
+            //Manipulacion de imagen
+            $file=$request->file('foto');
+            $image=Image::make($request->file('foto'));
+            $file_name=time().'_'.$file->getClientOriginalName();
+            $path=public_path().'/images/asesores/';
+            $image->save($path.$file_name);
+
+            //Redimensionar la imagen
+            $dimensiones=getimagesize(asset('images/asesores').'/'.$file_name);
+            $ancho=$dimensiones[0]; //Ancho
+            $alto=$dimensiones[1]; //Alto
+            if($ancho > 400){
+                $pro=$ancho/400;
+                $alto=$alto/$pro;
+                $image->resize(400,$alto);
+                $image->save($path.$file_name);
+            }
+            $asesor->foto = $file_name;
+        }
+
         $asesor->save();
+
         Session::flash('mensaje-success','El Asesor '
             .$asesor->nombre.' '.$asesor->apellido.' se ha modificado con éxito');
         return redirect('/admin/asesores');

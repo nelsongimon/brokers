@@ -28,8 +28,8 @@ Route::get('/logout','FrontController@logout');
 
 Route::group(['prefix'=>'admin','middleware' => 'auth'], function(){
 
-	Route::get('/',function(){
-
+	Route::get('/home',function(){
+		return view('admin.escritorio.index');
 	});
 
 	Route::resource('/usuarios','UsuariosController');
@@ -158,6 +158,11 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function(){
 	Route::post('inmuebles/update-imagenes',[
 		'uses'=>'InmueblesController@updateImagenes',
 		'as'=>'admin.inmuebles.updateImagenes'
+		]);
+	Route::get('inmuebles/create/imagenes','InmueblesController@createImagenes');
+	Route::post('inmuebles/update/status',[
+		'uses'=>'InmueblesController@updateStatus',
+		'as'=>'admin.inmuebles.updateStatus'
 		]);
 
 

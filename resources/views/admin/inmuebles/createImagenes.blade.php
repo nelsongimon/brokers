@@ -45,6 +45,8 @@
                     {!! Form::open(['route'=>'admin.inmuebles.storeImagenes','method'=>'post','files'=>true,'class'=>'dropzone','id'=>'create-dropzone']) !!}
                       
                     {!! Form::close() !!}
+                    <br>
+                    <br>
                     <div class="col-md-12">
                       <button type="sbumit" id="submit"  class="btn btn-primary btn-lg pull-right">Siguiente</button>
                     </div>

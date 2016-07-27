@@ -24,10 +24,10 @@ class UpdateUsuariosRequest extends Request
     public function rules()
     {
         return [
-            'nombre' => 'required|Alpha|min:2',
-            'apellido' => 'required|Alpha|min:2',
-            'email' => 'required|E-Mail|unique:users',
-            'perfil' => 'required'
+            'nombre'   => 'required|Alpha|min:2|max:50',
+            'apellido' => 'required|Alpha|min:2|max:50',
+            'email'    => 'required|E-Mail',
+            'perfil'   => 'required'
         ];
     }
 }

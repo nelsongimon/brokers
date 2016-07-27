@@ -69,7 +69,8 @@ function verAsesor(url,token){
 				$('#ver-nombre').html(data.nombre+' '+data.apellido);
 				$('#ver-telefono').html(data.telefono);
 				$('#ver-email').html(data.email);
-				$('#foto-asesor').attr('src',data.foto);			
+				$('#foto-asesor').attr('src',data.foto);
+				$('#ver-inmuebles').html(data.inmuebles);		
 
 			},
 			error: function(xhr, status){
@@ -372,6 +373,48 @@ $('document').ready(function(){
 		});
 	});
 });
+
+//Modificacion asincrona con el status del inmueble
+function modificarStatus(id,status,url){
+	//alert(id+' '+status+' '+url);
+		$.ajax({
+			headers: {
+	            'X-CSRF-TOKEN': $('#token').val()
+	        },
+			//Lo que se va a ejecutar antes de hacer la peticion se coloca el pre-loader
+			beforeSend: function(){
+				//console.log('cargando...');
+				$('#texto-status').html('Actualizando');
+				$('.fa-refresh').addClass('fa-spin');
+			},
+			url: url,
+			data:{id:id},
+			type: 'POST',
+			dataTye: 'json',
+			success: function(data){
+				//console.log(data.status);
+				if(data.status=='yes'){
+					$('#texto-status').html('Disponible');
+					$('#contenedor-status').removeClass('label-danger');
+					$('#contenedor-status').addClass('label-success');
+					$('.fa-refresh').removeClass('fa-spin');
+				}
+				else{
+					$('#texto-status').html('No disponible');
+					$('#contenedor-status').removeClass('label-success');
+					$('#contenedor-status').addClass('label-danger');
+					$('.fa-refresh').removeClass('fa-spin');
+				}
+			},
+			error: function(xhr, status){
+				console.log(status);
+			}
+
+		});
+}
+
+
+
 	
 //------------------Jquery---------------------------------------------
 

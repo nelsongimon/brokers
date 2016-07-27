@@ -17,10 +17,10 @@
 @section('content')
 
 
-	<section class="content">
+
           <div class="row">
             <div class="col-xs-12 col-md-10">
-              <div class="box">
+              <div class="box box-primary">
                 <div class="box-header">
                   <h3 class="box-title">Tabla de usuarios</h3>
                 </div><!-- /.box-header -->
@@ -45,11 +45,11 @@
 					    		<td>
 					    			@if($user->perfil=='admin')
 
-										<span class="label label-success">Administrador</span>
+										<span class="label label-success" style="font-size:12px;">Administrador</span>
 
 					    			@else
 
-										<span class="label label-warning">Miembro</span>
+										<span class="label label-warning" style="font-size:12px;">Miembro</span>
 
 					    			@endif
 					    		</td>					    		
@@ -68,13 +68,13 @@
                 </div>
              </div>
           </div>
- 	</section>
+ 
 
 
 
 	<div class="modal fade" id="editar-usuario">	
 		<div class="modal-dialog">
-		 	<div class="modal-content col-xs-offset-2 col-xs-8">
+		 	<div class="modal-content col-xs-offset-1 col-xs-10">
 
 		 		{!! Form::open(["route"=>"admin.usuarios.update","method"=>"put","class"=>"form-horizontal","name"=>"form"]) !!}
 

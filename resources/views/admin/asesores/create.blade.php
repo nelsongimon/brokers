@@ -27,32 +27,32 @@
                     <div class="form-group">
                       <label for="" class="col-sm-2 control-label">Nombre</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" id="" name="nombre">
+                        <input type="text" class="form-control" value="{{ old('nombre') }}" name="nombre" placeholder="Nombre">
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="" class="col-sm-2 control-label">Apellido</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" id="" name="apellido" >
+                        <input type="text" class="form-control" value="{{ old('apellido') }}" name="apellido" placeholder="Apellido">
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="" class="col-sm-2 control-label">Teléfono</label>
                       <div class="col-sm-10">
                      
-                        <input type="text" id="telefono" class="form-control" name="telefono">
+                        <input type="text"  class="form-control" id="telefono" value="{{ old('telefono') }}" name="telefono" placeholder="Teléfono">
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="" class="col-sm-2 control-label">Email</label>
                       <div class="col-sm-10">
-                        <input type="email" class="form-control" id=""  name="email">
+                        <input type="email" class="form-control" value="{{ old('email') }}"  name="email" placeholder="Email">
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="" class="col-sm-2 control-label">Foto</label>
                       <div class="col-sm-10">
-                        <input type="file" class="" id="" name="foto">
+                        <input type="file" class=""  name="foto">
                       </div>
                     </div>
                   </div><!-- /.box-body -->
@@ -81,6 +81,7 @@
   <script type="text/javascript">
     
     $('#telefono').inputmask({"mask": "(9999) 999-9999"});
+    
   </script>
  
 

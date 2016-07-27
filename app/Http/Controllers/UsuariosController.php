@@ -12,6 +12,10 @@ use Session;
 
 class UsuariosController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('admin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +24,7 @@ class UsuariosController extends Controller
     public function index()
     {
         $users=User::all();
-        return view('admin.usuarios.index',['users'=>$users]);
+        return view('admin.usuarios.index',['users' => $users]);
         
     }
 
@@ -72,11 +76,11 @@ class UsuariosController extends Controller
         $user=User::find($id);
 
         return response()->json([
-                'id' => $user->id,
-                'nombre' => $user->nombre,
+                'id'       => $user->id,
+                'nombre'   => $user->nombre,
                 'apellido' => $user->apellido,
-                'email' => $user->email,
-                'perfil' => $user->perfil
+                'email'    => $user->email,
+                'perfil'   => $user->perfil
             ]);
     
     }

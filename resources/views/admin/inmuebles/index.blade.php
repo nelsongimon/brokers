@@ -5,8 +5,8 @@
 @section('css')
 
 	<link rel="stylesheet" href="{{ asset('admin/plugins/datatables/dataTables.bootstrap.css') }}">
-	<link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
 	<link rel="stylesheet" href="{{ asset('admin/dist/css/animate.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('admin/plugins/iCheck/all.css') }}">
 
 @endsection
 
@@ -17,12 +17,20 @@
 @section('content')
 
 
-	<section class="content">
+	
           <div class="row">
             <div class="col-xs-12 col-md-12">
-              <div class="box">
+              <div class="box box-primary">
                 <div class="box-header">
                   <h3 class="box-title">Tabla de Inmuebles</h3>
+					<div class="form-group pull-right">
+						<select class="form-control">
+		                  	<option>Accinación Masiva</option>
+		                  	<option>Agregar al Slider</option>
+		                  	<option>Agregar a Destacados</option>
+	                  	</select>
+					</div>
+	                <button class="btn btn-primary pull-right" style="border-radius:0px">Aplicar</button>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                   <table id="table" class="table table-bordered table-hover">
@@ -30,6 +38,7 @@
                       <tr>
                         <th>Imagen</th>
                         <th>Título</th>
+                        <th>Status</th>
                         <th>Negociación</th>
                         <th>Asesor</th>
                         <th>Precio (Bs)</th>
@@ -47,7 +56,20 @@
 						 				@endif
 						 			@endforeach
 						 		</td>
-						 		<td>{{ str_limit($inmueble->titulo,35) }}</td>
+						 		<td><input type="checkbox" class="minimal" name="status"> &nbsp;&nbsp;{{ str_limit($inmueble->titulo,35) }}</td>
+						 		<td style="text-align: center"> 						 		
+						 			@if($inmueble->status=='yes')
+										<span class="label label-success" style="font-size: 13px" id="contenedor-status"><span id="texto-status">Disponible</span>&nbsp; <a href="javascript:void(0)" style="color:white;" onclick="modificarStatus('{{ $inmueble->id }}','{{ $inmueble->status }}','{{ route('admin.inmuebles.updateStatus') }}')"><i class="fa fa-refresh" aria-hidden="true"></i></a>&nbsp;&nbsp;</span>
+						 			@else
+
+										<span class="label label-danger" style="font-size: 13px" id="contenedor-status"><span id="texto-status">No Disponible</span>&nbsp; <a href="javascript:void(0)" style="color:white;" onclick="modificarStatus('{{ $inmueble->id }}','{{ $inmueble->status }}','{{ route('admin.inmuebles.updateStatus') }}')"><i class="fa fa-refresh" aria-hidden="true"></i></a>&nbsp;&nbsp;</span>
+						 			@endif
+									<br>
+									
+						 	
+						 			<input type="hidden" id="token" name="token" value="{{ csrf_token() }}">
+						 							 		
+						 		</td>
 						 		<td>{{ $inmueble->negociacion->negociacion }}</td>
 						 		<td>{{ $inmueble->asesor->nombre.' '.$inmueble->asesor->apellido }}</td>
 								<td>{{ number_format($valor*$inmueble->precio->dolares,0, ',', '.') }}</td>
@@ -69,7 +91,7 @@
                 </div>
              </div>
           </div>
- 	</section>
+ 	
 
 
 	<div class="modal modal-danger fade" id="eliminar-inmueble">	
@@ -101,11 +123,19 @@
 	<script type="text/javascript" src="{{ asset('admin/plugins/chartist/chartist.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('admin/plugins/chartist/bootstrap-notify.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('admin/plugins/chartist/demo.js') }}"></script>
+	  <!-- iCheck 1.0.1 -->
+  	<script src="{{ asset('admin/plugins/iCheck/icheck.min.js') }}"></script>
 	<script src="{{ asset('admin/dist/js/funciones.js') }}"></script>
 
 
 	<script type="text/javascript">
 		$("#table").DataTable();
+
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+          checkboxClass: 'icheckbox_minimal-blue',
+          radioClass: 'iradio_minimal-blue'
+        });
 	</script>
 
 	@include('alerts.mensajes')
