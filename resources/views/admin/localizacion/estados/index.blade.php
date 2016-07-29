@@ -15,7 +15,7 @@
 @section('content')
 
 
-	<section class="content">
+
           <div class="row">
 			<div class="col-md-6">
 	            <div class="box box-primary">
@@ -34,7 +34,7 @@
 	                      <th>Acción</th>
 	                    </tr>
 	                    	@foreach($estados as $estado)
-					        <tr>
+					        <tr style="font-size: 15px">
 		                      <td>{{ $estado->id }}</td>
 		                      <td>{{ $estado->estado }}</td>
 		                      <td>
@@ -72,7 +72,7 @@
 	                  </div><!-- /.box-body -->
 
 	                  <div class="box-footer">
-	                    <button type="submit" class="btn btn-primary">Añadir</button>
+	                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Añadir</button>
 	                  </div>
 	                {!! Form::close() !!}
 	             
@@ -91,7 +91,7 @@
       		</div>	
           </div>
 
- 	</section>
+ 
 
 	<div class="modal modal-danger fade" id="eliminar-estado">	
 		<div class="modal-dialog">

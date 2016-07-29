@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\StoreInmueblesRequest;
 use App\Http\Controllers\Controller;
 use App\Inmueble;
 use App\Tipo;
@@ -171,7 +172,7 @@ class InmueblesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreInmueblesRequest $request)
     {
         
         $inmueble=Inmueble::create($request->all());

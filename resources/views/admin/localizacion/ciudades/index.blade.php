@@ -15,7 +15,7 @@
 @section('content')
 
 
-	<section class="content">
+
           <div class="row">
 			<div class="col-md-6">
 	            <div class="box box-primary">
@@ -35,7 +35,7 @@
 	                      <th>Acción</th>
 	                    </tr>
 	                    	@foreach($ciudades as $ciudad)
-					        <tr>
+					        <tr style="font-size: 15px;">
 		                      <td>{{ $ciudad->id }}</td>
 		                      <td>{{ $ciudad->ciudad }}</td>
 		                      <td>{{ $ciudad->estado->estado }}</td>
@@ -68,12 +68,12 @@
 	                  <div class="box-body">
 	                    <div class="form-group">
 	                      <label for="">Ciudad</label>
-	                      <input type="text" class="form-control" id="" name="ciudad" placeholder="Ciudad">
+	                      <input type="text" class="form-control" id="" value="{{ old('ciudad') }}" name="ciudad" placeholder="Ciudad">
 	                    </div>
 	                    <div class="form-group">
 	                      <label for="">Estado</label>
 	                      <select name="estado_id" class="form-control" >
-	                      		<option value="0">--Seleccione--</option>
+	                      		<option value="">--Seleccione--</option>
 	                      	@foreach ($estados as $estado)
 	                      		<option value="{{ $estado->id }}">{{ $estado->estado }}</option>
 	                      	@endforeach
@@ -84,7 +84,7 @@
 	                  </div><!-- /.box-body -->
 
 	                  <div class="box-footer">
-	                    <button type="submit" class="btn btn-primary">Añadir</button>
+	                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Añadir</button>
 	                  </div>
 	                {!! Form::close() !!}
 	             
@@ -103,7 +103,6 @@
       		</div>	
           </div>
 
- 	</section>
 
 	<div class="modal modal-danger fade" id="eliminar-ciudad">	
 		<div class="modal-dialog">

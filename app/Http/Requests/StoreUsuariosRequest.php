@@ -24,8 +24,8 @@ class StoreUsuariosRequest extends Request
     public function rules()
     {
         return [
-            'nombre' => 'required|Alpha|min:2|max:50',
-            'apellido' => 'required|Alpha|min:2|max:50',
+            'nombre' => 'required|min:2|max:50',
+            'apellido' => 'required|min:2|max:50',
             'email' => 'required|E-Mail|unique:users',
             'password' => 'required|min:4',
             'perfil' => 'required'

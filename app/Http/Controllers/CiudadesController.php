@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\StoreCiudadesRequest;
+use App\Http\Requests\UpdateCiudadesRequest;
 use App\Http\Controllers\Controller;
 use App\Ciudad;
 use App\Estado;
@@ -40,8 +42,9 @@ class CiudadesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCiudadesRequest $request)
     {
+        //dd($request->all());
         $ciudad=Ciudad::create($request->all());
         Session::flash('mensaje-success',$ciudad->ciudad.' fue creado con éxito');
         return redirect('admin/localizacion/ciudades');
@@ -80,7 +83,7 @@ class CiudadesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(UpdateCiudadesRequest $request)
     {
         $ciudad=Ciudad::find($request->id);
         $ciudad->fill($request->all());

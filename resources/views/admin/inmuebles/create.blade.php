@@ -38,31 +38,31 @@
                     <legend style="text-align: center;">Datos del Inmuebles</legend>
                     <div class="form-group col-md-6">
                       <label>Título</label>
-                      <input type="text" class="form-control" placeholder="Título" name="titulo">
+                      <input type="text" class="form-control" value="{{ old('titulo') }}" placeholder="Título" name="titulo">
                     </div>
 
                     <!-- text input -->
                     <div class="form-group col-md-6">
                       <label>Precio ($)</label>
-                      <input type="number"  min="0" class="form-control" placeholder="Precio" name="dolares">
+                      <input type="number"  min="0" class="form-control" value="{{ old('dolares') }}" placeholder="Precio" name="dolares">
                     </div>
 
                     <!-- textarea -->
                     <div class="form-group col-md-6">
                       <label>Descripción</label>
-                      <textarea class="form-control" rows="4" name="descripcion" placeholder="Descripción..."></textarea>
+                      <textarea class="form-control" rows="4" name="descripcion" value="{{ old('descripcion') }}" placeholder="Descripción ..."></textarea>
                     </div>
 
                     <!-- textarea -->
                     <div class="form-group col-md-6">
                       <label>Nota</label>
-                      <textarea class="form-control" rows="4" name="nota" placeholder="Nota..."></textarea>
+                      <textarea class="form-control" rows="4" name="nota" value="{{ old('nota') }}" placeholder="Nota ..."></textarea>
                     </div>
 
                     <!-- text input -->
                     <div class="form-group col-md-6">
                       <label>Tamaño de parcela</label>
-                      <input type="number"  min="0" class="form-control" placeholder="Tamaño de parcela (m²)" name="area_parcela">
+                      <input type="number"  min="0" class="form-control" value="{{ old('area_parcela') }}" placeholder="Tamaño de parcela (m²)" name="area_parcela">
                     </div>
 
                     <!-- select -->
@@ -79,14 +79,14 @@
                     <!-- text input -->
                     <div class="form-group col-md-6">
                       <label>Tamaño de construcción</label>
-                      <input type="number"  min="0" class="form-control" placeholder="Tamaño de construcción (m²)" name="area_construccion">
+                      <input type="number"  min="0" class="form-control" value="{{ old('area_construccion') }}" placeholder="Tamaño de construcción (m²)" name="area_construccion">
                     </div>
 
                     <!-- select -->
                   <div class="form-group col-md-6">
                       <label>Tipo de Negociación</label>
                       <select class="form-control" name="negociacion_id">
-                        <option>--Seleccione--</option>
+                        <option value="">--Seleccione--</option>
                           @foreach ($negos as $nego)
                             <option value="{{ $nego->id }}">{{ $nego->negociacion }}</option>
                           @endforeach
@@ -95,14 +95,14 @@
                        
                     <div class="form-group col-md-6">
                       <label>Número de cuartos</label>
-                      <input type="number"  min="0" class="form-control" placeholder="Número de cuartos" name="cuartos">
+                      <input type="number"  min="0" class="form-control" value="{{ old('cuartos') }}" placeholder="Número de cuartos" name="cuartos">
                     </div>
 
                     <!-- select -->
                   <div class="form-group col-md-6">
                       <label>Estado</label>
                       <select class="form-control" name="estado_id" id="select-estado">
-                        <option>--Seleccione--</option>
+                        <option value="">--Seleccione--</option>
                           @foreach ($estados as $estado)
                             <option value="{{ $estado->id }}">{{ $estado->estado }}</option>
                           @endforeach
@@ -113,14 +113,14 @@
                   
                     <div class="form-group col-md-6">
                       <label>Número de baños</label>
-                      <input type="number"  min="0" class="form-control" placeholder="Número de baños" name="banos">
+                      <input type="number"  min="0" class="form-control" value="{{ old('banos') }}" placeholder="Número de baños" name="banos">
                     </div>
 
                     <!-- select -->
                   <div class="form-group col-md-6">
                       <label>Ciudad</label>
                       <select class="form-control" name="ciudad_id" id="select-ciudad">
-                        <option>--Seleccione--</option>
+                        <option value="">--Seleccione--</option>
                   
                       </select>
                       <input type="hidden" id="token-ciudad" value="{{ csrf_token() }}"></input>
@@ -130,14 +130,14 @@
                  
                   <div class="form-group col-md-6">
                       <label>Puestos de estacionamientos</label>
-                      <input type="number"  min="0" class="form-control" placeholder="Estacionamientos" name="estacionamientos">
+                      <input type="number"  min="0" class="form-control" value="{{ old('estacionamientos') }}" placeholder="Estacionamientos" name="estacionamientos">
                   </div>
 
                   <!-- select -->
                   <div class="form-group col-md-6">
                       <label>Sector</label>
                       <select class="form-control" name="sector_id" id="select-sector">
-                        <option>--Seleccione--</option>
+                        <option value="">--Seleccione--</option>
                
                       </select>
                   </div>
@@ -146,7 +146,7 @@
                   <div class="form-group col-md-6">
                       <label>Asesor</label>
                       <select class="form-control" name="asesor_id">
-                        <option>--Seleccione--</option>
+                        <option value="">--Seleccione--</option>
                           @foreach ($asesores as $asesor)
                             <option value="{{ $asesor->id }}">{{ $asesor->nombre.' '.$asesor->apellido }}</option>
                           @endforeach
@@ -165,22 +165,22 @@
 
                   <div class="form-group col-md-6">
                       <label>Nombre</label>
-                      <input type="text" class="form-control" placeholder="Nombre" name="nombre">
+                      <input type="text" class="form-control" value="{{ old('nombre') }}" placeholder="Nombre" name="nombre">
                   </div>
 
                   <div class="form-group col-md-6">
                       <label>Apellido</label>
-                      <input type="text" class="form-control" placeholder="Apellido" name="apellido">
+                      <input type="text" class="form-control" value="{{ old('apellido') }}" placeholder="Apellido" name="apellido">
                   </div>
 
                   <div class="form-group col-md-6">
                       <label>Teléfono</label>
-                      <input type="text" class="form-control" placeholder="Telefono" name="telefono">
+                      <input type="text" class="form-control" id="telefono" value="{{ old('telefono') }}" placeholder="Telefono" name="telefono">
                   </div>
 
                   <div class="form-group col-md-6">
                       <label>Email</label>
-                      <input type="text" class="form-control" placeholder="Email" name="email">
+                      <input type="text" class="form-control" placeholder="Email" value="{{ old('email') }}" name="email">
                   </div>
 
                   <div class="form-group col-md-12">
@@ -208,6 +208,8 @@
   <script type="text/javascript" src="{{ asset('admin/plugins/chartist/demo.js') }}"></script>
   <!-- iCheck 1.0.1 -->
   <script src="{{ asset('admin/plugins/iCheck/icheck.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('admin/plugins/input-mask/jquery.inputmask.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('admin/plugins/input-mask/jquery.inputmask.phone.extensions.js') }}"></script>
 
 
 
@@ -219,6 +221,8 @@
           checkboxClass: 'icheckbox_minimal-blue',
           radioClass: 'iradio_minimal-blue'
         });
+
+        $('#telefono').inputmask({"mask": "(9999) 999-9999"});
     
 
   </script>

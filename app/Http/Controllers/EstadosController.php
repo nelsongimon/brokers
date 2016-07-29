@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
+use App\Http\Requests\StoreEstadosRequest;
+use App\Http\Requests\UpdateEstadosRequest;
 use App\Http\Controllers\Controller;
 use App\Estado;
 use Session;
@@ -38,7 +39,7 @@ class EstadosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreEstadosRequest $request)
     {
         $estado=Estado::create($request->all());
         Session::flash('mensaje-success',$estado->estado.' fue creado con éxito');
@@ -78,7 +79,7 @@ class EstadosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(UpdateEstadosRequest $request)
     {
         $estado=Estado::find($request->id);
         $estado->fill($request->all());

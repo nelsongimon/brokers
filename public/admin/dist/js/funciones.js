@@ -306,7 +306,7 @@ function editarSector(url, token){
 $('document').ready(function(){
 	$('#select-estado').change(function(){
 
-		$('#select-sector').html('<option value="0">--Seleccione--</option>');
+		$('#select-sector').html('<option value="">--Seleccione--</option>');
 
 		$.ajax({
 			headers: {
@@ -314,7 +314,8 @@ $('document').ready(function(){
 	        },
 			//Lo que se va a ejecutar antes de hacer la peticion se coloca el pre-loader
 			beforeSend: function(){
-				$('#select-ciudad').html('<option value="0">--Cargando--</option>');
+				$('#select-ciudad').html('<option value="">--Cargando--</option>');
+				$('#select-ciudad-solo').html('<option value="">--Cargando--</option>');
 			},
 			url: $('#url-estado').val(),
 			data:{id:$('#select-estado').val()},
@@ -322,13 +323,16 @@ $('document').ready(function(){
 			dataTye: 'json',
 			success: function(data){
 				if(data.mensaje=="error"){
-					$('#select-ciudad').html('<option value="0">--Seleccione--</option>');
+					$('#select-ciudad').html('<option value="">--Seleccione--</option>');
+					$('#select-ciudad-solo').html('<option value="">--Seleccione--</option>');
 					return false;
 				}
-				$('#select-ciudad').html('<option value="0">--Seleccione--</option>');
+				$('#select-ciudad').html('<option value="">--Seleccione--</option>');
+				$('#select-ciudad-solo').html('<option value="">--Seleccione--</option>');
 				for(var i=0; i<data.ciudades.length; i++){
-					console.log(data.ciudades[i].ciudad);
+					//console.log(data.ciudades[i].ciudad);
 					$('#select-ciudad').append('<option value="'+data.ciudades[i].id+'">'+data.ciudades[i].ciudad+'</option>');
+					$('#select-ciudad-solo').append('<option value="'+data.ciudades[i].id+'">'+data.ciudades[i].ciudad+'</option>');
 				}
 			},
 			error: function(xhr, status){
@@ -349,7 +353,7 @@ $('document').ready(function(){
 	        },
 			//Lo que se va a ejecutar antes de hacer la peticion se coloca el pre-loader
 			beforeSend: function(){
-				$('#select-sector').html('<option value="0">--Cargando--</option>');
+				$('#select-sector').html('<option value="">--Cargando--</option>');
 			},
 			url: $('#url-ciudad').val(),
 			data:{id:$('#select-ciudad').val()},
@@ -357,10 +361,10 @@ $('document').ready(function(){
 			dataTye: 'json',
 			success: function(data){
 				if(data.mensaje=="error"){
-					$('#select-sector').html('<option value="0">--Seleccione--</option>');
+					$('#select-sector').html('<option value="">--Seleccione--</option>');
 					return false;
 				}
-				$('#select-sector').html('<option value="0">--Seleccione--</option>');
+				$('#select-sector').html('<option value="">--Seleccione--</option>');
 				for(var i=0; i<data.sectores.length; i++){
 					console.log(data.sectores[i].sector);
 					$('#select-sector').append('<option value="'+data.sectores[i].id+'">'+data.sectores[i].sector+'</option>');
@@ -463,7 +467,7 @@ function eliminarEstado(url){
 
 function eliminarCiudad(url){
 
-	$('#button-eliminar-estado').attr('href',url);
+	$('#button-eliminar-ciudad').attr('href',url);
 	
 }
 

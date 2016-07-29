@@ -15,7 +15,7 @@
 @section('content')
 
 
-	<section class="content">
+
           <div class="row">
 			<div class="col-md-7">
 	            <div class="box box-primary">
@@ -36,7 +36,7 @@
 	                      <th>Acción</th>
 	                    </tr>
 	                    	@foreach($sectores as $sector)
-					        <tr>
+					        <tr style="font-size: 15px;">
 		                      <td>{{ $sector->id }}</td>
 		                      <td>{{ $sector->sector }}</td>
 		                      <td>{{ $sector->ciudad->ciudad }}</td>
@@ -70,12 +70,12 @@
 	                  <div class="box-body">
 	                    <div class="form-group">
 	                      <label for="">Sector</label>
-	                      <input type="text" class="form-control" id="" name="sector" placeholder="Sector">
+	                      <input type="text" class="form-control" id="" value="{{ old('sector') }}" name="sector" placeholder="Sector">
 	                    </div>
 	                    <div class="form-group">
 	                      <label for="">Estado</label>
 	                      <select name="estado_id" class="form-control" id="select-estado" >
-	                      		<option value="0">--Seleccione--</option>
+	                      		<option value="">--Seleccione--</option>
 	                      	@foreach ($estados as $estado)
 	                      		<option  value="{{ $estado->id }}">{{ $estado->estado }}</option>
 	                      	@endforeach
@@ -87,15 +87,15 @@
 	                    </div>
 	                    <div class="form-group">
 	                      <label for="">Ciudad</label>
-	                      <select name="ciudad_id" class="form-control" id="select-ciudad">
-	                      		<option value="0">--Seleccione--</option>         	
+	                      <select name="ciudad_id" class="form-control" id="select-ciudad-solo">
+	                      		<option value="">--Seleccione--</option>         	
 	                      </select>
 	                    </div>
 	     
 	                  </div><!-- /.box-body -->
 
 	                  <div class="box-footer">
-	                    <button type="submit" class="btn btn-primary">Añadir</button>
+	                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Añadir</button>
 	                  </div>
 	                {!! Form::close() !!}
 	             
@@ -114,7 +114,6 @@
       		</div>	
           </div>
 
- 	</section>
 
 	<div class="modal modal-danger fade" id="eliminar-sector">	
 		<div class="modal-dialog">

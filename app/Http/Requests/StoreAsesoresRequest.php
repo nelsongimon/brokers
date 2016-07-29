@@ -24,8 +24,8 @@ class StoreAsesoresRequest extends Request
     public function rules()
     {
         return [
-            'nombre'   => 'required|min:2|max:50|Alpha',
-            'apellido' => 'required|min:2|max:50|Alpha',
+            'nombre'   => 'required|min:2|max:50',
+            'apellido' => 'required|min:2|max:50',
             'telefono' => 'required|min:11',
             'email'    => 'required|E-Mail',
             'foto'     => 'required|Image'

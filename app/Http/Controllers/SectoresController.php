@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\StoreSectoresRequest;
 use App\Http\Controllers\Controller;
 use App\Sector;
 use App\Ciudad;
@@ -31,7 +32,7 @@ class SectoresController extends Controller
     **/
     public function estadosCiudades(Request $request){
         
-        if($request->id==0){
+        if(empty($request->id)){
             return response()->json([
                 'mensaje'=>'error'
             ]);
@@ -50,7 +51,7 @@ class SectoresController extends Controller
     **/
     public function ciudadesSectores(Request $request){
         
-        if($request->id==0){
+        if(empty($request->id)){
             return response()->json([
                 'mensaje'=>'error'
             ]);
@@ -79,7 +80,7 @@ class SectoresController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSectoresRequest $request)
     {
         $sector=Sector::create($request->all());
         Session::flash('mensaje-success',$sector->sector.' fue creado con éxito');
