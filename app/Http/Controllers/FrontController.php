@@ -7,7 +7,10 @@ use Auth;
 use App\Http\Requests;
 use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
+use App\Inmueble;
+use App\Estado;
 use Session;
+use DB;
 
 class FrontController extends Controller
 {
@@ -27,9 +30,60 @@ class FrontController extends Controller
      */
     public function index()
     {
-        return 'hola bienvenido al front';
+        return view('front.inicio');
+    }
+    /*
+    *
+    *
+    *
+    **/
+    public function busquedaAvanzada(){
+
+        return view('front.busquedaAvanzada');
     }
     /**
+    *
+    *
+    *
+    **/
+    public function resultados(){
+
+        return view('front.resultados');
+    }
+    /*
+    *
+    *
+    *
+    **/
+    public function detallesInmuebles(){
+
+        return view('front.detallesInmuebles');
+    }
+    /*
+    *
+    *
+    **/
+    public function busquedaRapida(Request $request){
+
+        $inmuebles = DB::table('inmuebles')
+            ->join('estados','inmuebles.estado_id','=','estados.id')
+            ->join('ciudades','inmuebles.estado_id','=','ciudades.id')
+            ->join('sectores','inmuebles.estado_id','=','sectores.id')
+            ->join('tipos','inmuebles.estado_id','=','tipos.id')
+            ->where('titulo','LIKE','%'.$request->busqueda.'%')
+            ->orWhere('estado','LIKE','%'.$request->busqueda.'%')
+            ->orWhere('ciudad','LIKE','%'.$request->busqueda.'%')
+            ->orWhere('sector','LIKE','%'.$request->busqueda.'%')
+            ->orWhere('tipo','LIKE','%'.$request->busqueda.'%')
+            ->get();
+
+        //return dd($inmuebles[0]['titulo']);
+
+            foreach ($inmuebles as $inmueble) {
+                echo $inmueble->titulo;
+            }
+    }
+    /*
     *
     *
     *

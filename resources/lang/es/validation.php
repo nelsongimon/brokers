@@ -160,6 +160,8 @@ return [
         'banos'                 => 'Baños',
         'estacionamientos'      => 'Estacionamientos',
         'asesor_id'             => 'Asesor',
+        'negociacion'           => 'Tipo de Negociación',
+        'tipo'                  => 'Tipo de Inmueble',
     ],
 
 ];

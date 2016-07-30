@@ -35,6 +35,7 @@
 					<div class="input-group input-group-lg">
 					      <input type="text" class="form-control" id="form-valor-dolar" name="valor" value="{{ $precio[0]['valor'] }}">
 					      <input type="hidden" name="id" value="{{ $precio[0]['id'] }}"></input>
+					      <input type="hidden" id="valorfilter" name="valorfilter" value="{{ $precio[0]['valor'] }}"></input>
 					      <span class="input-group-btn">
 					        <button class="btn btn-info btn-flat" id="boton-actualizar-precio"  type="button">Actualizar</button>
 					      </span>

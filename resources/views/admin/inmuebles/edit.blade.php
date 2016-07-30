@@ -5,8 +5,6 @@
 @section('css')
 
   <link rel="stylesheet" href="{{ asset('admin/dist/css/animate.min.css') }}">
-  <!-- iCheck for checkboxes and radio inputs -->
-  <link rel="stylesheet" href="{{ asset('admin/plugins/iCheck/all.css') }}">
  
 
 @endsection
@@ -37,6 +35,7 @@
                 <div class="box-body">
                   {!! Form::open(['route'=>['admin.inmuebles.update',$inmueble->id],'method'=>'put']) !!}
                     <!-- text input -->
+                    <legend style="text-align: center;">Datos del Inmuebles</legend>
                     <div class="form-group col-md-6">
                       <label>Título</label>
                       <input type="text" class="form-control" value="{{ $inmueble->titulo }}" name="titulo">
@@ -166,19 +165,28 @@
                       </select>
                   </div>
 
-                    <!-- checkbox -->
-                    <div class="form-group col-md-6">
-                      <label class="">
+                  <legend style="text-align: center;">Datos del Cliente</legend>
+                  <div class="form-group col-md-6">
+                      <label>Nombre</label>
+                      <input type="text" class="form-control" value="{{ $inmueble->cliente->nombre }}" placeholder="Nombre" name="nombre">
+                  </div>
 
-                         @if($inmueble->status=='en_venta')
-                              <input type="checkbox" class="minimal" name="status"> &nbsp;&nbsp;&nbsp; Status vendida
-                         @else
-                              <input type="checkbox" class="minimal" name="status" checked> &nbsp;&nbsp;&nbsp; Status vendida
-                         @endif
-                        
-                      </label>
+                  <div class="form-group col-md-6">
+                      <label>Apellido</label>
+                      <input type="text" class="form-control" value="{{ $inmueble->cliente->apellido }}" placeholder="Apellido" name="apellido">
+                  </div>
+
+                  <div class="form-group col-md-6">
+                      <label>Teléfono</label>
+                      <input type="text" class="form-control" id="telefono" value="{{ $inmueble->cliente->telefono }}" placeholder="Telefono" name="telefono">
+                  </div>
+
+                  <div class="form-group col-md-6">
+                      <label>Email</label>
+                      <input type="text" class="form-control" placeholder="Email" value="{{ $inmueble->cliente->email }}" name="email">
                   </div>
                     <!-- text input -->
+                  <legend style="text-align: center;">Datos de la Localización</legend>
                   <div class="form-group col-md-12">
                       <label>Ubicación</label>
                       <input type="text" class="form-control" value="{{ $inmueble->localizacion->localizacion }}" name="localizacion">
@@ -192,7 +200,7 @@
 
                   <input type="hidden" name="user_id" value="{{ Auth::user()->id }}"></input>
 
-                  <button type="submit" class="btn btn-primary btn-lg pull-right">Guardar</button>
+                  <button type="submit" class="btn btn-primary btn-lg pull-right"><i class="fa fa-floppy-o" aria-hidden="true"></i> &nbsp;Guardar</button>
                   
                   {!! Form::close() !!}
 
@@ -212,22 +220,18 @@
   <script type="text/javascript" src="{{ asset('admin/plugins/chartist/chartist.min.js') }}"></script>
   <script type="text/javascript" src="{{ asset('admin/plugins/chartist/bootstrap-notify.js') }}"></script>
   <script type="text/javascript" src="{{ asset('admin/plugins/chartist/demo.js') }}"></script>
-  <!-- iCheck 1.0.1 -->
-  <script type="text/javascript" src="{{ asset('admin/plugins/iCheck/icheck.min.js') }}"></script>
+
   <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpKnb-8ufsQ4kfOnSVHa12H2gbpy2RkFI&callback=initMap">
   </script>
+
+  <script type="text/javascript" src="{{ asset('admin/plugins/input-mask/jquery.inputmask.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('admin/plugins/input-mask/jquery.inputmask.phone.extensions.js') }}"></script>
 
 
 
   <script type="text/javascript">
 
-      
-        //iCheck for checkbox and radio inputs
-        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-          checkboxClass: 'icheckbox_minimal-blue',
-          radioClass: 'iradio_minimal-blue'
-        });
 
         //Manipulacion de mapas
         function initMap() {
@@ -250,6 +254,8 @@
             moverMarker(marker.getPosition(),map);
           });
         }
+
+        $('#telefono').inputmask({"mask": "(9999) 999-9999"});
     
 
   </script>

@@ -205,12 +205,16 @@ $('document').ready(function(){
 				$('#boton-actualizar-precio').html('Actualizar');
 				$('#precio-dolar').html(data.valor);
 				$('#form-valor-dolar').val(data.valor);
+				$('#valorfilter').val(data.valor);
 				$('#campo-valor-dolar').hide();
 				//console.log(data);
 
 			},
 			error: function(xhr, status){
-				console.log(status);
+				//console.log(status);
+				$('#boton-actualizar-precio').html('Actualizar');
+				$('#campo-valor-dolar').hide();
+				$('#form-valor-dolar').val(document.formUpdatePrecio.valorfilter.value);
 			}
 
 		});

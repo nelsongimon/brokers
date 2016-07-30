@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Requests\StoreInmueblesRequest;
+use App\Http\Requests\UpdateInmueblesRequest;
 use App\Http\Controllers\Controller;
 use App\Inmueble;
 use App\Tipo;
@@ -56,10 +57,10 @@ class InmueblesController extends Controller
         $estados=Estado::orderBy('estado','asc')->get();
 
         return view('admin.inmuebles.create',[
-            'asesores'=>$asesores,
-            'tipos'=>$tipos,
-            'negos'=>$negos,
-            'estados'=>$estados
+            'asesores' => $asesores,
+            'tipos'    => $tipos,
+            'negos'    => $negos,
+            'estados'  => $estados
             ]);
     }
     /*
@@ -175,25 +176,26 @@ class InmueblesController extends Controller
     public function store(StoreInmueblesRequest $request)
     {
         
-        $inmueble=Inmueble::create($request->all());
+        $inmueble = Inmueble::create($request->all());
         if(isset($request->status)){
             $inmueble->status='yes';
             $inmueble->save();
         }
         else{
-            $inmueble->status='no';
+            $inmueble->status = 'no';
             $inmueble->save();
         }
 
-        $precio= new Precio;
-        $precio->dolares=$request->dolares;
+        $precio = new Precio;
+        $precio->dolares = $request->dolares;
         $precio->inmueble()->associate($inmueble);
         $precio->save();
 
-        $cliente= new Cliente;
+        $cliente = new Cliente;
         $cliente->nombre=$request->nombre;
         $cliente->apellido=$request->apellido;
         $cliente->telefono=$request->telefono;
+        $cliente->email=$request->email;
         $cliente->inmueble()->associate($inmueble);
         $cliente->save();
 
@@ -230,11 +232,11 @@ class InmueblesController extends Controller
         $estados=Estado::orderBy('estado','asc')->get();
 
         return view('admin.inmuebles.edit',[
-            'inmueble'=>$inmueble,
-            'asesores'=>$asesores,
-            'tipos'=>$tipos,
-            'negos'=>$negos, 
-            'estados'=>$estados
+            'inmueble' => $inmueble,
+            'asesores' => $asesores,
+            'tipos'    => $tipos,
+            'negos'    => $negos, 
+            'estados'  => $estados
             ]);
     }
 
@@ -245,40 +247,42 @@ class InmueblesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(UpdateInmueblesRequest $request,$id)
     {
       
-        $inmueble=Inmueble::find($id);
-        $inmueble->titulo=$request->titulo;
-        $inmueble->descripcion=$request->descripcion;
-        $inmueble->nota=$request->nota;
-        $inmueble->area_parcela=$request->area_parcela;
-        $inmueble->tipo_id=$request->tipo_id;
-        $inmueble->area_construccion=$request->area_construccion;
-        $inmueble->negociacion_id=$request->negociacion_id;
-        $inmueble->cuartos=$request->cuartos;
-        $inmueble->banos=$request->banos;
-        $inmueble->estado_id=$request->estado_id;
-        $inmueble->ciudad_id=$request->ciudad_id;
-        $inmueble->sector_id=$request->sector_id;
-        $inmueble->estacionamientos=$request->estacionamientos;
-        $inmueble->asesor_id=$request->asesor_id;
-        $inmueble->user_id=$request->user_id;
-        if(isset($request->status)){
-            $inmueble->status='yes'; 
-        }
-        else{
-            $inmueble->status='no';
-        }
+        $inmueble = Inmueble::find($id);
 
-        $inmueble->precio->dolares=$request->dolares;
+        $inmueble->titulo = $request->titulo;
+        $inmueble->descripcion = $request->descripcion;
+        $inmueble->nota = $request->nota;
+        $inmueble->area_parcela = $request->area_parcela;
+        $inmueble->tipo_id = $request->tipo_id;
+        $inmueble->area_construccion = $request->area_construccion;
+        $inmueble->negociacion_id = $request->negociacion_id;
+        $inmueble->cuartos = $request->cuartos;
+        $inmueble->banos = $request->banos;
+        $inmueble->estado_id = $request->estado_id;
+        $inmueble->ciudad_id = $request->ciudad_id;
+        $inmueble->sector_id = $request->sector_id;
+        $inmueble->estacionamientos = $request->estacionamientos;
+        $inmueble->asesor_id = $request->asesor_id;
+        $inmueble->user_id = $request->user_id;
 
-        $inmueble->localizacion->localizacion=$request->localizacion;
-        $inmueble->localizacion->latitud=$request->latitud;
-        $inmueble->localizacion->longitud=$request->longitud;
-        $inmueble->localizacion->zoom=$request->zoom;
+        $inmueble->precio->dolares = $request->dolares;
 
+        $inmueble->localizacion->localizacion = $request->localizacion;
+        $inmueble->localizacion->latitud = $request->latitud;
+        $inmueble->localizacion->longitud = $request->longitud;
+        $inmueble->localizacion->zoom = $request->zoom;
+
+        $inmueble->cliente->nombre = $request->nombre;
+        $inmueble->cliente->apellido = $request->apellido;
+        $inmueble->cliente->telefono = $request->telefono;
+        $inmueble->cliente->email = $request->email;
+
+        //Guardado del modelo inmueble y sus relaciones
         $inmueble->save();
+        $inmueble->push();
 
         Session::flash('mensaje-success','El inmueble se ha actualizado con éxito');
         return redirect('/admin/inmuebles');

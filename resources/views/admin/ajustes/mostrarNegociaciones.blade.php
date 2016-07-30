@@ -15,12 +15,12 @@
 @section('content')
 
 
-	<section class="content">
+
           <div class="row">
 			<div class="col-md-6">
 				
 				
-	            <div class="box">
+	            <div class="box box-primary">
 	                <div class="box-header with-border">
 	                  <h3 class="box-title">Tipos de Negociación</h3>
 	                  <button class="btn btn-info pull-right" id="botan-mostar-form-negociacion"><i class="fa fa-plus" aria-hidden="true"></i> Añadir</button>
@@ -37,7 +37,7 @@
 	                      <th>Acción</th>
 	                    </tr>
 	                    	@foreach($negos as $nego)
-					        <tr>
+					        <tr style="font-size:15px;">
 		                      <td>{{ $nego->id }}</td>
 		                      <td>{{ $nego->negociacion }}</td>
 		                      <td>
@@ -63,7 +63,7 @@
 			<div class="col-md-4" id="contenedor-form-negociacion">
               
                 {!! Form::open(['route'=>'admin.ajustes.negociacion.create','method'=>'post','class'=>'form-horizontal','name'=>'form']) !!}
-					<div class="input-group input-group-lg">
+					<div class="input-group">
 					      <input type="text" class="form-control" name="negociacion">
 					      <span class="input-group-btn">
 					        <button class="btn btn-info btn-flat" type="submit">Guardar</button>
@@ -75,7 +75,7 @@
 
 			<div class="col-md-4" id="contenedor-form-edit-negociacion">
                 {!! Form::open(['route'=>'admin.ajustes.negociacion.update','method'=>'put','class'=>'form-horizontal','name'=>'form']) !!}
-					<div class="input-group input-group-lg">
+					<div class="input-group">
 					      <input type="text" class="form-control" name="negociacion" id="negociacion">
 					      <input type="hidden" name="id" id="id">
 					      <span class="input-group-btn">
@@ -85,7 +85,6 @@
                 {!! Form::close() !!} 
       		</div>	
           </div>
- 	</section>
 
 
 

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\CreateNegociacionRequest;
+use App\Http\Requests\CreateTiposRequest;
+use App\Http\Requests\CreateDolarRequest;
 use App\Http\Controllers\Controller;
 use App\DolarValor;
 use App\Tipo;
@@ -37,14 +40,14 @@ class AjustesController extends Controller
     *
     *
     **/
-    public function updatePrecioDolar(Request $request){
+    public function updatePrecioDolar(CreateDolarRequest $request){
         $dolar=DolarValor::find($request->id);
         $dolar->fill($request->all());
         $dolar->save();
         return response()->json([
-            'mensaje'=>'exito',
-            'valor'=>$dolar->valor,
-            'id'=>$dolar->id
+            'mensaje'  => 'exito',
+            'valor'    => $dolar->valor,
+            'id'       => $dolar->id
             ]);
     }
     /*
@@ -63,7 +66,7 @@ class AjustesController extends Controller
     *
     *
     */
-    public function createTipos(Request $request){
+    public function createTipos(CreateTiposRequest $request){
 
         $tipo=Tipo::create($request->all());
         Session::flash('mensaje-success',$tipo->tipo.' fue creado con éxito');
@@ -78,8 +81,8 @@ class AjustesController extends Controller
 
         $tipo=Tipo::find($request->id);
         return response()->json([
-            'tipo'=>$tipo->tipo,
-            'id'=>$tipo->id
+            'tipo' => $tipo->tipo,
+            'id'   => $tipo->id
             ]);
     }
     /*
@@ -87,7 +90,7 @@ class AjustesController extends Controller
     *
     *
     **/
-    public function updateTipos(Request $request){
+    public function updateTipos(CreateTiposRequest $request){
         $tipo=Tipo::find($request->id);
         $tipo->fill($request->all());
         $tipo->save();
@@ -124,7 +127,7 @@ class AjustesController extends Controller
     *
     *
     */
-    public function createNegociacion(Request $request){
+    public function createNegociacion(CreateNegociacionRequest $request){
 
         $nego=Negociacion::create($request->all());
         Session::flash('mensaje-success',$nego->negociacion.' fue creado con éxito');
@@ -139,8 +142,8 @@ class AjustesController extends Controller
 
         $nego=Negociacion::find($request->id);
         return response()->json([
-            'negociacion'=>$nego->negociacion,
-            'id'=>$nego->id
+            'negociacion' => $nego->negociacion,
+            'id'          => $nego->id
             ]);
     }
     /*
@@ -148,11 +151,11 @@ class AjustesController extends Controller
     *
     *
     **/
-    public function updateNegociacion(Request $request){
+    public function updateNegociacion(CreateNegociacionRequest $request){
         $nego=Negociacion::find($request->id);
         $nego->fill($request->all());
         $nego->save();
-        Session::flash('mensaje-success',$nego->negociacion.' fue creado con éxito');
+        Session::flash('mensaje-success',$nego->negociacion.' fue editado con éxito');
         return redirect('admin/ajustes/tipos-de-negociacion');
     }
     /*

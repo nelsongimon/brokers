@@ -37,7 +37,7 @@
 	                      <th>Acción</th>
 	                    </tr>
 	                    	@foreach($tipos as $tipo)
-					        <tr>
+					        <tr style="font-size: 15px;">
 		                      <td>{{ $tipo->id }}</td>
 		                      <td>{{ $tipo->tipo }}</td>
 		                      <td>
@@ -63,7 +63,7 @@
 			<div class="col-md-4" id="contenedor-form-tipo">
               
                 {!! Form::open(['route'=>'admin.ajustes.tipos.create','method'=>'post','class'=>'form-horizontal','name'=>'form']) !!}
-					<div class="input-group input-group-lg">
+					<div class="input-group">
 					      <input type="text" class="form-control" name="tipo">
 					      <span class="input-group-btn">
 					        <button class="btn btn-info btn-flat" type="submit">Guardar</button>
@@ -75,7 +75,7 @@
 
 			<div class="col-md-4" id="contenedor-form-edit-tipo">
                 {!! Form::open(['route'=>'admin.ajustes.tipos.update','method'=>'put','class'=>'form-horizontal','name'=>'form']) !!}
-					<div class="input-group input-group-lg">
+					<div class="input-group">
 					      <input type="text" class="form-control" name="tipo" id="tipo">
 					      <input type="hidden" name="id" id="id">
 					      <span class="input-group-btn">
