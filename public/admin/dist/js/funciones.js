@@ -392,8 +392,8 @@ function modificarStatus(id,status,url){
 			//Lo que se va a ejecutar antes de hacer la peticion se coloca el pre-loader
 			beforeSend: function(){
 				//console.log('cargando...');
-				$('#texto-status').html('Actualizando');
-				$('.fa-refresh').addClass('fa-spin');
+				$('#texto-status-'+id).html('Actualizando');
+				$('#spin-'+id).addClass('fa-spin');
 			},
 			url: url,
 			data:{id:id},
@@ -402,20 +402,20 @@ function modificarStatus(id,status,url){
 			success: function(data){
 				//console.log(data.status);
 				if(data.status=='yes'){
-					$('#texto-status').html('Disponible');
-					$('#contenedor-status').removeClass('label-danger');
-					$('#contenedor-status').addClass('label-success');
-					$('.fa-refresh').removeClass('fa-spin');
+					$('#texto-status-'+id).html('Disponible');
+					$('#contenedor-status-'+id).removeClass('label-danger');
+					$('#contenedor-status-'+id).addClass('label-success');
+					$('#spin-'+id).removeClass('fa-spin');
 				}
 				else{
-					$('#texto-status').html('No disponible');
-					$('#contenedor-status').removeClass('label-success');
-					$('#contenedor-status').addClass('label-danger');
-					$('.fa-refresh').removeClass('fa-spin');
+					$('#texto-status-'+id).html('No disponible');
+					$('#contenedor-status-'+id).removeClass('label-success');
+					$('#contenedor-status-'+id).addClass('label-danger');
+					$('#spin-'+id).removeClass('fa-spin');
 				}
 			},
 			error: function(xhr, status){
-				console.log(status);
+				//console.log(status);
 			}
 
 		});

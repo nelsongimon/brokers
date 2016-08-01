@@ -34,73 +34,77 @@
     <div class="col-xs-12 col-md-12 col-lg-offset-1 col-lg-10">
     <div class="panel panel-default opacity-panel">
       <div class="panel-body">
-        <form action="" method="POST" role="form">
+        {!! Form::open(['route' => 'front.busqueda', 'method' => 'post']) !!}
             <div class="col-md-3">
                 <div class="form-group">
                   <label class="label-busqueda">Estado</label>
-                  <select class="form-control input-busqueda-avanzada" id="" placeholder="Input field">
-                    <option value="0">--Todos--</option>
+                  <select class="form-control input-busqueda-avanzada" id="select-estado" name="estado_id">
+                    <option value="">--Todos--</option>
+                    @foreach ($estados as $estado)
+                        <option value="{{ $estado->id }}">{{ $estado->estado }}</option>
+                    @endforeach
+                      <input type="hidden" id="token-estado" value="{{ csrf_token() }}"/>
+                      <input type="hidden" id="url-estado" value="{{ route('admin.localizacion.sectores.estadosCiudades') }} "/>
                   </select>
                 </div>
               </div>
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="label-busqueda">Ciudad</label>
-                  <select class="form-control input-busqueda-avanzada" id="" placeholder="Input field">
-                    <option value="0">--Todos--</option>
+                  <select class="form-control input-busqueda-avanzada" id="select-ciudad" name="ciudad_id">
+                    <option value="">--Todos--</option>
                   </select>
+                  <input type="hidden" id="token-ciudad" value="{{ csrf_token() }}"/>
+                  <input type="hidden" id="url-ciudad" value="{{ route('admin.localizacion.sectores.ciudadesSectores') }} "/>
                 </div>
               </div>
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="label-busqueda" >Sector</label>
-                  <select class="form-control input-busqueda-avanzada" id="" placeholder="Input field">
-                    <option value="0">--Todos--</option>
+                  <select class="form-control input-busqueda-avanzada" id="select-sector" name="sector_id">
+                    <option value="">--Todos--</option>
                   </select>
                 </div>
               </div>
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="label-busqueda">Tipo de inmueble</label>
-                  <select class="form-control input-busqueda-avanzada" id="" placeholder="Input field">
-                    <option value="0">--Todos--</option>
-                    <option value="0">Apartamento</option>
-                    <option value="0">Anexo</option>
-                    <option value="0">Casa</option>
-                    <option value="0">Edificio</option>
-                    <option value="0">Galpon</option>
-                    <option value="0">Local-Comercial</option>
-                    <option value="0">Oficina</option>
-                    <option value="0">Terreno</option>
+                  <select class="form-control input-busqueda-avanzada" id="" name="tipo_id">
+                    <option value="">--Todos--</option>
+                    
+                    @foreach ($tipos as $tipo)
+                      <option value="{{ $tipo->id }}">{{ $tipo->tipo }}</option>
+                    @endforeach
                   </select>
                 </div>
               </div>
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="label-busqueda">Tipo de negociación</label>
-                  <select class="form-control input-busqueda-avanzada" id="" placeholder="Input field">
-                    <option value="0">--Todos--</option>
-                    <option value="0">Alquiler</option>
-                    <option value="0">Venta</option>
+                  <select class="form-control input-busqueda-avanzada" id="" name="negociacion_id">
+                    <option value="">--Todos--</option>
+                    @foreach ($negos as $nego)
+                      <option value="{{ $nego->id }}">{{ $nego->negociacion }}</option>
+                    @endforeach
                   </select>
                 </div>
               </div>
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="label-busqueda">Min. Habitaciones</label>
-                  <input type="number" min="0" max="100" class="form-control input-busqueda-avanzada" id="" placeholder="Min. Habitaciones"/>
+                  <input type="number" min="0" max="100" class="form-control input-busqueda-avanzada" name="cuartos" id="" placeholder="Min. Habitaciones"/>
                 </div>
               </div>
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="label-busqueda">Min. Baños</label>
-                  <input type="number" min="0" max="100" class="form-control input-busqueda-avanzada" id="" placeholder=" Min. Baños"/>
+                  <input type="number" min="0" max="100" class="form-control input-busqueda-avanzada" name="banos" id="" placeholder=" Min. Baños"/>
                 </div>
               </div>
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="label-busqueda">Min. Estacionamientos</label>
-                  <input type="number" min="0" max="100" class="form-control input-busqueda-avanzada" id="" placeholder="Min. Estacionamientos"/>
+                  <input type="number" min="0" max="100" class="form-control input-busqueda-avanzada" name="estacionamientos" id="" placeholder="Min. Estacionamientos"/>
                 </div>
               </div>
               <div class="col-md-8">
@@ -108,13 +112,15 @@
                   <div class="cantidad-range">Precio: <span id="slider-margin-value-min"></span> Bs a <span id="slider-margin-value-max"></span> Bs</div>
                   <div id="slider-margin" name="slider-margin"></div>
                 </div>
+                <input type="hidden" name="minimo" id="precio-minimo"/>
+                <input type="hidden" name="maximo" id="precio-maximo"/>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary input-busqueda-button">Buscar</button>
                 </div>
               </div>
-          </form>
+          {!! Form::close() !!}
         </div>
       </div>
     </div>  
@@ -330,12 +336,12 @@
       var marginSlider = document.getElementById('slider-margin');
 
       noUiSlider.create(marginSlider, {
-        start: [ 20000000, 80000000 ],
+        start: [ {{ $min_star }}, {{ $max_star }} ],
         connect:true,
         step: 1000,
         range: {
-          'min': 0,
-          'max': 100000000
+          'min': {{ $min_precio }},
+          'max': {{ $max_precio }}
         },
         format: wNumb({
           decimals: 3,
@@ -349,10 +355,15 @@
       marginSlider.noUiSlider.on('update', function ( values, handle ) {
         if ( handle ) {
           marginMax.innerHTML = values[handle];
+          $('#precio-maximo').val(values[handle]);
         } else {
           marginMin.innerHTML = values[handle];
+          $('#precio-minimo').val(values[handle]);
         }
       });
+
   </script>
+
+  <script src="{{ asset('front/assets/funciones.js') }}"></script>
 
 @endsection

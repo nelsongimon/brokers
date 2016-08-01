@@ -56,13 +56,13 @@
 						 				@endif
 						 			@endforeach
 						 		</td>
-						 		<td><input type="checkbox" class="minimal" name="status"> &nbsp;&nbsp;{{ str_limit($inmueble->titulo,35) }}</td>
+						 		<td><input type="checkbox" class="minimal" name="status"> &nbsp;&nbsp;{{ str_limit($inmueble->titulo,25) }}</td>
 						 		<td style="text-align: center"> 						 		
 						 			@if($inmueble->status=='yes')
-										<span class="label label-success" style="font-size: 13px" id="contenedor-status"><span id="texto-status">Disponible</span>&nbsp; <a href="javascript:void(0)" style="color:white;" onclick="modificarStatus('{{ $inmueble->id }}','{{ $inmueble->status }}','{{ route('admin.inmuebles.updateStatus') }}')"><i class="fa fa-refresh" aria-hidden="true"></i></a>&nbsp;&nbsp;</span>
+										<span class="label label-success" style="font-size: 13px" id="contenedor-status-{{ $inmueble->id }}"><span id="texto-status-{{ $inmueble->id }}">Disponible</span>&nbsp; <a href="javascript:void(0)" style="color:white;" onclick="modificarStatus('{{ $inmueble->id }}','{{ $inmueble->status }}','{{ route('admin.inmuebles.updateStatus') }}')"><i class="fa fa-refresh" id="spin-{{ $inmueble->id }}" aria-hidden="true"></i></a>&nbsp;&nbsp;</span>
 						 			@else
 
-										<span class="label label-danger" style="font-size: 13px" id="contenedor-status"><span id="texto-status">No Disponible</span>&nbsp; <a href="javascript:void(0)" style="color:white;" onclick="modificarStatus('{{ $inmueble->id }}','{{ $inmueble->status }}','{{ route('admin.inmuebles.updateStatus') }}')"><i class="fa fa-refresh" aria-hidden="true"></i></a>&nbsp;&nbsp;</span>
+										<span class="label label-danger" style="font-size: 13px" id="contenedor-status-{{ $inmueble->id }}"><span id="texto-status-{{ $inmueble->id }}">No Disponible</span>&nbsp; <a href="javascript:void(0)" style="color:white;" onclick="modificarStatus('{{ $inmueble->id }}','{{ $inmueble->status }}','{{ route('admin.inmuebles.updateStatus') }}')"><i class="fa fa-refresh" id="spin-{{ $inmueble->id }}" aria-hidden="true"></i></a>&nbsp;&nbsp;</span>
 						 			@endif
 									<br>
 									

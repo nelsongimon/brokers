@@ -14,7 +14,7 @@
 <!-- ---------------------- banner -------------------------- -->
   <div class="inside-banner">
     <div class="container"> 
-        <h2>Resultados</h2>
+        <h2>Se encontraron {{ $cantidad }} propiedades </h2>
     </div>
   </div>
 
@@ -43,10 +43,12 @@
               <span class="glyphicon glyphicon-map-marker"><span class="font-filter"> Estado</span></span>
             </div>
               <ul class="list-filter">
-                <li><a href="#">Bolivar</a> <span class="cantidad-filter">(5)</span></li>
-                <li><a href="#">Carabobo</a> <span class="cantidad-filter">(12)</span></li>
-                <li><a href="#">Monagas</a> <span class="cantidad-filter">(25)</span></li>
-                <li><a href="#">Anzoategui</a> <span class="cantidad-filter">(3)</span></li>
+                @foreach ($estados as $estado)
+
+                  <li><a href="#">{{ $estado->estado }}</a> <span class="cantidad-filter">({{ count($estado->inmuebles) }})</span></li>
+
+                @endforeach
+                
               </ul>
           </div>
         </div>
@@ -56,8 +58,11 @@
               <i class="fa fa-money" aria-hidden="true"></i><span class="font-filter"> Negociación</span></span>
             </div>
               <ul class="list-filter">
-                <li><a href="#">Venta</a> <span class="cantidad-filter">(5)</span></li>
-                <li><a href="#">Alquiler</a> <span class="cantidad-filter">(12)</span></li>
+                @foreach ($negos as $nego)
+
+                  <li><a href="#">{{ $nego->negociacion }}</a> <span class="cantidad-filter">({{ count($nego->inmuebles) }})</span></li>
+
+                @endforeach
               </ul>
           </div>
         </div>
@@ -67,10 +72,11 @@
               <i class="fa fa-home" aria-hidden="true"></i><span class="font-filter"> Tipo de inmueble</span></span>
             </div>
               <ul class="list-filter">
-                <li><a href="#">Casa</a> <span class="cantidad-filter">(5)</span></li>
-                <li><a href="#">Apartamento</a> <span class="cantidad-filter">(12)</span></li>
-                <li><a href="#">Oficina</a> <span class="cantidad-filter">(25)</span></li>
-                <li><a href="#">Habitación</a> <span class="cantidad-filter">(3)</span></li>
+                @foreach ($tipos as $tipo)
+
+                  <li><a href="#">{{ $tipo->tipo }}</a> <span class="cantidad-filter">({{ count($tipo->inmuebles) }})</span></li>
+
+                @endforeach
               </ul>
           </div>
         </div>
@@ -80,10 +86,11 @@
               <i class="fa fa fa-bed" aria-hidden="true"></i><span class="font-filter"> Cuartos</span></span>
             </div>
               <ul class="list-filter">
-                <li><a href="#">1 Cuarto</a> <span class="cantidad-filter">(5)</span></li>
-                <li><a href="#">2 Cuartos</a> <span class="cantidad-filter">(12)</span></li>
-                <li><a href="#">3 Cuartos</a> <span class="cantidad-filter">(25)</span></li>
-                <li><a href="#">4 Cuartos</a> <span class="cantidad-filter">(3)</span></li>
+
+                @for ($i = 0; $i < count($cuartos); $i++)
+                    <li><a href="#">{{ $cuartos[$i]['numero'] }} Cuartos</a> <span class="cantidad-filter">({{ $cuartos[$i]['cantidad'] }})</span></li>
+                @endfor
+
               </ul>
           </div>
         </div>
@@ -93,10 +100,11 @@
               <i class="fa fa-tint" aria-hidden="true"></i><span class="font-filter"> Baños</span></span>
             </div>
               <ul class="list-filter">
-                <li><a href="#">1 Baño</a> <span class="cantidad-filter">(5)</span></li>
-                <li><a href="#">2 Baños</a> <span class="cantidad-filter">(12)</span></li>
-                <li><a href="#">3 Baños</a> <span class="cantidad-filter">(25)</span></li>
-                <li><a href="#">4 Baños</a> <span class="cantidad-filter">(3)</span></li>
+
+                @for ($i = 0; $i < count($banos); $i++)
+                    <li><a href="#">{{ $banos[$i]['numero'] }} Baños</a> <span class="cantidad-filter">({{ $banos[$i]['cantidad'] }})</span></li>
+                @endfor
+               
               </ul>
           </div>
         </div>
@@ -119,231 +127,44 @@
       <!-- -------------------- Inmuebles ------------------------ -->
       <div class="col-xs-12 col-sm-12 col-md-10">
         <div class="properties-listing spacer"> 
-          <div class="col-xs-12 col-sm-6 col-md-4">
-              <div class="properties properties-resultados">
-                <a href="">
-                <div class="image-holder"><img src="{{ asset('front/images/properties/2.jpg') }}" class="img-responsive" alt="properties"/>
-                  <div class="precio-resultados">Bs 100.000.000</div>
-                  <div class="negociacion-resultados">Venta</div>
-                </div>
-                </a>
-                 <div class="detalles-resultados">
-                     <span><i class="fa fa-bed"></i> 2 Cuartos </span>
-                     <span><i class="fa fa-tint"></i> 2 Baños </span> 
-                     <span><i class="fa fa-expand"></i> 41m² </span>    
-                 </div>
-                <div class="titulo-tipo-resultados">
-                  <div class="titulo">
-                    <a href="#">Bella casa en Tipuro con vista...</a>
-                  </div>
-                  <div class="tipo">
-                    Apartamento
-                  </div>
-                </div>
-               
-              </div>
-          </div>
 
-          <div class="col-xs-12 col-sm-6 col-md-4">
-              <div class="properties properties-resultados">
-                <a href="">
-                <div class="image-holder"><img src="{{ asset('front/images/properties/2.jpg') }}" class="img-responsive" alt="properties"/>
-                  <div class="precio-resultados">Bs 100.000.000</div>
-                  <div class="negociacion-resultados">Alquiler</div>
-                </div>
-                </a>
-                 <div class="detalles-resultados">
-                     <span><i class="fa fa-bed"></i> 2 Cuartos </span>
-                     <span><i class="fa fa-tint"></i> 2 Baños </span> 
-                     <span><i class="fa fa-expand"></i> 41m² </span>    
-                 </div>
-                <div class="titulo-tipo-resultados">
-                  <div class="titulo">
-                    <a href="#">Bella casa en Tipuro con vista...</a>
+        
+            @if($inmuebles)
+            @foreach ($inmuebles as $inmueble)
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="properties properties-resultados">
+                  <a href="{{ url('propiedades').'/'.$inmueble->slug }}">
+                  <div class="image-holder">
+                      @foreach ($inmueble->imagenes as $imagen)
+                        @if($imagen->principal=='yes')
+                        <img src="{{ asset('images/inmuebles/Thumb_').$imagen->imagen }}" class="img-responsive" alt="properties"/>
+                        @endif
+                      @endforeach
+                
+                    <div class="precio-resultados">Bs {{ number_format($inmueble->precio->dolares,0, ',', '.') }}</div>
+                    <div class="negociacion-resultados">{{ $inmueble->negociacion->negociacion }}</div>
                   </div>
-                  <div class="tipo">
-                    Apartamento
-                  </div>
+                  </a>
+                   <div class="detalles-resultados">
+                       <span><i class="fa fa-bed"></i> {{ $inmueble->cuartos }} Cuartos </span>
+                       <span><i class="fa fa-tint"></i> {{ $inmueble->banos }} Baños </span> 
+                       <span><i class="fa fa-expand"></i> {{ $inmueble->area_parcela }}m² </span>    
+                   </div>
+                  <div class="titulo-tipo-resultados">
+                    <div class="titulo">
+                      <a href="#">{{ str_limit($inmueble->titulo,26) }}</a>
+                    </div>
+                    <div class="tipo">
+                      {{ $inmueble->tipo->tipo }}
+                    </div>
+                  </div> 
                 </div>
+            </div>
+            @endforeach
+            @else
+                <h2>No se encontraron resultados.</h2>
+            @endif
                
-              </div>
-          </div>
-
-          <div class="col-xs-12 col-sm-6 col-md-4">
-              <div class="properties properties-resultados">
-                <a href="">
-                <div class="image-holder"><img src="{{ asset('front/images/properties/2.jpg') }}" class="img-responsive" alt="properties"/>
-                  <div class="precio-resultados">Bs 100.000.000</div>
-                  <div class="negociacion-resultados">Venta</div>
-                </div>
-                </a>
-                 <div class="detalles-resultados">
-                     <span><i class="fa fa-bed"></i> 2 Cuartos </span>
-                     <span><i class="fa fa-tint"></i> 2 Baños </span> 
-                     <span><i class="fa fa-expand"></i> 41m² </span>    
-                 </div>
-                <div class="titulo-tipo-resultados">
-                  <div class="titulo">
-                    <a href="#">Bella casa en Tipuro con vista...</a>
-                  </div>
-                  <div class="tipo">
-                    Apartamento
-                  </div>
-                </div>
-               
-              </div>
-          </div>
-
-          <div class="col-xs-12 col-sm-6 col-md-4">
-              <div class="properties properties-resultados">
-                <a href="">
-                <div class="image-holder"><img src="{{ asset('front/images/properties/2.jpg') }}" class="img-responsive" alt="properties"/>
-                  <div class="precio-resultados">Bs 100.000.000</div>
-                  <div class="negociacion-resultados">Venta</div>
-                </div>
-                </a>
-                 <div class="detalles-resultados">
-                     <span><i class="fa fa-bed"></i> 2 Cuartos </span>
-                     <span><i class="fa fa-tint"></i> 2 Baños </span> 
-                     <span><i class="fa fa-expand"></i> 41m² </span>    
-                 </div>
-                <div class="titulo-tipo-resultados">
-                  <div class="titulo">
-                    <a href="#">Bella casa en Tipuro con vista...</a>
-                  </div>
-                  <div class="tipo">
-                    Apartamento
-                  </div>
-                </div>
-               
-              </div>
-          </div>
-
-          <div class="col-xs-12 col-sm-6 col-md-4">
-              <div class="properties properties-resultados">
-                <a href="">
-                <div class="image-holder"><img src="{{ asset('front/images/properties/2.jpg') }}" class="img-responsive" alt="properties"/>
-                  <div class="precio-resultados">Bs 100.000.000</div>
-                  <div class="negociacion-resultados">Venta</div>
-                </div>
-                </a>
-                 <div class="detalles-resultados">
-                     <span><i class="fa fa-bed"></i> 2 Cuartos </span>
-                     <span><i class="fa fa-tint"></i> 2 Baños </span> 
-                     <span><i class="fa fa-expand"></i> 41m² </span>    
-                 </div>
-                <div class="titulo-tipo-resultados">
-                  <div class="titulo">
-                    <a href="#">Bella casa en Tipuro con vista...</a>
-                  </div>
-                  <div class="tipo">
-                    Apartamento
-                  </div>
-                </div>
-               
-              </div>
-          </div>
-
-          <div class="col-xs-12 col-sm-6 col-md-4">
-              <div class="properties properties-resultados">
-                <a href="">
-                <div class="image-holder"><img src="{{ asset('front/images/properties/2.jpg') }}" class="img-responsive" alt="properties"/>
-                  <div class="precio-resultados">Bs 100.000.000</div>
-                  <div class="negociacion-resultados">Venta</div>
-                </div>
-                </a>
-                 <div class="detalles-resultados">
-                     <span><i class="fa fa-bed"></i> 2 Cuartos </span>
-                     <span><i class="fa fa-tint"></i> 2 Baños </span> 
-                     <span><i class="fa fa-expand"></i> 41m² </span>    
-                 </div>
-                <div class="titulo-tipo-resultados">
-                  <div class="titulo">
-                    <a href="#">Bella casa en Tipuro con vista...</a>
-                  </div>
-                  <div class="tipo">
-                    Apartamento
-                  </div>
-                </div>
-               
-              </div>
-          </div>
-
-          <div class="col-xs-12 col-sm-6 col-md-4">
-              <div class="properties properties-resultados">
-                <a href="">
-                <div class="image-holder"><img src="{{ asset('front/images/properties/2.jpg') }}" class="img-responsive" alt="properties"/>
-                  <div class="precio-resultados">Bs 100.000.000</div>
-                  <div class="negociacion-resultados">Alquiler</div>
-                </div>
-                </a>
-                 <div class="detalles-resultados">
-                     <span><i class="fa fa-bed"></i> 2 Cuartos </span>
-                     <span><i class="fa fa-tint"></i> 2 Baños </span> 
-                     <span><i class="fa fa-expand"></i> 41m² </span>    
-                 </div>
-                <div class="titulo-tipo-resultados">
-                  <div class="titulo">
-                    <a href="#">Bella casa en Tipuro con vista...</a>
-                  </div>
-                  <div class="tipo">
-                    Apartamento
-                  </div>
-                </div>
-               
-              </div>
-          </div>
-
-          <div class="col-xs-12 col-sm-6 col-md-4">
-              <div class="properties properties-resultados">
-                <a href="">
-                <div class="image-holder"><img src="{{ asset('front/images/properties/2.jpg') }}" class="img-responsive" alt="properties"/>
-                  <div class="precio-resultados">Bs 100.000.000</div>
-                  <div class="negociacion-resultados">Venta</div>
-                </div>
-                </a>
-                 <div class="detalles-resultados">
-                     <span><i class="fa fa-bed"></i> 2 Cuartos </span>
-                     <span><i class="fa fa-tint"></i> 2 Baños </span> 
-                     <span><i class="fa fa-expand"></i> 41m² </span>    
-                 </div>
-                <div class="titulo-tipo-resultados">
-                  <div class="titulo">
-                    <a href="#">Bella casa en Tipuro con vista...</a>
-                  </div>
-                  <div class="tipo">
-                    Apartamento
-                  </div>
-                </div>
-               
-              </div>
-          </div>
-
-          <div class="col-xs-12 col-sm-6 col-md-4">
-              <div class="properties properties-resultados">
-                <a href="">
-                <div class="image-holder"><img src="{{ asset('front/images/properties/2.jpg') }}" class="img-responsive" alt="properties"/>
-                  <div class="precio-resultados">Bs 100.000.000</div>
-                  <div class="negociacion-resultados">Alquiler</div>
-                </div>
-                </a>
-                 <div class="detalles-resultados">
-                     <span><i class="fa fa-bed"></i> 2 Cuartos </span>
-                     <span><i class="fa fa-tint"></i> 2 Baños </span> 
-                     <span><i class="fa fa-expand"></i> 41m² </span>    
-                 </div>
-                <div class="titulo-tipo-resultados">
-                  <div class="titulo">
-                    <a href="#">Bella casa en Tipuro con vista...</a>
-                  </div>
-                  <div class="tipo">
-                    Apartamento
-                  </div>
-                </div>
-               
-              </div>
-          </div>
-          
         </div>
       </div>  
   </div>

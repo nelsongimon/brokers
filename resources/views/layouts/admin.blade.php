@@ -77,7 +77,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- Navbar Right Menu -->
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-          
+
+              <!-- Notifications Menu -->
+              <li class="dropdown notifications-menu">
+                <!-- Menu toggle button -->
+                <a href="{{ url('/') }}" target="_blank">
+                  <i class="fa fa-globe" aria-hidden="true"></i> &nbsp;Visitar Sitio
+                  
+                </a>
+              </li>
+             
 
               <!-- Notifications Menu -->
               <li class="dropdown notifications-menu">

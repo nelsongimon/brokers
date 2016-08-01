@@ -24,7 +24,7 @@ class CreateTiposRequest extends Request
     public function rules()
     {
         return [
-            'tipo' => 'required'
+            'tipo' => 'required|unique:tipos'
         ];
     }
 }

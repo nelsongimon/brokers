@@ -15,7 +15,7 @@ class Negociacion extends Model
     /*
     *
     */
-    public function inmueble(){
+    public function inmuebles(){
     	return $this->hasMany('App\Inmueble');
     }
 }

@@ -130,7 +130,7 @@
     <div class="searchbar">
       <div class="row">
         <div class="col-lg-offset-1 col-lg-6">
-          {!! Form::open(['route'=>'front.busquedaRapida', 'method'=>'POST']) !!}
+          {!! Form::open(['route'=>'front.busquedaRapida', 'method'=>'PUT']) !!}
            <div class="input-group">  
               <input type="text" class="form-control input-lg" name="busqueda" placeholder="Ingresa Sector, Ciudad, Estado o el tipo de inmueble">
               <span class="input-group-btn">

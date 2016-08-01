@@ -651,24 +651,22 @@ ul#thumbs img{
 
 .precio-resultados{
     position: absolute;
-	//background: #034F7D;
-	background: rgba(3,79,125,0.6);
+	background: rgba(3,79,125,0.8);
 	top: 0px;
     z-index: 100;
     display: block;
-    //width: 50%;
     height: 45px;
     color: #fff;
     padding: 11px 8px;
     text-align: center;
-    font-size: 14px;
+    font-size: 15px;
     font-family: 'Open Sans', sans-serif;
     font-weight: bold;
 }
 .precio-carousel{
     position: absolute;
 	//background: #034F7D;
-	background: rgba(3,79,125,0.6);
+	background: rgba(3,79,125,0.8);
 	top: 0px;
     z-index: 100;
     display: block;

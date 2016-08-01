@@ -24,7 +24,7 @@ class CreateNegociacionRequest extends Request
     public function rules()
     {
         return [
-            'negociacion' => 'required'
+            'negociacion' => 'required|unique:negociaciones'
         ];
     }
 }

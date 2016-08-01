@@ -23,9 +23,14 @@ Route::get('/busqueda-avanzada', 'FrontController@busquedaAvanzada');
 
 Route::get('/detalles-inmueble', 'FrontController@detallesInmuebles');
 
-Route::post('/busqueda-rapida',[
+Route::put('/resultados',[
 	'uses' => 'FrontController@busquedaRapida',
 	'as'   => 'front.busquedaRapida'
+	]);
+
+Route::post('/resultados',[
+	'uses' => 'FrontController@busqueda',
+	'as'   => 'front.busqueda'
 	]);
 
 
@@ -35,6 +40,11 @@ Route::post('/login',[
 	'as'=>'front.login'
 	]);
 Route::get('/logout','FrontController@logout');
+
+
+//Rutas de prueba
+
+Route::get('/numero-banos','FrontController@numeroBanos');
 
 
 //Rutas del Backend ---------------------------------------------------------
