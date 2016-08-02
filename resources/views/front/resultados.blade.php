@@ -26,15 +26,21 @@
       <div class="hidden-xs hidden-sm col-md-2 col-filter-content">
         <div class="col-xs-12 col-filter-item">
           <div class="box-filter-content">
+            @if($filtros)
             <div class="box-filtrar-aplicados">
               Filtros Aplicados
             </div>
             <ul class="list-filter">
-              <li><a href="#"><span class="glyphicon glyphicon-remove"></a> Bolivar</span></li>
-              <li><a href="#"><span class="glyphicon glyphicon-remove"></a> Venta</span></li>
-              <li><a href="#"><span class="glyphicon glyphicon-remove"></a> Apartamento</span></li>
-              <li><a href="#"><span class="glyphicon glyphicon-remove"></a> Puerto Ordaz</span></li>
+              @for ($i = 0; $i < count($filtros); $i++)
+                <li><a href="javascript:void(0)" onclick="removeFilter('{{ $filtros[$i]['filtro'] }}')" id="filtro-{{ $filtros[$i]['filtro'] }}" data-{{ $filtros[$i]['filtro'] }}="{{ str_slug($filtros[$i]['valor'],'-') }}"><span class="glyphicon glyphicon-remove"></a> {{ $filtros[$i]['valor'] }}</span></li>
+              @endfor
+                  
             </ul>
+          @else
+            <div class="box-filtrar-aplicados" style="padding: 6px 14px;">
+              Filtros 
+            </div>            
+          @endif
           </div>
         </div>  
         <div class="col-xs-12 col-filter-item">
@@ -45,7 +51,7 @@
               <ul class="list-filter">
                 @foreach ($estados as $estado)
 
-                  <li><a href="#">{{ $estado->estado }}</a> <span class="cantidad-filter">({{ count($estado->inmuebles) }})</span></li>
+                  <li><a href="javascript:void(0)"  onclick="addFilter('{{ str_slug($estado->estado,"-") }}','estado')" data-estado="">{{ $estado->estado }}</a> <span class="cantidad-filter">({{ count($estado->inmuebles) }})</span></li>
 
                 @endforeach
                 
@@ -60,7 +66,7 @@
               <ul class="list-filter">
                 @foreach ($negos as $nego)
 
-                  <li><a href="#">{{ $nego->negociacion }}</a> <span class="cantidad-filter">({{ count($nego->inmuebles) }})</span></li>
+                  <li><a href="javascript:void(0)" onclick="addFilter('{{ str_slug($nego->negociacion,"-") }}','negociacion')">{{ $nego->negociacion }}</a> <span class="cantidad-filter">({{ count($nego->inmuebles) }})</span></li>
 
                 @endforeach
               </ul>
@@ -74,7 +80,7 @@
               <ul class="list-filter">
                 @foreach ($tipos as $tipo)
 
-                  <li><a href="#">{{ $tipo->tipo }}</a> <span class="cantidad-filter">({{ count($tipo->inmuebles) }})</span></li>
+                  <li><a href="javascript:void(0)"  onclick="addFilter('{{ str_slug($tipo->tipo,"-") }}','tipo')">{{ $tipo->tipo }}</a> <span class="cantidad-filter">({{ count($tipo->inmuebles) }})</span></li>
 
                 @endforeach
               </ul>
@@ -88,7 +94,7 @@
               <ul class="list-filter">
 
                 @for ($i = 0; $i < count($cuartos); $i++)
-                    <li><a href="#">{{ $cuartos[$i]['numero'] }} Cuartos</a> <span class="cantidad-filter">({{ $cuartos[$i]['cantidad'] }})</span></li>
+                    <li><a href="javascript:void(0)" onclick="addFilter('{{ str_slug($cuartos[$i]['numero'],"-") }}','cuartos')">{{ $cuartos[$i]['numero'] }} Cuartos</a> <span class="cantidad-filter">({{ $cuartos[$i]['cantidad'] }})</span></li>
                 @endfor
 
               </ul>
@@ -102,7 +108,7 @@
               <ul class="list-filter">
 
                 @for ($i = 0; $i < count($banos); $i++)
-                    <li><a href="#">{{ $banos[$i]['numero'] }} Baños</a> <span class="cantidad-filter">({{ $banos[$i]['cantidad'] }})</span></li>
+                    <li><a href="javascript:void(0)" onclick="addFilter('{{ str_slug($banos[$i]['numero'],"-") }}','banos')">{{ $banos[$i]['numero'] }} Baños</a> <span class="cantidad-filter">({{ $banos[$i]['cantidad'] }})</span></li>
                 @endfor
                
               </ul>
@@ -189,6 +195,6 @@
 
 @section('javascript')
 
-
+  <script src="{{ asset('front/assets/funciones.js') }}"></script>
 
 @endsection

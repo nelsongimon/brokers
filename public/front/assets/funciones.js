@@ -75,3 +75,191 @@ $('document').ready(function(){
 		});
 	});
 });
+
+//------------------------------Funciones-------------------------------------
+
+
+
+
+
+function addFilter(valor,filtro){
+
+	var url = "";
+
+	if(filtro == 'tipo'){
+		url += valor;
+		if($('#filtro-negociacion').data('negociacion')){
+			url += '-en-'+$('#filtro-negociacion').data('negociacion');
+		}
+		if($('#filtro-estado').data('estado')){
+			url += '-en-'+$('#filtro-estado').data('estado');
+		}
+		if($('#filtro-banos').data('banos')){
+			url += '-con-'+$('#filtro-banos').data('banos');
+		}
+		if($('#filtro-cuartos').data('cuartos')){
+			url += '-con-'+$('#filtro-cuartos').data('cuartos');
+		}					
+	}
+	if(filtro == 'negociacion'){
+		if($('#filtro-tipo').data('tipo')){
+			url += $('#filtro-tipo').data('tipo');
+		}
+		else{
+			url += 'propiedad';
+	
+		}
+		url += '-en-'+valor;
+		if($('#filtro-estado').data('estado')){
+			url += '-en-'+$('#filtro-estado').data('estado');
+		}
+		if($('#filtro-banos').data('banos')){
+			url += '-con-'+$('#filtro-banos').data('banos');
+		}	
+		if($('#filtro-cuartos').data('cuartos')){
+			url += '-con-'+$('#filtro-cuartos').data('cuartos');
+		}	
+	}
+	if(filtro == 'estado'){
+		if($('#filtro-tipo').data('tipo')){
+			url += $('#filtro-tipo').data('tipo');
+		}
+		else{
+			url += 'propiedad';
+		}
+		if($('#filtro-negociacion').data('negociacion')){
+			url += '-en-'+$('#filtro-negociacion').data('negociacion');
+		}
+		url += '-en-'+valor;
+		if($('#filtro-banos').data('banos')){
+			url += '-con-'+$('#filtro-banos').data('banos');
+		}
+		if($('#filtro-cuartos').data('cuartos')){
+			url += '-con-'+$('#filtro-cuartos').data('cuartos');
+		}		
+	}
+	if(filtro == 'banos'){
+		if($('#filtro-tipo').data('tipo')){
+			url += $('#filtro-tipo').data('tipo');
+		}
+		else{
+			url += 'propiedad';
+		}
+		if($('#filtro-negociacion').data('negociacion')){
+			url += '-en-'+$('#filtro-negociacion').data('negociacion');
+		}
+		if($('#filtro-estado').data('estado')){
+			url += '-en-'+$('#filtro-estado').data('estado');
+		}
+		url += '-con-'+valor+'-banos';
+		if($('#filtro-cuartos').data('cuartos')){
+			url += '-con-'+$('#filtro-cuartos').data('cuartos');
+		}	
+	}
+	if(filtro == 'cuartos'){
+		if($('#filtro-tipo').data('tipo')){
+			url += $('#filtro-tipo').data('tipo');
+		}
+		else{
+			url += 'propiedad';
+		}
+		if($('#filtro-negociacion').data('negociacion')){
+			url += '-en-'+$('#filtro-negociacion').data('negociacion');
+		}
+		if($('#filtro-estado').data('estado')){
+			url += '-en-'+$('#filtro-estado').data('estado');
+		}
+		if($('#filtro-banos').data('banos')){
+			url += '-con-'+$('#filtro-banos').data('banos');
+		}
+		url += '-con-'+valor+'-cuartos';
+	}
+	//alert(url);
+	window.location = url;
+}
+
+
+
+function removeFilter(filtro){
+	var url = "";
+
+	if(filtro == 'tipo'){
+
+		url += 'propiedad';
+		
+		if($('#filtro-negociacion').data('negociacion')){
+			url += '-en-'+$('#filtro-negociacion').data('negociacion');
+		}
+		if($('#filtro-estado').data('estado')){
+			url += '-en-'+$('#filtro-estado').data('estado');
+		}
+		if($('#filtro-banos').data('banos')){
+			url += '-con-'+$('#filtro-banos').data('banos');
+		}	
+	}
+
+	if(filtro == 'negociacion'){
+		if($('#filtro-tipo').data('tipo')){
+			url += $('#filtro-tipo').data('tipo');
+		}
+		else{
+			url += 'propiedad';
+	
+		}
+		if($('#filtro-estado').data('estado')){
+			url += '-en-'+$('#filtro-estado').data('estado');
+		}
+		if($('#filtro-banos').data('banos')){
+			url += '-con-'+$('#filtro-banos').data('banos');
+		}	
+	}
+	if(filtro == 'estado'){
+		if($('#filtro-tipo').data('tipo')){
+			url += $('#filtro-tipo').data('tipo');
+		}
+		else{
+			url += 'propiedad';
+	
+		}
+		if($('#filtro-negociacion').data('negociacion')){
+			url += '-en-'+$('#filtro-negociacion').data('negociacion');
+		}
+		if($('#filtro-banos').data('banos')){
+			url += '-con-'+$('#filtro-banos').data('banos');
+		}	
+	}
+	if(filtro == 'banos'){
+		if($('#filtro-tipo').data('tipo')){
+			url += $('#filtro-tipo').data('tipo');
+		}
+		else{
+			url += 'propiedad';
+	
+		}
+		if($('#filtro-negociacion').data('negociacion')){
+			url += '-en-'+$('#filtro-negociacion').data('negociacion');
+		}
+		if($('#filtro-estado').data('estado')){
+			url += '-con-'+$('#filtro-estado').data('estado');
+		}	
+	}
+	if(filtro == 'cuartos'){
+		if($('#filtro-tipo').data('tipo')){
+			url += $('#filtro-tipo').data('tipo');
+		}
+		else{
+			url += 'propiedad';
+	
+		}
+		if($('#filtro-negociacion').data('negociacion')){
+			url += '-en-'+$('#filtro-negociacion').data('negociacion');
+		}
+		if($('#filtro-estado').data('estado')){
+			url += '-con-'+$('#filtro-estado').data('estado');
+		}
+		if($('#filtro-banos').data('banos')){
+			url += '-con-'+$('#filtro-banos').data('banos');
+		}	
+	}
+	window.location = url;
+}

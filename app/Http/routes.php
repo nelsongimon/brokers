@@ -17,7 +17,7 @@
 
 Route::get('/','FrontController@index');
 
-Route::get('/resultados', 'FrontController@resultados');
+//Route::get('/resultados', 'FrontController@resultados');
 
 Route::get('/busqueda-avanzada', 'FrontController@busquedaAvanzada');
 
@@ -28,10 +28,12 @@ Route::put('/resultados',[
 	'as'   => 'front.busquedaRapida'
 	]);
 
-Route::post('/resultados',[
+Route::get('/propiedades',[
 	'uses' => 'FrontController@busqueda',
 	'as'   => 'front.busqueda'
 	]);
+
+Route::get('/{filtrado}','FrontController@filtrado');
 
 
 Route::get('/login','FrontController@login');

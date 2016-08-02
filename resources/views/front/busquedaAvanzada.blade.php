@@ -34,7 +34,7 @@
     <div class="col-xs-12 col-md-12 col-lg-offset-1 col-lg-10">
     <div class="panel panel-default opacity-panel">
       <div class="panel-body">
-        {!! Form::open(['route' => 'front.busqueda', 'method' => 'post']) !!}
+        {!! Form::open(['route' => 'front.busqueda', 'method' => 'get']) !!}
             <div class="col-md-3">
                 <div class="form-group">
                   <label class="label-busqueda">Estado</label>
