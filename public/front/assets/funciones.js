@@ -76,6 +76,43 @@ $('document').ready(function(){
 	});
 });
 
+
+//------------------------------Jquery---------------------------------------
+
+$(document).ready(function(){
+
+	$('#seleccion-ciudades').hide();
+	$('#seleccion-sectores').hide();
+
+	if($('#filtro-tipo').data('tipo')){
+		$('#seleccion-tipos').hide();
+	}
+	if($('#filtro-negociacion').data('negociacion')){
+		$('#seleccion-negociaciones').hide();
+	}
+	if($('#filtro-estado').data('estado')){
+		$('#seleccion-estados').hide();
+		$('#seleccion-ciudades').show();
+	}
+	if($('#filtro-ciudad').data('ciudad')){
+		$('#seleccion-estados').hide();
+		$('#seleccion-sectores').show();
+	}
+	if($('#filtro-sector').data('sector')){
+		$('#seleccion-estados').hide();
+		$('#seleccion-ciudades').hide();
+		$('#seleccion-sectores').hide();
+	}
+	if($('#filtro-banos').data('banos')){
+		$('#seleccion-banos').hide();
+	}
+	if($('#filtro-cuartos').data('cuartos')){
+		$('#seleccion-cuartos').hide();
+	}
+	
+
+});
+
 //------------------------------Funciones-------------------------------------
 
 
@@ -94,12 +131,19 @@ function addFilter(valor,filtro){
 		if($('#filtro-estado').data('estado')){
 			url += '-en-'+$('#filtro-estado').data('estado');
 		}
+		if($('#filtro-ciudad').data('ciudad')){
+			url += '-en-'+$('#filtro-ciudad').data('ciudad');
+		}
+		if($('#filtro-sector').data('sector')){
+			url += '-en-'+$('#filtro-sector').data('sector');
+		}
 		if($('#filtro-banos').data('banos')){
 			url += '-con-'+$('#filtro-banos').data('banos');
 		}
 		if($('#filtro-cuartos').data('cuartos')){
 			url += '-con-'+$('#filtro-cuartos').data('cuartos');
-		}					
+		}
+
 	}
 	if(filtro == 'negociacion'){
 		if($('#filtro-tipo').data('tipo')){
@@ -113,6 +157,12 @@ function addFilter(valor,filtro){
 		if($('#filtro-estado').data('estado')){
 			url += '-en-'+$('#filtro-estado').data('estado');
 		}
+		if($('#filtro-ciudad').data('ciudad')){
+			url += '-en-'+$('#filtro-ciudad').data('ciudad');
+		}
+		if($('#filtro-sector').data('sector')){
+			url += '-en-'+$('#filtro-sector').data('sector');
+		}
 		if($('#filtro-banos').data('banos')){
 			url += '-con-'+$('#filtro-banos').data('banos');
 		}	
@@ -120,7 +170,7 @@ function addFilter(valor,filtro){
 			url += '-con-'+$('#filtro-cuartos').data('cuartos');
 		}	
 	}
-	if(filtro == 'estado'){
+	if(filtro == 'estado' || filtro == 'ciudad' || filtro == 'sector'){
 		if($('#filtro-tipo').data('tipo')){
 			url += $('#filtro-tipo').data('tipo');
 		}
@@ -151,7 +201,18 @@ function addFilter(valor,filtro){
 		if($('#filtro-estado').data('estado')){
 			url += '-en-'+$('#filtro-estado').data('estado');
 		}
-		url += '-con-'+valor+'-banos';
+		if($('#filtro-ciudad').data('ciudad')){
+			url += '-en-'+$('#filtro-ciudad').data('ciudad');
+		}
+		if($('#filtro-sector').data('sector')){
+			url += '-en-'+$('#filtro-sector').data('sector');
+		}
+		if(valor == 1){
+			url += '-con-'+valor+'-bano';
+		}
+		else{
+			url += '-con-'+valor+'-banos';
+		}
 		if($('#filtro-cuartos').data('cuartos')){
 			url += '-con-'+$('#filtro-cuartos').data('cuartos');
 		}	
@@ -169,12 +230,23 @@ function addFilter(valor,filtro){
 		if($('#filtro-estado').data('estado')){
 			url += '-en-'+$('#filtro-estado').data('estado');
 		}
+		if($('#filtro-ciudad').data('ciudad')){
+			url += '-en-'+$('#filtro-ciudad').data('ciudad');
+		}
+		if($('#filtro-sector').data('sector')){
+			url += '-en-'+$('#filtro-sector').data('sector');
+		}
 		if($('#filtro-banos').data('banos')){
 			url += '-con-'+$('#filtro-banos').data('banos');
 		}
-		url += '-con-'+valor+'-cuartos';
+		if(valor == 1){
+			url += '-con-'+valor+'-cuarto';
+		}
+		else{
+			url += '-con-'+valor+'-cuartos';
+		}
 	}
-	//alert(url);
+
 	window.location = url;
 }
 
@@ -193,9 +265,20 @@ function removeFilter(filtro){
 		if($('#filtro-estado').data('estado')){
 			url += '-en-'+$('#filtro-estado').data('estado');
 		}
+		if($('#filtro-ciudad').data('ciudad')){
+			url += '-en-'+$('#filtro-ciudad').data('ciudad');
+		}
+		if($('#filtro-sector').data('sector')){
+			url += '-en-'+$('#filtro-sector').data('sector');
+		}
 		if($('#filtro-banos').data('banos')){
 			url += '-con-'+$('#filtro-banos').data('banos');
-		}	
+		}
+		if($('#filtro-cuartos').data('cuartos')){
+			url += '-con-'+$('#filtro-cuartos').data('cuartos');
+		}
+
+		$('#list-filtro-tipo').fadeOut(500);		
 	}
 
 	if(filtro == 'negociacion'){
@@ -209,11 +292,22 @@ function removeFilter(filtro){
 		if($('#filtro-estado').data('estado')){
 			url += '-en-'+$('#filtro-estado').data('estado');
 		}
+		if($('#filtro-ciudad').data('ciudad')){
+			url += '-en-'+$('#filtro-ciudad').data('ciudad');
+		}
+		if($('#filtro-sector').data('sector')){
+			url += '-en-'+$('#filtro-sector').data('sector');
+		}
 		if($('#filtro-banos').data('banos')){
 			url += '-con-'+$('#filtro-banos').data('banos');
-		}	
+		}
+		if($('#filtro-cuartos').data('cuartos')){
+			url += '-con-'+$('#filtro-cuartos').data('cuartos');
+		}
+
+		$('#list-filtro-negociacion').fadeOut(500);		
 	}
-	if(filtro == 'estado'){
+	if(filtro == 'estado' || filtro == 'ciudad' || filtro == 'sector'){
 		if($('#filtro-tipo').data('tipo')){
 			url += $('#filtro-tipo').data('tipo');
 		}
@@ -226,7 +320,14 @@ function removeFilter(filtro){
 		}
 		if($('#filtro-banos').data('banos')){
 			url += '-con-'+$('#filtro-banos').data('banos');
-		}	
+		}
+		if($('#filtro-cuartos').data('cuartos')){
+			url += '-con-'+$('#filtro-cuartos').data('cuartos');
+		}
+
+		$('#list-filtro-estado').fadeOut(500);
+		$('#list-filtro-ciudad').fadeOut(500);		
+		$('#list-filtro-sector').fadeOut(500);		
 	}
 	if(filtro == 'banos'){
 		if($('#filtro-tipo').data('tipo')){
@@ -241,7 +342,18 @@ function removeFilter(filtro){
 		}
 		if($('#filtro-estado').data('estado')){
 			url += '-con-'+$('#filtro-estado').data('estado');
-		}	
+		}
+		if($('#filtro-ciudad').data('ciudad')){
+			url += '-en-'+$('#filtro-ciudad').data('ciudad');
+		}
+		if($('#filtro-sector').data('sector')){
+			url += '-en-'+$('#filtro-sector').data('sector');
+		}
+		if($('#filtro-cuartos').data('cuartos')){
+			url += '-con-'+$('#filtro-cuartos').data('cuartos');
+		}
+
+		$('#list-filtro-banos').fadeOut(500);	
 	}
 	if(filtro == 'cuartos'){
 		if($('#filtro-tipo').data('tipo')){
@@ -257,9 +369,17 @@ function removeFilter(filtro){
 		if($('#filtro-estado').data('estado')){
 			url += '-con-'+$('#filtro-estado').data('estado');
 		}
+		if($('#filtro-ciudad').data('ciudad')){
+			url += '-en-'+$('#filtro-ciudad').data('ciudad');
+		}
+		if($('#filtro-sector').data('sector')){
+			url += '-en-'+$('#filtro-sector').data('sector');
+		}
 		if($('#filtro-banos').data('banos')){
 			url += '-con-'+$('#filtro-banos').data('banos');
-		}	
+		}
+
+		$('#list-filtro-cuartos').fadeOut(500);	
 	}
 	window.location = url;
 }

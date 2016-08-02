@@ -361,6 +361,16 @@ h2{font-size: 25px;}
 	font-family: 'Open Sans', sans-serif;
 	font-size: 15px;
 }
+
+.list-filter li a {
+	text-decoration: none;
+}
+
+.list-filter li a:hover {
+	color: #0475B9;
+}
+
+
 .cantidad-filter{
 	color: #939393;
 }

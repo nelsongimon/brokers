@@ -33,9 +33,6 @@ Route::get('/propiedades',[
 	'as'   => 'front.busqueda'
 	]);
 
-Route::get('/{filtrado}','FrontController@filtrado');
-
-
 Route::get('/login','FrontController@login');
 Route::post('/login',[
 	'uses'=>'FrontController@loginAuth', 
@@ -43,10 +40,9 @@ Route::post('/login',[
 	]);
 Route::get('/logout','FrontController@logout');
 
+Route::get('/{filtrado}','FrontController@filtrado');
 
-//Rutas de prueba
 
-Route::get('/numero-banos','FrontController@numeroBanos');
 
 
 //Rutas del Backend ---------------------------------------------------------
