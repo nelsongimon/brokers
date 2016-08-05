@@ -38,7 +38,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                   <label class="label-busqueda">Estado</label>
-                  <select class="form-control input-busqueda-avanzada" id="select-estado" name="estado_id">
+                  <select class="form-control input-busqueda-avanzada" id="select-estado" name="estado">
                     <option value="">--Todos--</option>
                     @foreach ($estados as $estado)
                         <option value="{{ $estado->id }}">{{ $estado->estado }}</option>
@@ -51,7 +51,7 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="label-busqueda">Ciudad</label>
-                  <select class="form-control input-busqueda-avanzada" id="select-ciudad" name="ciudad_id">
+                  <select class="form-control input-busqueda-avanzada" id="select-ciudad" name="ciudad">
                     <option value="">--Todos--</option>
                   </select>
                   <input type="hidden" id="token-ciudad" value="{{ csrf_token() }}"/>
@@ -61,7 +61,7 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="label-busqueda" >Sector</label>
-                  <select class="form-control input-busqueda-avanzada" id="select-sector" name="sector_id">
+                  <select class="form-control input-busqueda-avanzada" id="select-sector" name="sector">
                     <option value="">--Todos--</option>
                   </select>
                 </div>
@@ -69,7 +69,7 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="label-busqueda">Tipo de inmueble</label>
-                  <select class="form-control input-busqueda-avanzada" id="" name="tipo_id">
+                  <select class="form-control input-busqueda-avanzada" id="" name="tipo">
                     <option value="">--Todos--</option>
                     
                     @foreach ($tipos as $tipo)
@@ -81,7 +81,7 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="label-busqueda">Tipo de negociación</label>
-                  <select class="form-control input-busqueda-avanzada" id="" name="negociacion_id">
+                  <select class="form-control input-busqueda-avanzada" id="" name="negociacion">
                     <option value="">--Todos--</option>
                     @foreach ($negos as $nego)
                       <option value="{{ $nego->id }}">{{ $nego->negociacion }}</option>

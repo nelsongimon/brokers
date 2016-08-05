@@ -23,8 +23,10 @@ $('document').ready(function(){
 				if(data.mensaje=="error"){
 					$('#select-ciudad').html('<option value="">--Todos--</option>');
 					$('#select-ciudad-solo').html('<option value="">--Todos--</option>');
+
 					return false;
 				}
+				
 				$('#select-ciudad').html('<option value="">--Todos--</option>');
 				$('#select-ciudad-solo').html('<option value="">--Todos--</option>');
 				for(var i=0; i<data.ciudades.length; i++){
@@ -43,6 +45,10 @@ $('document').ready(function(){
 
 //Carga dinamica de las opciones de los sectores
 $('document').ready(function(){
+
+	//$('.pagination li span,.pagination li a').css('color','blue');
+
+
 	$('#select-ciudad').change(function(){
 
 		$.ajax({
@@ -109,13 +115,14 @@ $(document).ready(function(){
 	if($('#filtro-cuartos').data('cuartos')){
 		$('#seleccion-cuartos').hide();
 	}
+	if($('#filtro-estacionamiento').data('estacionamiento')){
+		$('#seleccion-estacionamiento').hide();
+	}
 	
 
 });
 
 //------------------------------Funciones-------------------------------------
-
-
 
 
 
@@ -143,6 +150,9 @@ function addFilter(valor,filtro){
 		if($('#filtro-cuartos').data('cuartos')){
 			url += '-con-'+$('#filtro-cuartos').data('cuartos');
 		}
+		if($('#filtro-estacionamiento').data('estacionamiento')){
+			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
+		}
 
 	}
 	if(filtro == 'negociacion'){
@@ -168,6 +178,9 @@ function addFilter(valor,filtro){
 		}	
 		if($('#filtro-cuartos').data('cuartos')){
 			url += '-con-'+$('#filtro-cuartos').data('cuartos');
+		}
+		if($('#filtro-estacionamiento').data('estacionamiento')){
+			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
 		}	
 	}
 	if(filtro == 'estado' || filtro == 'ciudad' || filtro == 'sector'){
@@ -186,6 +199,9 @@ function addFilter(valor,filtro){
 		}
 		if($('#filtro-cuartos').data('cuartos')){
 			url += '-con-'+$('#filtro-cuartos').data('cuartos');
+		}
+		if($('#filtro-estacionamiento').data('estacionamiento')){
+			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
 		}		
 	}
 	if(filtro == 'banos'){
@@ -215,6 +231,9 @@ function addFilter(valor,filtro){
 		}
 		if($('#filtro-cuartos').data('cuartos')){
 			url += '-con-'+$('#filtro-cuartos').data('cuartos');
+		}
+		if($('#filtro-estacionamiento').data('estacionamiento')){
+			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
 		}	
 	}
 	if(filtro == 'cuartos'){
@@ -244,6 +263,41 @@ function addFilter(valor,filtro){
 		}
 		else{
 			url += '-con-'+valor+'-cuartos';
+		}
+		if($('#filtro-estacionamiento').data('estacionamiento')){
+			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
+		}
+	}
+	if(filtro == 'estacionamiento'){
+		if($('#filtro-tipo').data('tipo')){
+			url += $('#filtro-tipo').data('tipo');
+		}
+		else{
+			url += 'propiedad';
+		}
+		if($('#filtro-negociacion').data('negociacion')){
+			url += '-en-'+$('#filtro-negociacion').data('negociacion');
+		}
+		if($('#filtro-estado').data('estado')){
+			url += '-en-'+$('#filtro-estado').data('estado');
+		}
+		if($('#filtro-ciudad').data('ciudad')){
+			url += '-en-'+$('#filtro-ciudad').data('ciudad');
+		}
+		if($('#filtro-sector').data('sector')){
+			url += '-en-'+$('#filtro-sector').data('sector');
+		}
+		if($('#filtro-banos').data('banos')){
+			url += '-con-'+$('#filtro-banos').data('banos');
+		}
+		if($('#filtro-cuartos').data('cuartos')){
+			url += '-con-'+$('#filtro-cuartos').data('cuartos');
+		}
+		if(valor == 1){
+			url += '-para-'+valor+'-auto';
+		}
+		else{
+			url += '-para-'+valor+'-autos';
 		}
 	}
 
@@ -277,8 +331,11 @@ function removeFilter(filtro){
 		if($('#filtro-cuartos').data('cuartos')){
 			url += '-con-'+$('#filtro-cuartos').data('cuartos');
 		}
+		if($('#filtro-estacionamiento').data('estacionamiento')){
+			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
+		}
 
-		$('#list-filtro-tipo').fadeOut(500);		
+		$('#list-filtro-tipo').fadeOut(300);		
 	}
 
 	if(filtro == 'negociacion'){
@@ -304,8 +361,11 @@ function removeFilter(filtro){
 		if($('#filtro-cuartos').data('cuartos')){
 			url += '-con-'+$('#filtro-cuartos').data('cuartos');
 		}
+		if($('#filtro-estacionamiento').data('estacionamiento')){
+			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
+		}
 
-		$('#list-filtro-negociacion').fadeOut(500);		
+		$('#list-filtro-negociacion').fadeOut(300);		
 	}
 	if(filtro == 'estado' || filtro == 'ciudad' || filtro == 'sector'){
 		if($('#filtro-tipo').data('tipo')){
@@ -318,16 +378,27 @@ function removeFilter(filtro){
 		if($('#filtro-negociacion').data('negociacion')){
 			url += '-en-'+$('#filtro-negociacion').data('negociacion');
 		}
+
+		if(filtro == "ciudad"){
+			url += '-en-'+$('#state').data('state');
+		}
+		if(filtro == 'sector'){
+			url += '-en-'+$('#city').data('city');
+		}
+
 		if($('#filtro-banos').data('banos')){
 			url += '-con-'+$('#filtro-banos').data('banos');
 		}
 		if($('#filtro-cuartos').data('cuartos')){
 			url += '-con-'+$('#filtro-cuartos').data('cuartos');
 		}
+		if($('#filtro-estacionamiento').data('estacionamiento')){
+			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
+		}
 
-		$('#list-filtro-estado').fadeOut(500);
-		$('#list-filtro-ciudad').fadeOut(500);		
-		$('#list-filtro-sector').fadeOut(500);		
+		$('#list-filtro-estado').fadeOut(300);
+		$('#list-filtro-ciudad').fadeOut(300);		
+		$('#list-filtro-sector').fadeOut(300);		
 	}
 	if(filtro == 'banos'){
 		if($('#filtro-tipo').data('tipo')){
@@ -352,8 +423,11 @@ function removeFilter(filtro){
 		if($('#filtro-cuartos').data('cuartos')){
 			url += '-con-'+$('#filtro-cuartos').data('cuartos');
 		}
+		if($('#filtro-estacionamiento').data('estacionamiento')){
+			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
+		}
 
-		$('#list-filtro-banos').fadeOut(500);	
+		$('#list-filtro-banos').fadeOut(300);	
 	}
 	if(filtro == 'cuartos'){
 		if($('#filtro-tipo').data('tipo')){
@@ -378,8 +452,41 @@ function removeFilter(filtro){
 		if($('#filtro-banos').data('banos')){
 			url += '-con-'+$('#filtro-banos').data('banos');
 		}
+		if($('#filtro-estacionamiento').data('estacionamiento')){
+			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
+		}
 
-		$('#list-filtro-cuartos').fadeOut(500);	
+		$('#list-filtro-cuartos').fadeOut(300);	
 	}
+	if(filtro == 'estacionamiento'){
+		if($('#filtro-tipo').data('tipo')){
+			url += $('#filtro-tipo').data('tipo');
+		}
+		else{
+			url += 'propiedad';
+	
+		}
+		if($('#filtro-negociacion').data('negociacion')){
+			url += '-en-'+$('#filtro-negociacion').data('negociacion');
+		}
+		if($('#filtro-estado').data('estado')){
+			url += '-con-'+$('#filtro-estado').data('estado');
+		}
+		if($('#filtro-ciudad').data('ciudad')){
+			url += '-en-'+$('#filtro-ciudad').data('ciudad');
+		}
+		if($('#filtro-sector').data('sector')){
+			url += '-en-'+$('#filtro-sector').data('sector');
+		}
+		if($('#filtro-banos').data('banos')){
+			url += '-con-'+$('#filtro-banos').data('banos');
+		}
+		if($('#filtro-cuartos').data('cuartos')){
+			url += '-'+$('#filtro-cuartos').data('cuartos');
+		}
+
+		$('#list-filtro-estacionamiento').fadeOut(300);	
+	}
+
 	window.location = url;
 }

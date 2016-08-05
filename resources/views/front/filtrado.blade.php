@@ -30,9 +30,21 @@
       <div class="hidden-xs hidden-sm col-md-2 col-filter-content">
         <div class="col-xs-12 col-filter-item">
           <div class="box-filter-content">
+            @if($filtros)
+            <div class="box-filtrar-aplicados">
+              Filtros Aplicados
+            </div>
+            <ul class="list-filter">
+              @for ($i = 0; $i < count($filtros); $i++)
+                <li id="list-filtro-{{ $filtros[$i]['filtro'] }}"><a href="javascript:void(0)" onclick="removeFilter('{{ $filtros[$i]['filtro'] }}')" id="filtro-{{ $filtros[$i]['filtro'] }}" data-{{ $filtros[$i]['filtro'] }}="{{ str_slug($filtros[$i]['valor'],'-') }}"><span class="glyphicon glyphicon-remove"></a> {{ $filtros[$i]['valor'] }}</span></li>
+              @endfor
+                  
+            </ul>
+          @else
             <div class="box-filtrar-aplicados" style="padding: 5px 14px;">
               Filtros 
             </div>            
+          @endif
           </div>
         </div>  
         <div class="col-xs-12 col-filter-item" id="seleccion-estados">
@@ -41,15 +53,43 @@
               <span class="glyphicon glyphicon-map-marker"><span class="font-filter"> Estado</span></span>
             </div>
               <ul class="list-filter">
+                @for ($i = 0; $i < count($estados); $i++)
 
-                @foreach ($estados as $estado)
-                  @if(count($estado->inmuebles) != 0)
-                  <li><a href="javascript:void(0)" id="state" data-state="{{ str_slug($estado->estado,"-") }}"  onclick="addFilter('{{ str_slug($estado->estado,"-") }}','estado')">{{ $estado->estado }}</a> <span class="cantidad-filter">({{ count($estado->inmuebles) }})</span></li>
-                  @else
+                  <li><a href="javascript:void(0)" id="state" data-state="{{ str_slug($estados[$i]['estado'],"-") }}"  onclick="addFilter('{{ str_slug($estados[$i]['estado'],"-") }}','estado')">{{ $estados[$i]['estado'] }}</a> <span class="cantidad-filter">({{ $estados[$i]['cantidad'] }})</span></li>
 
-                  @endif
-                @endforeach
+                @endfor
+                
+              </ul>
+          </div>
+        </div>
+        <div class="col-xs-12 col-filter-item" id="seleccion-ciudades">
+          <div class="box-filter-content">
+            <div class="box-filtrar-t">
+              <span class="glyphicon glyphicon-map-marker"><span class="font-filter"> Ciudad</span></span>
+            </div>
+              <ul class="list-filter">
+                @for ($i = 0; $i < count($ciudades); $i++)
 
+                  <li><a href="javascript:void(0)" id="city" data-city="{{ str_slug($ciudades[$i]['ciudad'],"-") }}"  onclick="addFilter('{{ str_slug($ciudades[$i]['ciudad'],"-") }}','ciudad')">{{ $ciudades[$i]['ciudad'] }}</a> <span class="cantidad-filter">({{ $ciudades[$i]['cantidad'] }})</span></li>
+
+                @endfor
+                
+              </ul>
+          </div>
+        </div>
+        <div class="col-xs-12 col-filter-item" id="seleccion-sectores">
+          <div class="box-filter-content">
+            <div class="box-filtrar-t">
+              <span class="glyphicon glyphicon-map-marker"><span class="font-filter"> Sector</span></span>
+            </div>
+      
+              <ul class="list-filter">
+                @for ($i = 0; $i < count($sectores); $i++)
+
+                  <li><a href="javascript:void(0)"  onclick="addFilter('{{ str_slug($sectores[$i]['sector'],"-") }}','sector')">{{ $sectores[$i]['sector'] }}</a> <span class="cantidad-filter">({{ $sectores[$i]['cantidad'] }})</span></li>
+
+                @endfor
+                
               </ul>
           </div>
         </div>
@@ -59,14 +99,11 @@
               <i class="fa fa-money" aria-hidden="true"></i><span class="font-filter"> Negociación</span></span>
             </div>
               <ul class="list-filter">
-                @foreach ($negociaciones as $negociacion)
-                  @if(count($negociacion->inmuebles) != 0)
-                  <li><a href="javascript:void(0)" onclick="addFilter('{{ str_slug($negociacion->negociacion,"-") }}','negociacion')">{{ $negociacion->negociacion }}</a> <span class="cantidad-filter">({{ count($negociacion->inmuebles) }})</span></li>
-                  @else
+                @for ($i = 0; $i < count($negociaciones); $i++)
 
-                  @endif
-                @endforeach
+                  <li><a href="javascript:void(0)" onclick="addFilter('{{ str_slug($negociaciones[$i]['negociacion'],"-") }}','negociacion')">{{ $negociaciones[$i]['negociacion'] }}</a> <span class="cantidad-filter">({{ $negociaciones[$i]['cantidad'] }})</span></li>
 
+                @endfor
               </ul>
           </div>
         </div>
@@ -76,16 +113,11 @@
               <i class="fa fa-home" aria-hidden="true"></i><span class="font-filter"> Tipo de inmueble</span></span>
             </div>
               <ul class="list-filter">
+                @for ($i = 0; $i < count($tipos); $i++)
 
-                @foreach ($tipos as $tipo)
-                  @if(count($tipo->inmuebles) != 0)
-                  <li><a href="javascript:void(0)"  onclick="addFilter('{{ str_slug($tipo->tipo,"-") }}','tipo')">{{ $tipo->tipo }}</a> <span class="cantidad-filter">({{ count($tipo->inmuebles) }})</span></li>
-                  @else
+                  <li><a href="javascript:void(0)"  onclick="addFilter('{{ str_slug($tipos[$i]['tipo'],"-") }}','tipo')">{{ $tipos[$i]['tipo'] }}</a> <span class="cantidad-filter">({{ $tipos[$i]['cantidad'] }})</span></li>
 
-                  @endif
-                @endforeach
-
-
+                @endfor
               </ul>
           </div>
         </div>
@@ -132,6 +164,27 @@
               </ul>
           </div>
         </div>
+        <div class="col-xs-12 col-filter-item" id="seleccion-estacionamiento">
+          <div class="box-filter-content">
+            <div class="box-filtrar-t">
+              <i class="fa fa-car" aria-hidden="true"></i><span class="font-filter"> Estacionamiento</span></span>
+            </div>
+              <ul class="list-filter">
+
+                @for ($i = 0; $i < count($estacionamiento); $i++)
+                    <li>
+                      <a href="javascript:void(0)" onclick="addFilter('{{ str_slug($estacionamiento[$i]['numero'],"-") }}','estacionamiento')">Para {{ $estacionamiento[$i]['numero'] }}
+                        @if($banos[$i]['numero'] == 1)
+                          auto
+                        @else
+                          autos
+                        @endif 
+                      </a> <span class="cantidad-filter">({{ $estacionamiento[$i]['cantidad'] }})</span></li>
+                @endfor
+               
+              </ul>
+          </div>
+        </div>
         <div class="col-xs-12 col-filter-item">
           <div class="box-filter-content">
             <div class="box-filtrar-t">
@@ -140,7 +193,7 @@
               <ul class="list-filter">
                 <li><a href="#">Mayor Precio</a></li>
                 <li><a href="#">Menor Precio</a></li>
-                <li><a href="#">Fecha dePublicación</a></li>
+                <li><a href="#">Fecha de Publicación</a></li>
               </ul>
           </div>
         </div>

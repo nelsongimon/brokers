@@ -218,10 +218,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </ul>
             </li>
             <li class="treeview">
-              <a style="color: white; font-size: 15px;" href="{{ route('admin.asesores.index') }}"><i class="fa fa-street-view" aria-hidden="true"></i> <span>Aspirantes</span> <i class="fa fa-angle-left pull-right"></i></a>
+              <a style="color: white; font-size: 15px;" href="{{ route('admin.aspirantes.index') }}"><i class="fa fa-street-view" aria-hidden="true"></i> <span>Aspirantes</span> <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
-                <li><a style="color: #DDDDDD; font-size: 15px;" href="{{ route('admin.asesores.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Todos los asesores</a></li>
-                <li><a style="color: #DDDDDD; font-size: 15px;" href="{{ route('admin.asesores.create') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Añadir asesor</a></li>
+                <li><a style="color: #DDDDDD; font-size: 15px;" href="{{ route('admin.aspirantes.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Todos los aspirantes</a></li>
               </ul>
             </li>
             <li class="treeview">

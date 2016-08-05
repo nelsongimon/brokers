@@ -495,6 +495,7 @@ footer{
 	font-size: 14px;
 	color: #D3D3D3;
 	text-align: center;
+	margin-top: 40px;
 }
 /*******************Gallery inmueble details*********************/
 #bigPic{
@@ -537,7 +538,7 @@ ul#thumbs li{
 }
 ul#thumbs img{
 	float:left;
-	width:60px;
+	width:80px;
 	//height:80px;
 	line-height:80px;
 	overflow:hidden;
@@ -811,7 +812,7 @@ ul#thumbs img{
 
 .linea{
 	height: 2px;
-	background-color: #DCDBDB;
+	background-color: #E5E5E5;
 }
 .contenedor-asesor{
     background-color: #fff;
@@ -882,7 +883,7 @@ ul#thumbs img{
   background-color: transparent;
   border: 2px solid #034F7D;;
   border-radius: 20px;
-  color: #66615B;
+  color: #034F7D;
   height: 36px;
   margin: 0 2px;
   min-width: 36px;

@@ -164,6 +164,7 @@ class AsesoresController extends Controller
     public function destroy($id)
     {
         $asesor=Asesor::find($id);
+    
         //Borrado de la imagen
         if(unlink(public_path().'/images/asesores/'.$asesor->foto)){
 

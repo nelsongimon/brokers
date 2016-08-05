@@ -483,6 +483,10 @@ function eliminarInmueble(url){
 	$('#button-eliminar-inmueble').attr('href',url);
 }
 
+function eliminarAspirante(url){
+	$('#button-eliminar-aspirante').attr('href',url);
+}
+
 function moverMarker(marker, map){
 
 	$('#latitud').val(marker.lat());

@@ -35,8 +35,8 @@
             <div class="navbar-collapse  collapse">
               <ul class="nav navbar-nav navbar-right">
                 <li ><a href="{{ url('/') }}">Inicio</a></li>
-                <li><a href="#">Asesores</a></li>
-                <li><a href="#">Empleo</a></li>         
+                <li><a href="{{ url('/asesores') }}">Asesores</a></li>
+                <li><a href="{{ url('/empleo') }}">Empleo</a></li>         
                 <li><a href="{{ url('/busqueda-avanzada') }}">Búsqueda Avanzada</a></li>
               </ul>
             </div>

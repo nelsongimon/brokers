@@ -21,9 +21,9 @@ Route::get('/','FrontController@index');
 
 Route::get('/busqueda-avanzada', 'FrontController@busquedaAvanzada');
 
-Route::get('/detalles-inmueble', 'FrontController@detallesInmuebles');
+Route::get('/propiedades/{id}/{titulo}', 'FrontController@detallesInmuebles');
 
-Route::put('/resultados',[
+Route::put('/propiedades',[
 	'uses' => 'FrontController@busquedaRapida',
 	'as'   => 'front.busquedaRapida'
 	]);
@@ -31,6 +31,16 @@ Route::put('/resultados',[
 Route::get('/propiedades',[
 	'uses' => 'FrontController@busqueda',
 	'as'   => 'front.busqueda'
+	]);
+
+Route::get('/asesores','FrontController@showAsesores');
+
+Route::get('/empleo','FrontController@empleo');
+
+Route::post('formulario-empleo',[
+	'uses' => 'FrontController@formEmpleo',
+	'as'   => 'front.empleo'
+
 	]);
 
 Route::get('/login','FrontController@login');
@@ -184,6 +194,13 @@ Route::group(['prefix'=>'admin', 'middleware' => 'auth'], function(){
 	Route::post('inmuebles/update/status',[
 		'uses' => 'InmueblesController@updateStatus',
 		'as'   => 'admin.inmuebles.updateStatus'
+		]);
+
+
+	Route::resource('/aspirantes','AspirantesController');
+	Route::get('aspirantes/{id}/destroy',[
+		'uses' => 'AspirantesController@destroy',
+		'as'   => 'admin.aspirantes.destroy'
 		]);
 
 });

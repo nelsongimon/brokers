@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Http\Requests;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\EmpleoRequest;
 use App\Http\Controllers\Controller;
 use App\Inmueble;
 use App\Estado;
@@ -14,6 +15,8 @@ use App\Sector;
 use App\Negociacion;
 use App\Tipo;
 use App\Precio;
+use App\Asesor;
+use App\Aspirante;
 use Session;
 use DB;
 
@@ -81,9 +84,11 @@ class FrontController extends Controller
     *
     *
     **/
-    public function detallesInmuebles(){
+    public function detallesInmuebles($id){
 
-        return view('front.detallesInmuebles');
+        $inmueble = Inmueble::find($id);
+
+        return view('front.detallesInmuebles',['inmueble' => $inmueble]);
     }
     /*
     *
@@ -106,7 +111,7 @@ class FrontController extends Controller
         //Ejecutar la consulta del modelo 
         if(!empty($results)){
 
-            $inmuebles = Inmueble::find($results);
+            $inmuebles = Inmueble::whereIn('id',$results)->paginate(6);
         }
         else{
 
@@ -114,19 +119,19 @@ class FrontController extends Controller
         }
 
         $estados = Estado::all();
-        $negos = Negociacion::all();
+        $negociaciones = Negociacion::all();
         $tipos = Tipo::all();
-        $banos = $this->cantidadFiltroInmueble('banos');
-        $cuartos = $this->cantidadFiltroInmueble('cuartos');
+        $banos = $this->cantidadFiltroInmueble(Inmueble::all(),'banos');
+        $cuartos = $this->cantidadFiltroInmueble(Inmueble::all(),'cuartos');
 
         return view('front.resultados',[
-            'inmuebles' => $inmuebles,
-            'cantidad'  => count($results),
-            'estados'   => $estados,
-            'negos'     => $negos,
-            'tipos'     => $tipos,
-            'banos'     => $banos,
-            'cuartos'   => $cuartos
+            'inmuebles'     => $inmuebles,
+            'cantidad'      => count($results),
+            'estados'       => $estados,
+            'negociaciones' => $negociaciones,
+            'tipos'         => $tipos,
+            'banos'         => $banos,
+            'cuartos'       => $cuartos
             ]);
 
     }
@@ -139,11 +144,11 @@ class FrontController extends Controller
     public function busqueda(Request $request){
 
 
-        $estado_id = $request->estado_id;
-        $ciudad_id = $request->ciudad_id;
-        $sector_id = $request->sector_id;
-        $tipo_id = $request->tipo_id;
-        $negociacion_id = $request->negociacion_id;
+        $estado_id = $request->estado;
+        $ciudad_id = $request->ciudad;
+        $sector_id = $request->sector;
+        $tipo_id = $request->tipo;
+        $negociacion_id = $request->negociacion;
         $cuartos = $request->cuartos;
         $banos = $request->banos;
         $estacionamientos = $request->estacionamientos;
@@ -206,7 +211,8 @@ class FrontController extends Controller
         //Ejecutar la consulta del modelo 
         if(!empty($results)){
 
-            $inmuebles = Inmueble::find($results);
+            //Ejecutar consulta y agregar la paginacion
+            $inmuebles = Inmueble::whereIn('id',$results)->paginate(6);
         }
         else{
 
@@ -216,19 +222,19 @@ class FrontController extends Controller
 
         //Carga de datos para los filtros
         $estados = Estado::all();
-        $negos = Negociacion::all();
+        $negociaciones = Negociacion::all();
         $tipos = Tipo::all();
-        $banos = $this->cantidadFiltroInmueble('banos');
-        $cuartos = $this->cantidadFiltroInmueble('cuartos');
+        $banos = $this->cantidadFiltroInmueble(Inmueble::all(),'banos');
+        $cuartos = $this->cantidadFiltroInmueble(Inmueble::all(),'cuartos');
 
         return view('front.resultados',[
-            'inmuebles' => $inmuebles,
-            'cantidad'  => count($results),
-            'estados'   => $estados,
-            'negos'     => $negos,
-            'tipos'     => $tipos,
-            'banos'     => $banos,
-            'cuartos'   => $cuartos
+            'inmuebles'     => $inmuebles,
+            'cantidad'      => count($results),
+            'estados'       => $estados,
+            'negociaciones' => $negociaciones,
+            'tipos'         => $tipos,
+            'banos'         => $banos,
+            'cuartos'       => $cuartos
             ]);
     }
     /*
@@ -294,6 +300,7 @@ class FrontController extends Controller
 
         $palabra = str_replace("-en-", "/", $filtrado);
         $palabra = str_replace("-con-", "/", $palabra);
+        $palabra = str_replace("-para-", "/", $palabra);
         $palabra = str_replace("-", " ", $palabra);
         $palabras = explode("/", $palabra);
         
@@ -322,8 +329,15 @@ class FrontController extends Controller
                 $pos = strpos($palabras[$i], ' ');
                 $cuartos = substr($palabras[$i], 0, $pos);
             }
+            if(ends_with($palabras[$i],'autos') or ends_with($palabras[$i],'auto')){
+                $pos = strpos($palabras[$i], ' ');
+                $estacionamiento = substr($palabras[$i], 0, $pos);
+            }
+            if(ends_with($palabras[$i],'menor') or ends_with($palabras[$i],'mayor')){
+                
+                $orden = $palabras[$i];
+            }
         }
-
 
         $status = true;
 
@@ -387,6 +401,18 @@ class FrontController extends Controller
         }else{
             $cuartos = null;
         }
+        if(!empty($estacionamiento)){
+            $estacionamiento = $estacionamiento;
+            if($estacionamiento == 1){
+                $filtros[] = ['filtro' => 'estacionamiento', 'valor' => 'Para '.$estacionamiento.' auto'];
+            }
+            else{
+                $filtros[] = ['filtro' => 'estacionamiento', 'valor' => 'Para '.$estacionamiento.' autos'];
+            }
+            $status = false;
+        }else{
+            $estacionamiento = null;
+        }
 
         if($status){
             $filtros = false;
@@ -399,6 +425,7 @@ class FrontController extends Controller
             ->join('sectores','inmuebles.sector_id','=','sectores.id')
             ->join('tipos','inmuebles.tipo_id','=','tipos.id')
             ->join('negociaciones','inmuebles.negociacion_id','=','negociaciones.id')
+            ->join('precios','inmuebles.id','=','precios.inmueble_id')
             ->where(function($query) use ($estado_id){
                 if(!empty($estado_id)){
                     $query->where('estados.id','=',$estado_id);
@@ -434,11 +461,18 @@ class FrontController extends Controller
                     $query->where('inmuebles.banos','=',$banos);
                 }
             })
+            ->where(function($query) use ($estacionamiento){
+                if(!empty($estacionamiento)){
+                    $query->where('inmuebles.estacionamientos','=',$estacionamiento);
+                }
+            })
             ->lists('inmuebles.id');
+
+      
 
         //Ejecutar la consulta del modelo 
         if(!empty($results)){
-
+            //Ejecutar la consulta completa
             $inmuebles = Inmueble::find($results);
 
             foreach ($inmuebles as $inmueble) {
@@ -458,6 +492,11 @@ class FrontController extends Controller
             $sectores = $this->cantidadFiltro($sectores,'sector');
             $banos = $this->cantidadFiltroInmueble($inmuebles,'banos');
             $cuartos = $this->cantidadFiltroInmueble($inmuebles,'cuartos');
+            $estacionamiento = $this->cantidadFiltroInmueble($inmuebles,'estacionamientos');
+            
+            //Agregar la paginacion a la consulta
+            $inmuebles = Inmueble::whereIn('id',$results)->orderBy('titulo','asc')->paginate(6);
+
         }
         else{
 
@@ -465,19 +504,19 @@ class FrontController extends Controller
         
         }
 
-        //dd($sectores);
 
-        return view('front.resultados',[
-            'inmuebles'     => $inmuebles,
-            'cantidad'      => count($results),
-            'estados'       => $estados,
-            'ciudades'      => $ciudades,
-            'sectores'      => $sectores,
-            'negociaciones' => $negociaciones,
-            'tipos'         => $tipos,
-            'banos'         => $banos,
-            'cuartos'       => $cuartos,
-            'filtros'       => $filtros
+        return view('front.filtrado',[
+            'inmuebles'       => $inmuebles,
+            'cantidad'        => count($results),
+            'estados'         => $estados,
+            'ciudades'        => $ciudades,
+            'sectores'        => $sectores,
+            'negociaciones'   => $negociaciones,
+            'tipos'           => $tipos,
+            'banos'           => $banos,
+            'cuartos'         => $cuartos,
+            'estacionamiento' => $estacionamiento,
+            'filtros'         => $filtros
             ]);
     
     }
@@ -487,6 +526,49 @@ class FrontController extends Controller
     *-----------------------------------------------------------------------------------
     *
     **/
+    public function showAsesores(){
+
+        $asesores = Asesor::all();
+        return view('front.asesores',['asesores' => $asesores]);
+    }
+    /*
+    *
+    *
+    *
+    */
+    public function empleo(){
+
+        return view('front.empleo');
+    }
+    /*
+    *
+    *
+    *
+    *
+    **/
+    public function formEmpleo(EmpleoRequest $request){
+
+        $file = $request->file('curriculum');
+        $file_name = time().'_'.$file->getClientOriginalname();
+        $path = public_path().'/archivos';
+        $archivo = explode('.', $file_name);
+        $extension = end($archivo);
+        
+        $file->move($path,$file_name);
+
+        $aspirante = Aspirante::create($request->all());
+        $aspirante->curriculum = $file_name;
+        $aspirante->apellido = $extension;
+        $aspirante->save();
+
+        Session::flash('mensaje-success','La información se ha enviado con éxito');
+        return redirect('/empleo');
+    }
+    /*
+    *
+    *
+    *
+    */
     public function login(){
         
         return view('front.login');
@@ -519,69 +601,5 @@ class FrontController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+  
 }

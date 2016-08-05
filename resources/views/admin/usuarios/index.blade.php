@@ -59,7 +59,7 @@
 					    		<button class="btn btn-success" onclick="editarUsuario('{{ route('admin.usuarios.edit',$user->id) }}','{{ csrf_token() }}')" data-toggle="modal" data-target="#editar-usuario"><i class="fa fa-pencil" aria-hidden="true" ></i></button>
 
 					    		<button class="btn btn-danger" onclick="eliminarUsuario('{{ route('admin.usuarios.destroy',$user->id) }}')" data-toggle="modal" data-target="#eliminar-usuario"><i class="fa fa-trash" aria-hidden="true" ></i></button>  
-  
+  								</td>
 						</tr>
 					    @endforeach   
                      </tbody>
