@@ -73,6 +73,14 @@ class Inmueble extends Model
         return $this->hasOne('App\Cliente');
     }
 
+    public function destacado(){
+        return $this->hasOne('App\Destacado');
+    }
+
+    public function slider(){
+        return $this->hasOne('App\Slider');
+    }
+
     public function imagenes(){
     	return $this->hasMany('App\Imagen');
     }

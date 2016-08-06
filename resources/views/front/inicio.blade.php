@@ -15,21 +15,15 @@
 
 
 <style type="text/css">
-  .bg-img-1 {
-    background-image: url({{ asset('front/images/slider/1.jpg') }});
-  }
-   .bg-img-2 {
-    background-image: url({{ asset('front/images/slider/2.jpg') }});
-  }
-   .bg-img-3 {
-    background-image: url({{ asset('front/images/slider/3.jpg') }});
-  }
-   .bg-img-4 {
-    background-image: url({{ asset('front/images/slider/4.jpg') }});
-  }
-   .bg-img-5 {
-    background-image: url({{ asset('front/images/slider/5.jpg') }});
-  }
+  {{ $i = 0 }}
+  @foreach ($sliders as $slider)
+
+    .bg-img-{{ str_slug($slider->titulo,'-') }} {
+      background-image: url({{ asset('images/inmuebles').'/'.$slider->imagen }});
+    }
+
+  @endforeach
+
 </style>
 @endsection
 
@@ -39,84 +33,46 @@
 
 <!-- -----------------------Slider-------------------------- -->
 <div class="container-fluid">
-        <div id="slider" class="sl-slider-wrapper">
-        <div class="sl-slider">
+  <div id="slider" class="sl-slider-wrapper">
+      <div class="sl-slider">
+        @foreach ($sliders as $slider)
+          <div class="sl-slide" data-orientation="vertical" data-slice1-rotation="3" data-slice2-rotation="3" data-slice1-scale="2" data-slice2-scale="1">
+            <div class="sl-slide-inner">
+              <div class="bg-img" style="background-image: url({{ asset('images/inmuebles').'/'.$slider->imagen }})"></div>
+              <h2><a href="{{ url('propiedades').'/'.$slider->inmueble->id.'/'.$slider->inmueble->slug }}">{{ str_limit($slider->inmueble->titulo,45) }}</a></h2>
+              <blockquote>              
+              <p class="location"><span class="glyphicon glyphicon-map-marker"></span> {{ $slider->inmueble->sector->sector.', '.$slider->inmueble->ciudad->ciudad.'. Estado '.$slider->inmueble->estado->estado}}</p>
+              <p style="font-size: 25px">
+                {{ $slider->inmueble->banos }}
+                @if($slider->inmueble->banos == 1)
+                    Baño
+                @else
+                    Baños
+                @endif
+              </p>
+              <p style="font-size: 25px">
+                {{ $slider->inmueble->cuartos }}
+                @if($slider->inmueble->cuartos == 1)
+                    Cuarto
+                @else
+                    Cuartos
+                @endif
+              </p>
+              <p class="precio">$ {{ number_format($slider->inmueble->precio->dolares,0,'.',',') }}</p>
+              </blockquote>
+            </div>
+          </div>
+        @endforeach
+          
+      </div><!-- /sl-slider -->
 
-          <div class="sl-slide" data-orientation="vertical" data-slice1-rotation="3" data-slice2-rotation="3" data-slice1-scale="2" data-slice2-scale="1">
-            <div class="sl-slide-inner">
-              <div class="bg-img bg-img-1"></div>
-              <h2><a href="#">Título de la vivienda</a></h2>
-              <blockquote>              
-              <p class="location"><span class="glyphicon glyphicon-map-marker"></span> Dirección</p>
-              <p>Área de parcela</p>
-              <p>Área de construcción</p>
-              <p class="location">Precio</p>
-              </blockquote>
-            </div>
-          </div>
-          
-          <div class="sl-slide" data-orientation="vertical" data-slice1-rotation="3" data-slice2-rotation="3" data-slice1-scale="1.5" data-slice2-scale="1.5">
-            <div class="sl-slide-inner">
-              <div class="bg-img bg-img-2"></div>
-              <h2><a href="#">Título de la vivienda</a></h2>
-              <blockquote>              
-              <p class="location"><span class="glyphicon glyphicon-map-marker"></span> Dirección</p>
-              <p>Área de parcela</p>
-              <p>Área de construcción</p>
-              <p class="location">Precio</p>
-              </blockquote>
-            </div>
-          </div>
-          
-          <div class="sl-slide" data-orientation="vertical" data-slice1-rotation="3" data-slice2-rotation="3" data-slice1-scale="2" data-slice2-scale="1">
-            <div class="sl-slide-inner">
-              <div class="bg-img bg-img-3"></div>
-              <h2><a href="#">Título de la vivienda</a></h2>
-              <blockquote>              
-              <p class="location"><span class="glyphicon glyphicon-map-marker"></span> Dirección</p>
-              <p>Área de parcela</p>
-              <p>Área de construcción</p>
-              <p class="location">Precio</p>
-              </blockquote>
-            </div>
-          </div>
-          
-          <div class="sl-slide" data-orientation="vertical" data-slice1-rotation="3" data-slice2-rotation="3" data-slice1-scale="2" data-slice2-scale="1">
-            <div class="sl-slide-inner">
-              <div class="bg-img bg-img-4"></div>
-              <h2><a href="#">Título de la vivienda</a></h2>
-              <blockquote>              
-              <p class="location"><span class="glyphicon glyphicon-map-marker"></span> Dirección</p>
-              <p>Área de parcela</p>
-              <p>Área de construcción</p>
-              <p class="location">Precio</p>
-              </blockquote>
-            </div>
-          </div>
-          
-          <div class="sl-slide" data-orientation="vertical" data-slice1-rotation="3" data-slice2-rotation="3" data-slice1-scale="2" data-slice2-scale="1">
-            <div class="sl-slide-inner">
-              <div class="bg-img bg-img-5"></div>
-              <h2><a href="#">Título de la vivienda</a></h2>
-              <blockquote>              
-              <p class="location"><span class="glyphicon glyphicon-map-marker"></span> Dirección</p>
-              <p>Área de parcela</p>
-              <p>Área de construcción</p>
-              <p class="location">Precio</p>
-              </blockquote>
-            </div>
-          </div>
-        </div><!-- /sl-slider -->
+      <nav id="nav-dots" class="nav-dots">
+        @foreach ($sliders as $slider) 
+          <span></span>
+        @endforeach
+      </nav>
 
-        <nav id="nav-dots" class="nav-dots">
-          <span class="nav-dot-current"></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </nav>
-
-      </div><!-- /slider-wrapper -->
+  </div><!-- /slider-wrapper -->
 </div>
 <!-- ----------------------Busqueda Rapida-------------------------- -->
 <div class="banner-search">
@@ -153,183 +109,47 @@
     <div class="destacadas">Propiedades destacadas</div>
 
     <div id="owl-example" class="owl-carousel">
-    
+        
+        @foreach ($destacados as $destacado)
+          
         <div class="properties properties-resultados">
           <a href="#">
-          <div class="image-holder"><img src="{{ asset('front/images/properties/2.jpg') }}" class="img-responsive" alt="properties"/>
-              <div class="precio-carousel">Bs 100.000.000</div>
-              <div class="negociacion-carousel">Venta</div>
+          <div class="image-holder"><img src="{{ asset('images/inmuebles').'/Thumb_'.$destacado->imagen }}" class="img-responsive" alt="properties"/>
+              <div class="precio-carousel">$ {{ number_format($destacado->inmueble->precio->dolares,0,'.',',') }}</div>
+              <div class="negociacion-carousel">{{ $destacado->inmueble->negociacion->negociacion }}</div>
           </div>
           </a>
           <div class="detalles-carousel">
-              <span><i class="fa fa-bed"></i> 2 Cuartos </span>
-              <span><i class="fa fa-tint"></i> 2 Baños </span> 
-              <span><i class="fa fa-expand"></i> 41m² </span>    
+              <span>
+                <i class="fa fa-bed"></i> {{ $destacado->inmueble->cuartos }} 
+                  @if($destacado->inmueble->cuartos == 1)
+                    Cuarto 
+                  @else
+                    Cuartos
+                  @endif
+              </span>
+              <span><i class="fa fa-tint"></i> </i> {{ $destacado->inmueble->cuartos }} 
+                  @if($destacado->inmueble->banos == 1)
+                    Baño 
+                  @else
+                    Baños
+                  @endif 
+              </span> 
+              <span><i class="fa fa-expand"></i> {{ $destacado->inmueble->area_parcela }}m² </span>    
           </div>
           <div class="titulo-tipo-carousel">
               <div class="titulo">
-                  <a href="#">Bella casa en Tipuro con vista...</a>
+                  <a href="#">{{ str_limit($destacado->titulo,26) }}</a>
               </div>
               <div class="tipo">
-                  Apartamento
+                  {{ $destacado->inmueble->tipo->tipo }}
               </div>
             </div>  
         </div>
 
+        @endforeach
 
-        <div class="properties properties-resultados">
-          <a href="#">
-          <div class="image-holder"><img src="{{ asset('front/images/properties/2.jpg') }}" class="img-responsive" alt="properties"/>
-              <div class="precio-carousel">Bs 100.000.000</div>
-              <div class="negociacion-carousel">Venta</div>
-          </div>
-          </a>
-          <div class="detalles-carousel">
-              <span><i class="fa fa-bed"></i> 2 Cuartos </span>
-              <span><i class="fa fa-tint"></i> 2 Baños </span> 
-              <span><i class="fa fa-expand"></i> 41m² </span>    
-          </div>
-          <div class="titulo-tipo-carousel">
-              <div class="titulo">
-                  <a href="#">Bella casa en Tipuro con vista...</a>
-              </div>
-              <div class="tipo">
-                  Apartamento
-              </div>
-            </div>  
-        </div>
-
-        <div class="properties properties-resultados">
-          <a href="#">
-          <div class="image-holder"><img src="{{ asset('front/images/properties/1.jpg') }}" class="img-responsive" alt="properties"/>
-              <div class="precio-carousel">Bs 100.000.000</div>
-              <div class="negociacion-carousel">Venta</div>
-          </div>
-          </a>
-          <div class="detalles-carousel">
-              <span><i class="fa fa-bed"></i> 2 Cuartos </span>
-              <span><i class="fa fa-tint"></i> 2 Baños </span> 
-              <span><i class="fa fa-expand"></i> 41m² </span>    
-          </div>
-          <div class="titulo-tipo-carousel">
-              <div class="titulo">
-                  <a href="#">Bella casa en Tipuro con vista...</a>
-              </div>
-              <div class="tipo">
-                  Apartamento
-              </div>
-            </div>  
-        </div>
-
-        <div class="properties properties-resultados">
-          <a href="#">
-          <div class="image-holder"><img src="{{ asset('front/images/properties/2.jpg') }}" class="img-responsive" alt="properties"/>
-              <div class="precio-carousel">Bs 100.000.000</div>
-              <div class="negociacion-carousel">Alquiler</div>
-          </div>
-          </a>
-          <div class="detalles-carousel">
-              <span><i class="fa fa-bed"></i> 2 Cuartos </span>
-              <span><i class="fa fa-tint"></i> 2 Baños </span> 
-              <span><i class="fa fa-expand"></i> 41m² </span>    
-          </div>
-          <div class="titulo-tipo-carousel">
-              <div class="titulo">
-                  <a href="#">Bella casa en Tipuro con vista...</a>
-              </div>
-              <div class="tipo">
-                  Apartamento
-              </div>
-            </div>  
-        </div>
-
-
-        <div class="properties properties-resultados">
-          <a href="#">
-          <div class="image-holder"><img src="{{ asset('front/images/properties/1.jpg') }}" class="img-responsive" alt="properties"/>
-              <div class="precio-carousel">Bs 100.000.000</div>
-              <div class="negociacion-carousel">Venta</div>
-          </div>
-          </a>
-          <div class="detalles-carousel">
-              <span><i class="fa fa-bed"></i> 2 Cuartos </span>
-              <span><i class="fa fa-tint"></i> 2 Baños </span> 
-              <span><i class="fa fa-expand"></i> 41m² </span>    
-          </div>
-          <div class="titulo-tipo-carousel">
-              <div class="titulo">
-                  <a href="#">Bella casa en Tipuro con vista...</a>
-              </div>
-              <div class="tipo">
-                  Apartamento
-              </div>
-            </div>  
-        </div>
-
-        <div class="properties properties-resultados">
-          <a href="#">
-          <div class="image-holder"><img src="{{ asset('front/images/properties/4.jpg') }}" class="img-responsive" alt="properties"/>
-              <div class="precio-carousel">Bs 100.000.000</div>
-              <div class="negociacion-carousel">Venta</div>
-          </div>
-          </a>
-          <div class="detalles-carousel">
-              <span><i class="fa fa-bed"></i> 2 Cuartos </span>
-              <span><i class="fa fa-tint"></i> 2 Baños </span> 
-              <span><i class="fa fa-expand"></i> 41m² </span>    
-          </div>
-          <div class="titulo-tipo-carousel">
-              <div class="titulo">
-                  <a href="#">Bella casa en Tipuro con vista...</a>
-              </div>
-              <div class="tipo">
-                  Apartamento
-              </div>
-            </div>  
-        </div>
-
-        <div class="properties properties-resultados">
-          <a href="#">
-          <div class="image-holder"><img src="{{ asset('front/images/properties/3.jpg') }}" class="img-responsive" alt="properties"/>
-              <div class="precio-carousel">Bs 100.000.000</div>
-              <div class="negociacion-carousel">Alquiler</div>
-          </div>
-          </a>
-          <div class="detalles-carousel">
-              <span><i class="fa fa-bed"></i> 2 Cuartos </span>
-              <span><i class="fa fa-tint"></i> 2 Baños </span> 
-              <span><i class="fa fa-expand"></i> 41m² </span>    
-          </div>
-          <div class="titulo-tipo-carousel">
-              <div class="titulo">
-                  <a href="#">Bella casa en Tipuro con vista...</a>
-              </div>
-              <div class="tipo">
-                  Casa
-              </div>
-            </div>  
-        </div>
-        <div class="properties properties-resultados">
-          <a href="#">
-          <div class="image-holder"><img src="{{ asset('front/images/properties/1.jpg') }}" class="img-responsive" alt="properties"/>
-              <div class="precio-carousel">Bs 100.000.000</div>
-              <div class="negociacion-carousel">Venta</div>
-          </div>
-          </a>
-          <div class="detalles-carousel">
-              <span><i class="fa fa-bed"></i> 2 Cuartos </span>
-              <span><i class="fa fa-tint"></i> 2 Baños </span> 
-              <span><i class="fa fa-expand"></i> 41m² </span>    
-          </div>
-          <div class="titulo-tipo-carousel">
-              <div class="titulo">
-                  <a href="#">Bella casa en Tipuro con vista...</a>
-              </div>
-              <div class="tipo">
-                  Apartamento
-              </div>
-            </div>  
-        </div> 
+ 
     </div>
   </div>
 </div>

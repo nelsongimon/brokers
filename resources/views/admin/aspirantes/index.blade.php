@@ -44,7 +44,7 @@
 					    		<td>{{ $aspirante->telefono }}</td>
 					    		<td>{{ $aspirante->email }}</td>					    		
 					    		<td style="text-align: center;"><a href="{{ asset('archivos').'/'.$aspirante->curriculum }}" target="_blank">
-					    			@if($aspirante->apellido == 'pdf')
+					    			@if($aspirante->extension == 'pdf')
 					    			<i class="fa fa-file-pdf-o" aria-hidden="true" style="font-size: 27px; color: #E30404"></i>
 									@else
 									<i class="fa fa-file-word-o" aria-hidden="true" style="font-size: 27px; color: #21198C"></i>

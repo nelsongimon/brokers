@@ -15,10 +15,10 @@ class CreateAspirantesTable extends Migration
         Schema::create('aspirantes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->string('apellido');
             $table->string('telefono');
             $table->string('email');
             $table->string('curriculum');
+            $table->string('extension');
             $table->timestamps();
         });
     }

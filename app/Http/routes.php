@@ -128,6 +128,8 @@ Route::group(['prefix'=>'admin', 'middleware' => 'auth'], function(){
 				'as'   => 'admin.ajustes.negociacion.delete'
 			]);
 
+		Route::get('/slider','AjustesController@mostrarSlider');
+
 
 	});
 
@@ -202,5 +204,7 @@ Route::group(['prefix'=>'admin', 'middleware' => 'auth'], function(){
 		'uses' => 'AspirantesController@destroy',
 		'as'   => 'admin.aspirantes.destroy'
 		]);
+
+	Route::resource('/destacados','DestacadosController');
 
 });

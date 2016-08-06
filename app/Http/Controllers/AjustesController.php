@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\DolarValor;
 use App\Tipo;
 use App\Negociacion;
+use App\Slider;
 use Session;
 
 class AjustesController extends Controller
@@ -25,14 +26,14 @@ class AjustesController extends Controller
     public function mostrarPrecioDolar(){
 
         $valor=DolarValor::all();
-        if(count($valor)<1){
+        if(count($valor) < 1){
             $valor= new DolarValor;
-            $valor->valor=0;
+            $valor->valor = 0;
             $valor->save();
         }
         $valor=DolarValor::all();
 
-        return view('admin.ajustes.mostrarPrecioDolar',['precio'=>$valor]);
+        return view('admin.ajustes.mostrarPrecioDolar',['precio' => $valor]);
 
     }
     /*
@@ -59,7 +60,7 @@ class AjustesController extends Controller
     public function mostrarTipos(){
 
         $tipos=Tipo::paginate(10);
-        return view('admin.ajustes.mostrarTipos',['tipos'=>$tipos]);
+        return view('admin.ajustes.mostrarTipos',['tipos' => $tipos]);
     }
     /*
     *
@@ -170,6 +171,16 @@ class AjustesController extends Controller
         Session::flash('mensaje-success',$nego->negociacion.' fue eliminado con éxito');
         return redirect('admin/ajustes/tipos-de-negociacion');
 
+    }
+    /*
+    *
+    *
+    *
+    */
+    public function mostrarSlider(){
+
+        $sliders = Slider::paginate(10);
+        return view('admin.ajustes.mostrarSlider',['sliders' => $sliders]);
     }
 
 }

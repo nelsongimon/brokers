@@ -17,6 +17,8 @@ use App\Tipo;
 use App\Precio;
 use App\Asesor;
 use App\Aspirante;
+use App\Slider;
+use App\Destacado;
 use Session;
 use DB;
 
@@ -38,7 +40,9 @@ class FrontController extends Controller
      */
     public function index()
     {
-        return view('front.inicio');
+        $sliders = Slider::all();
+        $destacados = Destacado::all();
+        return view('front.inicio',['sliders' => $sliders, 'destacados' => $destacados]);
     }
     /*
     *
@@ -326,7 +330,7 @@ class FrontController extends Controller
                 $banos = substr($palabras[$i], 0, $pos);
             }
             if(ends_with($palabras[$i],'cuartos') or ends_with($palabras[$i],'cuarto')){
-                $pos = strpos($palabras[$i], ' ');
+                $pos = strpos($palabras[$i], ' ');  
                 $cuartos = substr($palabras[$i], 0, $pos);
             }
             if(ends_with($palabras[$i],'autos') or ends_with($palabras[$i],'auto')){
@@ -558,7 +562,7 @@ class FrontController extends Controller
 
         $aspirante = Aspirante::create($request->all());
         $aspirante->curriculum = $file_name;
-        $aspirante->apellido = $extension;
+        $aspirante->extension = $extension;
         $aspirante->save();
 
         Session::flash('mensaje-success','La información se ha enviado con éxito');

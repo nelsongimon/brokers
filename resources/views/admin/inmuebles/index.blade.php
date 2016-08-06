@@ -20,17 +20,18 @@
 	
           <div class="row">
             <div class="col-xs-12 col-md-12">
+            {!! Form::open(['route' => 'admin.destacados.store', 'method' => 'post']) !!}
               <div class="box box-primary">
                 <div class="box-header">
                   <h3 class="box-title">Tabla de Inmuebles</h3>
 					<div class="form-group pull-right">
-						<select class="form-control">
-		                  	<option>Accinación Masiva</option>
-		                  	<option>Agregar al Slider</option>
-		                  	<option>Agregar a Destacados</option>
+						<select class="form-control" name="action">
+		                  	<option value="">Asignación Masiva</option>
+		                  	<option value="slider">Agregar al Slider</option>
+		                  	<option value="destacados">Agregar a Destacados</option>
 	                  	</select>
 					</div>
-	                <button class="btn btn-primary pull-right" style="border-radius:0px">Aplicar</button>
+	                <button type="submit" class="btn btn-primary pull-right" style="border-radius:0px">Aplicar</button>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                   <table id="table" class="table table-bordered table-hover">
@@ -56,7 +57,9 @@
 						 				@endif
 						 			@endforeach
 						 		</td>
-						 		<td><input type="checkbox" class="minimal" name="status"> &nbsp;&nbsp;{{ str_limit($inmueble->titulo,25) }}</td>
+						 		<td>
+						 			<input type="checkbox" class="minimal" name="id-{{ $inmueble->id }}" value="{{ $inmueble->id }}"/> &nbsp;&nbsp;{{ str_limit($inmueble->titulo,25) }}
+						 		</td>
 						 		<td style="text-align: center"> 						 		
 						 			@if($inmueble->status=='yes')
 										<span class="label label-success" style="font-size: 13px" id="contenedor-status-{{ $inmueble->id }}"><span id="texto-status-{{ $inmueble->id }}">Disponible</span>&nbsp; <a href="javascript:void(0)" style="color:white;" onclick="modificarStatus('{{ $inmueble->id }}','{{ $inmueble->status }}','{{ route('admin.inmuebles.updateStatus') }}')"><i class="fa fa-refresh" id="spin-{{ $inmueble->id }}" aria-hidden="true"></i></a>&nbsp;&nbsp;</span>
@@ -89,7 +92,9 @@
                     </table>
                   </div>
                 </div>
+                {!! Form::close() !!}
              </div>
+             
           </div>
  	
 
