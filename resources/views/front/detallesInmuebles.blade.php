@@ -1,6 +1,8 @@
 @extends('layouts.front')
 
-@section('title','Brokers Bienes y Raices')
+@section('title')
+  {{ $inmueble->titulo }}
+@endsection
 
 @section('css')
 
@@ -14,7 +16,7 @@
 <!-- ---------------------- banner -------------------------- -->
   <div class="inside-banner">
     <div class="container"> 
-        <h2>Detalles inmueble</h2>
+        <h2>Detalles del inmueble</h2>
     </div>
   </div>
 
@@ -264,3 +266,29 @@
   </script>
 
 @endsection
+<?php 
+
+  //Metrica para determinar la visita de los inmuebles
+  $metricas = \App\Metrica::all();
+  $verificacion = true;
+  foreach ($metricas as $metrica) {
+    if($metrica->inmueble_id == $inmueble->id){
+      $verificacion = false;
+      $id = $metrica->id;
+    }
+  }
+
+  if($verificacion){
+    $metrica = new \App\Metrica;
+    $metrica->titulo = $inmueble->titulo;
+    $metrica->visitas = 1;
+    $metrica->inmueble_id = $inmueble->id;
+    $metrica->save();
+  }
+  else{
+    $metrica = \App\Metrica::find($id);
+    $metrica->visitas = $metrica->visitas + 1;
+    $metrica->save();
+  }
+
+ ?>

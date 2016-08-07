@@ -15,7 +15,7 @@
 
 
 <style type="text/css">
-  {{ $i = 0 }}
+
   @foreach ($sliders as $slider)
 
     .bg-img-{{ str_slug($slider->titulo,'-') }} {
@@ -112,9 +112,9 @@
         
         @foreach ($destacados as $destacado)
           
-        <div class="properties properties-resultados">
-          <a href="#">
-          <div class="image-holder"><img src="{{ asset('images/inmuebles').'/Thumb_'.$destacado->imagen }}" class="img-responsive" alt="properties"/>
+      <div class="properties properties-destacados">
+          <a href="{{ url('propiedades').'/'.$destacado->inmueble->id.'/'.$destacado->inmueble->slug }}">
+          <div class="image-holder"><img src="{{ asset('images/inmuebles').'/Thumb_'.$destacado->imagen }}" class="img-responsive"  alt="properties"/>
               <div class="precio-carousel">$ {{ number_format($destacado->inmueble->precio->dolares,0,'.',',') }}</div>
               <div class="negociacion-carousel">{{ $destacado->inmueble->negociacion->negociacion }}</div>
           </div>
@@ -139,13 +139,13 @@
           </div>
           <div class="titulo-tipo-carousel">
               <div class="titulo">
-                  <a href="#">{{ str_limit($destacado->titulo,26) }}</a>
+                  <a href="{{ url('propiedades').'/'.$destacado->inmueble->id.'/'.$destacado->inmueble->slug }}">{{ str_limit($destacado->titulo,26) }}</a>
               </div>
               <div class="tipo">
                   {{ $destacado->inmueble->tipo->tipo }}
               </div>
-            </div>  
-        </div>
+          </div>  
+      </div>
 
         @endforeach
 
@@ -153,6 +153,8 @@
     </div>
   </div>
 </div>
+
+
 
 @endsection
 

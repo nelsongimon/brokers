@@ -56,6 +56,7 @@ class FrontController extends Controller
         $negos = Negociacion::all();
         $min_precio = Precio::orderBy('dolares','asc')->limit(1)->lists('dolares');
         $max_precio = Precio::orderBy('dolares','desc')->limit(1)->lists('dolares');
+        $destacados = Destacado::all();
 
         //Calculo de los valores iniciales del rango
         $dif = $max_precio[0] - $min_precio[0];
@@ -71,7 +72,8 @@ class FrontController extends Controller
             'min_precio' => $min_precio[0],
             'max_precio' => $max_precio[0],
             'min_star'   => $min_star,
-            'max_star'   => $max_star
+            'max_star'   => $max_star,
+            'destacados' => $destacados
             ]);
     }
     /**
@@ -499,7 +501,7 @@ class FrontController extends Controller
             $estacionamiento = $this->cantidadFiltroInmueble($inmuebles,'estacionamientos');
             
             //Agregar la paginacion a la consulta
-            $inmuebles = Inmueble::whereIn('id',$results)->orderBy('titulo','asc')->paginate(6);
+            $inmuebles = Inmueble::whereIn('id',$results)->orderBy('titulo','asc')->paginate(2);
 
         }
         else{
@@ -533,7 +535,8 @@ class FrontController extends Controller
     public function showAsesores(){
 
         $asesores = Asesor::all();
-        return view('front.asesores',['asesores' => $asesores]);
+        $destacados = Destacado::all();
+        return view('front.asesores',['asesores' => $asesores, 'destacados' => $destacados]);
     }
     /*
     *
@@ -542,7 +545,8 @@ class FrontController extends Controller
     */
     public function empleo(){
 
-        return view('front.empleo');
+        $destacados = Destacado::all();
+        return view('front.empleo',['destacados' => $destacados]);
     }
     /*
     *

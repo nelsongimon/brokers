@@ -8,9 +8,9 @@
 
 @endsection
 
-@section('page-header','Slider')
+@section('page-header','Destacados')
 
-@section('optional-description','Visualice y elimine los inmuebles que se mostrarán en el slider');
+@section('optional-description','Visualice y elimine los inmuebles que se mostrarán en destacados');
 
 @section('content')
 
@@ -21,11 +21,11 @@
 				
 	            <div class="box box-primary">
 	                <div class="box-header with-border">
-	                  <h3 class="box-title">Inmuebles del Slider</h3>
+	                  <h3 class="box-title">Inmuebles de Destacados</h3>
 	                </div><!-- /.box-header -->
 	                <div class="box-body">
 	                  <table class="table table-bordered">
-	                    @if(count($sliders)==0)
+	                    @if(count($destacados)==0)
 	                    <tbody>
 							No se encontraron resultados
 	                    @else
@@ -34,14 +34,14 @@
 	                      <th>Título</th>
 	                      <th>Eliminar</th>
 	                    </tr>
-	                    	@foreach($sliders as $slider)
+	                    	@foreach($destacados as $destacado)
 					        <tr style="font-size:15px;">
-		                      <td style="text-align:center"><img src="{{ asset('images/inmuebles').'/Thumb_'.$slider->imagen }}" width="75px"></td>
-		                      <td>{{ $slider->titulo }}</td>
+		                      <td style="text-align:center"><img src="{{ asset('images/inmuebles').'/Thumb_'.$destacado->imagen }}" width="75px"></td>
+		                      <td>{{ $destacado->titulo }}</td>
 		                      <td>
 		                     
 
-					    		<a href="{{ route('admin.slider.destroy',$slider->id) }}" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true" ></i></a>  
+					    		<a href="{{ route('admin.destacados.destroy',$destacado->id) }}" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true" ></i></a>  
 		                      </td>
 		                    </tr>
 		                    @endforeach
@@ -52,7 +52,7 @@
 	                </div><!-- /.box-body -->
 	                <div class="box-footer clearfix">
 	                  
-	        			{!! $sliders->render() !!}
+	        			{!! $destacados->render() !!}
 	                 
 	                </div>
 	            </div>

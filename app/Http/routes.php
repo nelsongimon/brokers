@@ -43,6 +43,7 @@ Route::post('formulario-empleo',[
 
 	]);
 
+
 Route::get('/login','FrontController@login');
 Route::post('/login',[
 	'uses'=>'FrontController@loginAuth', 
@@ -59,9 +60,7 @@ Route::get('/{filtrado}','FrontController@filtrado');
 
 Route::group(['prefix'=>'admin', 'middleware' => 'auth'], function(){
 
-	Route::get('/home',function(){
-		return view('admin.escritorio.index');
-	});
+	Route::get('/home','HomeController@index');
 
 	Route::resource('/usuarios','UsuariosController');
 	Route::get('usuarios/{id}/destroy',[
@@ -129,6 +128,7 @@ Route::group(['prefix'=>'admin', 'middleware' => 'auth'], function(){
 			]);
 
 		Route::get('/slider','AjustesController@mostrarSlider');
+		Route::get('/destacados','AjustesController@mostrarDestacados');
 
 
 	});
@@ -206,5 +206,13 @@ Route::group(['prefix'=>'admin', 'middleware' => 'auth'], function(){
 		]);
 
 	Route::resource('/destacados','DestacadosController');
+	Route::get('slider/{id}/destroy',[
+		'uses' => 'DestacadosController@destroySlider',
+		'as'   => 'admin.slider.destroy'
+		]);
+	Route::get('destacados/{id}/destroy',[
+		'uses' => 'DestacadosController@destroyDestacados',
+		'as'   => 'admin.destacados.destroy'
+		]);
 
 });

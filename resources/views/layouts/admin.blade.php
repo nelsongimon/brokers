@@ -185,7 +185,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <ul class="sidebar-menu" style="color: white;">
             
             <!-- Optionally, you can add icons to the links -->
-            <li><a href="#" style="color: white; font-size: 15px;" ><i class="fa fa-tachometer" aria-hidden="true"></i> <span>Escritorio</span></a></li>
+            <li><a href="{{ url('admin/home') }}" style="color: white; font-size: 15px;" ><i class="fa fa-tachometer" aria-hidden="true"></i> <span>Escritorio</span></a></li>
             @if(Auth::user()->perfil == 'admin')
             <li class="treeview">
               <a style="color: white; font-size: 15px;" href="{{ route('admin.usuarios.index') }}"><i class="fa fa-users" aria-hidden="true"></i> <span>Usuarios</span> <i class="fa fa-angle-left pull-right"></i></a>
@@ -229,6 +229,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <li><a style="color: #DDDDDD; font-size: 15px;" href="{{ url('admin/ajustes/precio-dolar') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i>Precio del Dolar</a></li>
                 <li><a style="color: #DDDDDD; font-size: 15px;" href="{{ url('admin/ajustes/tipos-de-inmuebles') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Tipos de Inmueble</a></li>
                 <li><a style="color: #DDDDDD; font-size: 15px;" href="{{ url('admin/ajustes/tipos-de-negociacion') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Tipos de Negociación</a></li>
+                <li><a style="color: #DDDDDD; font-size: 15px;" href="{{ url('admin/ajustes/slider') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Slider</a></li>
+                <li><a style="color: #DDDDDD; font-size: 15px;" href="{{ url('admin/ajustes/destacados') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Destacados</a></li>
               </ul>
 
             </li>

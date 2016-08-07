@@ -13,6 +13,7 @@ use App\DolarValor;
 use App\Tipo;
 use App\Negociacion;
 use App\Slider;
+use App\Destacado;
 use Session;
 
 class AjustesController extends Controller
@@ -181,6 +182,16 @@ class AjustesController extends Controller
 
         $sliders = Slider::paginate(10);
         return view('admin.ajustes.mostrarSlider',['sliders' => $sliders]);
+    }
+    /*
+    *
+    *
+    *
+    */
+    public function mostrarDestacados(){
+
+        $destacados = Destacado::paginate(10);
+        return view('admin.ajustes.mostrarDestacados',['destacados' => $destacados]);
     }
 
 }
