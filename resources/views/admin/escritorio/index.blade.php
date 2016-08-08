@@ -17,68 +17,71 @@
 
 <div class="row">
 	<div class="col-md-3">
-		<div class="small-box bg-aqua">
-	        <div class="inner">
-	            <h3>{{ $inmuebles }}</h3>
-	            <p style="font-size: 18px;">
-	            @if($asesores == 1)
-					Inmueble
-	            @else
-					Inmuebles
-	            @endif
-	            </p>
-	        </div>
-	        <div class="icon">
-	            <i class="fa fa-home" aria-hidden="true"></i>
-	        </div>
-	        <a href="#" class="small-box-footer"></a>
-	    </div>
-	</div>
-	<div class="col-md-3">
-		<div class="small-box bg-yellow">
-	        <div class="inner">
-	            <h3>{{ $asesores }}</h3>
-	            <p style="font-size: 18px;">
-	            @if($asesores == 1)
-					Asesor
-	            @else
-					Asesores
-	            @endif
-	            </p>
-	        </div>
-	        <div class="icon">
-	            <i class="fa fa-male" aria-hidden="true"></i>
-	        </div>
-	        <a href="#" class="small-box-footer"></a>
-	    </div>
-	</div>
-	<div class="col-md-3">
-		<div class="small-box bg-green">
-	        <div class="inner">
-	            <h3>{{ $dolar->valor }}</h3>
-	            <p style="font-size: 18px;">Valor Actual</p>
-	        </div>
-	        <div class="icon">
-	            <i class="fa fa-usd" aria-hidden="true"></i>
-	        </div>
-	        <a href="#" class="small-box-footer"></a>
-	    </div>
+		<div class="col-md-12">
+			<div class="small-box bg-aqua">
+		        <div class="inner">
+		            <h3>{{ $inmuebles }}</h3>
+		            <p style="font-size: 18px;">
+		            @if($inmuebles == 1)
+						Inmueble
+		            @else
+						Inmuebles
+		            @endif
+		            </p>
+		        </div>
+		        <div class="icon">
+		            <i class="fa fa-home" aria-hidden="true"></i>
+		        </div>
+		        <a href="#" class="small-box-footer"></a>
+		    </div>
+		</div>
+		<div class="col-md-12">
+			<div class="small-box bg-yellow">
+		        <div class="inner">
+		            <h3>{{ $asesores }}</h3>
+		            <p style="font-size: 18px;">
+		            @if($asesores == 1)
+						Asesor
+		            @else
+						Asesores
+		            @endif
+		            </p>
+		        </div>
+		        <div class="icon">
+		            <i class="fa fa-male" aria-hidden="true"></i>
+		        </div>
+		        <a href="#" class="small-box-footer"></a>
+		    </div>
+		</div>
+		<div class="col-md-12">
+			<div class="small-box bg-green">
+		        <div class="inner">
+		            <h3>{{ $dolar->valor }}</h3>
+		            <p style="font-size: 18px;">Valor Actual</p>
+		        </div>
+		        <div class="icon">
+		            <i class="fa fa-usd" aria-hidden="true"></i>
+		        </div>
+		        <a href="#" class="small-box-footer"></a>
+		    </div>
+		</div>
 	</div>
 	<div class="col-md-9">
-			<div class="box box-primary">
-	                <div class="box-header with-border">
-	                  <h3 class="box-title">Propiedades más visitadas</h3>
-	                  <div class="box-tools pull-right">
-	                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-	                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-	                  </div>
-	                </div>
-	                <div class="box-body chart-responsive">
-	             		<div id="metricas" style="height: 330px"></div>
-	                </div><!-- /.box-body -->
-			</div>		
+		<div class="col-md-12">
+				<div class="box box-primary">
+		                <div class="box-header with-border">
+		                  <h3 class="box-title">Propiedades más visitadas</h3>
+		                  <div class="box-tools pull-right">
+		                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+		                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+		                  </div>
+		                </div>
+		                <div class="box-body chart-responsive">
+		             		<div id="metricas" style="height: 370px"></div>
+		                </div><!-- /.box-body -->
+				</div>		
+		</div>
 	</div>
-
 </div>
 @endsection
 
@@ -128,7 +131,7 @@
 	            data: [
 	            	@foreach ($metricas as $metrica)
 	            		
-	                	['{{ str_limit($metrica->titulo,25) }}', {{ $metrica->visitas }}],
+	                	['{{ str_limit($metrica->titulo,30) }}', {{ $metrica->visitas }}],
 
 	            	@endforeach
 	          

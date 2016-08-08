@@ -103,6 +103,7 @@ class FrontController extends Controller
     public function busquedaRapida(Request $request){
 
         //Consulta para la busqueda rapida
+        /*
         $results = DB::table('inmuebles')
             ->join('estados','inmuebles.estado_id','=','estados.id')
             ->join('ciudades','inmuebles.ciudad_id','=','ciudades.id')
@@ -113,11 +114,24 @@ class FrontController extends Controller
             ->orWhere('sectores.sector','LIKE','%'.$request->busqueda.'%')
             ->orWhere('tipos.tipo','LIKE','%'.$request->busqueda.'%')
             ->lists('inmuebles.id');
+        */
+
+        $results = DB::table('inmuebles')
+            ->join('estados','inmuebles.estado_id','=','estados.id')
+            ->join('ciudades','inmuebles.ciudad_id','=','ciudades.id')
+            ->join('sectores','inmuebles.sector_id','=','sectores.id')
+            ->join('tipos','inmuebles.tipo_id','=','tipos.id')
+            ->where('estados.estado','LIKE','%'.$request->busqueda.'%')
+            ->orWhere('ciudades.ciudad','LIKE','%'.$request->busqueda.'%')
+            ->orWhere('sectores.sector','LIKE','%'.$request->busqueda.'%')
+            ->orWhere('tipos.tipo','LIKE','%'.$request->busqueda.'%')
+            ->lists('inmuebles.id');
+
         
-        //Ejecutar la consulta del modelo 
+        //Ejecutar la consulta del modelo si existen resultados
         if(!empty($results)){
 
-            $inmuebles = Inmueble::whereIn('id',$results)->paginate(6);
+            $inmuebles = Inmueble::whereIn('id',$results)->paginate(9);
         }
         else{
 
@@ -218,7 +232,7 @@ class FrontController extends Controller
         if(!empty($results)){
 
             //Ejecutar consulta y agregar la paginacion
-            $inmuebles = Inmueble::whereIn('id',$results)->paginate(6);
+            $inmuebles = Inmueble::whereIn('id',$results)->paginate(9);
         }
         else{
 
@@ -345,6 +359,7 @@ class FrontController extends Controller
             }
         }
 
+
         $status = true;
 
         if(!empty($tipo->id)){
@@ -423,6 +438,8 @@ class FrontController extends Controller
         if($status){
             $filtros = false;
         }
+
+
      
         //Consulta para la busqueda Avanzada
         $results = DB::table('inmuebles')
@@ -501,7 +518,7 @@ class FrontController extends Controller
             $estacionamiento = $this->cantidadFiltroInmueble($inmuebles,'estacionamientos');
             
             //Agregar la paginacion a la consulta
-            $inmuebles = Inmueble::whereIn('id',$results)->orderBy('titulo','asc')->paginate(2);
+            $inmuebles = Inmueble::whereIn('id',$results)->orderBy('id','desc')->paginate(6);
 
         }
         else{

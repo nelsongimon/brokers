@@ -43,6 +43,9 @@ Route::post('formulario-empleo',[
 
 	]);
 
+Route::get('/br-admin',function(){ 
+	return redirect('/admin/home');
+});
 
 Route::get('/login','FrontController@login');
 Route::post('/login',[

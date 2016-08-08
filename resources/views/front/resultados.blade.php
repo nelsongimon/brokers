@@ -140,7 +140,7 @@
               <ul class="list-filter">
                 <li><a href="#">Mayor Precio</a></li>
                 <li><a href="#">Menor Precio</a></li>
-                <li><a href="#">Fecha dePublicación</a></li>
+                <li><a href="#">Fecha de Publicación</a></li>
               </ul>
           </div>
         </div>
@@ -210,7 +210,7 @@
 
   <div class="row">
     <div class="col-xs-12" style="text-align: center">
-      {!! $inmuebles->render() !!}
+      {{  $inmuebles->render() }}
     </div>
   </div>
 </div>
