@@ -21,7 +21,7 @@ class HomeController extends Controller
     public function index()
     {
 
-        $metricas = Metrica::orderBy('visitas','desc')->get();
+        $metricas = Metrica::orderBy('visitas','desc')->limit(7)->get();
         $inmuebles = Inmueble::all();
         $dolar = DolarValor::find(1);
         $asesores = Asesor::all();

@@ -15,9 +15,9 @@
   <div class="inside-banner">
     <div class="container"> 
         @if($cantidad == 1)
-        <h2>Se encontro {{ $cantidad }} propiedad </h2>
+        <h2>Existe {{ $cantidad }} propiedad </h2>
         @else
-        <h2>Se encontraron {{ $cantidad }} propiedades </h2>
+        <h2>Existen {{ $cantidad }} propiedades </h2>
         @endif
     </div>
   </div>
@@ -172,6 +172,7 @@
               <ul class="list-filter">
 
                 @for ($i = 0; $i < count($estacionamiento); $i++)
+                    @if($estacionamiento[$i]['numero'] > 0)
                     <li>
                       <a href="javascript:void(0)" onclick="addFilter('{{ str_slug($estacionamiento[$i]['numero'],"-") }}','estacionamiento')">Para {{ $estacionamiento[$i]['numero'] }}
                         @if($estacionamiento[$i]['numero'] == 1)
@@ -180,6 +181,7 @@
                           autos
                         @endif 
                       </a> <span class="cantidad-filter">({{ $estacionamiento[$i]['cantidad'] }})</span></li>
+                    @endif
                 @endfor
                
               </ul>
@@ -193,7 +195,7 @@
               <ul class="list-filter">
                 <li><a href="#">Mayor Precio</a></li>
                 <li><a href="#">Menor Precio</a></li>
-                <li><a href="#">Fecha de Publicación</a></li>
+                <li><a href="#">Más recientes</a></li>
               </ul>
           </div>
         </div>
@@ -212,12 +214,8 @@
                 <div class="properties properties-resultados">
                   <a href="{{ url('propiedades').'/'.$inmueble->id.'/'.$inmueble->slug }}">
                   <div class="image-holder">
-                      @foreach ($inmueble->imagenes as $imagen)
-                        @if($imagen->principal=='yes')
-                        <img src="{{ asset('images/inmuebles/Thumb_').$imagen->imagen }}" class="img-responsive" alt="properties"/>
-                        @endif
-                      @endforeach
-                
+                      
+                    <img src="{{ asset('images/inmuebles').'/'.$inmueble->imagenes }}" class="img-responsive" alt="properties"/> 
                     <div class="precio-resultados">$ {{ number_format($inmueble->precio->dolares,0, ',', '.') }}</div>
                     <div class="negociacion-resultados">{{ $inmueble->negociacion->negociacion }}</div>
                   </div>
@@ -253,19 +251,34 @@
             </div>
             @endforeach
             @else
-                <h2>No se encontraron resultados.</h2>
+                <div class="col-xs-12 col-sm-12 col-md-offset-2 col-md-7" style="text-align: center">
+                    <h2 style="font-size: 32px;color:#8E8E8E;line-height: 50px;">No se encontraron resultados. Puede seguir buscando desde nuestros filtros.</h2>
+                </div>
             @endif
                
         </div>
       </div>  
   </div>
 
-
+  @if($pagination)
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-offset-2 col-md-10" style="text-align: center">
-      {!! $inmuebles->render() !!}
+      {!! $inmuebles->appends([
+                              'busqueda'         => Input::get('busqueda'),
+                              'estado'           => Input::get('estado'),
+                              'ciudad'           => Input::get('ciudad'),
+                              'sector'           => Input::get('sector'),
+                              'tipo'             => Input::get('tipo'),
+                              'negociacion'      => Input::get('negociacion'),
+                              'cuartos'          => Input::get('cuartos'), 
+                              'banos'            => Input::get('banos'), 
+                              'estacionamiento'  => Input::get('estacionamiento'), 
+                              'minimo'           => Input::get('minimo'), 
+                              'maximo'           => Input::get('maximo')
+                              ])->render() !!}
     </div>
   </div>
+  @endif
 </div>
 
 @endsection

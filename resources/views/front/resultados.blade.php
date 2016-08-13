@@ -26,6 +26,7 @@
 <div class="separador2"></div>
 <div class="container">
   <div class="row">
+
       <!-- -------------------- Filtros ------------------------ -->
       <div class="hidden-xs hidden-sm col-md-2 col-filter-content">
         <div class="col-xs-12 col-filter-item">
@@ -132,6 +133,29 @@
               </ul>
           </div>
         </div>
+        <div class="col-xs-12 col-filter-item" id="seleccion-estacionamiento">
+          <div class="box-filter-content">
+            <div class="box-filtrar-t">
+              <i class="fa fa-car" aria-hidden="true"></i><span class="font-filter"> Estacionamiento</span></span>
+            </div>
+              <ul class="list-filter">
+  
+                @for ($i = 0; $i < count($estacionamiento); $i++)
+                    @if($estacionamiento[$i]['numero'] > 0)
+                    <li>
+                      <a href="javascript:void(0)" onclick="addFilter('{{ str_slug($estacionamiento[$i]['numero'],"-") }}','estacionamiento')">Para {{ $estacionamiento[$i]['numero'] }}
+                        @if($estacionamiento[$i]['numero'] == 1)
+                          auto
+                        @else
+                          autos
+                        @endif 
+                      </a> <span class="cantidad-filter">({{ $estacionamiento[$i]['cantidad'] }})</span></li>
+                    @endif
+                @endfor
+               
+              </ul>
+          </div>
+        </div>
         <div class="col-xs-12 col-filter-item">
           <div class="box-filter-content">
             <div class="box-filtrar-t">
@@ -155,16 +179,13 @@
         
             @if($inmuebles)
             @foreach ($inmuebles as $inmueble)
+        
             <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="properties properties-resultados">
                   <a href="{{ url('propiedades').'/'.$inmueble->id.'/'.$inmueble->slug }}">
                   <div class="image-holder">
-                      @foreach ($inmueble->imagenes as $imagen)
-                        @if($imagen->principal=='yes')
-                        <img src="{{ asset('images/inmuebles/Thumb_').$imagen->imagen }}" class="img-responsive" alt="properties"/>
-                        @endif
-                      @endforeach
-                
+                    
+                    <img src="{{ asset('images/inmuebles').'/'.$inmueble->imagenes }}" class="img-responsive" alt="properties"/>
                     <div class="precio-resultados">$ {{ number_format($inmueble->precio->dolares,0, ',', '.') }}</div>
                     <div class="negociacion-resultados">{{ $inmueble->negociacion->negociacion }}</div>
                   </div>
@@ -198,9 +219,12 @@
                   </div> 
                 </div>
             </div>
+
             @endforeach
             @else
-                <h2>No se encontraron resultados.</h2>
+                <div class="col-xs-12 col-sm-12 col-md-offset-2 col-md-7" style="text-align: center">
+                    <h2 style="font-size: 32px;color:#8E8E8E;line-height: 50px;">No se encontraron resultados. Puede seguir buscando desde nuestros filtros.</h2>
+                </div>
             @endif
                
         </div>
@@ -209,8 +233,8 @@
 
 
   <div class="row">
-    <div class="col-xs-12" style="text-align: center">
-      {{  $inmuebles->render() }}
+    <div class="col-xs-12 col-sm-12 col-md-offset-2 col-md-10" style="text-align: center">
+     
     </div>
   </div>
 </div>

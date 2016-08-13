@@ -15,6 +15,7 @@ use App\Sector;
 use App\Negociacion;
 use App\Tipo;
 use App\Precio;
+use App\Imagen;
 use App\Asesor;
 use App\Aspirante;
 use App\Slider;
@@ -49,7 +50,7 @@ class FrontController extends Controller
     *
     *
     **/
-    public function busquedaAvanzada(){
+    public function FormBusquedaAvanzada(){
 
         $estados = Estado::all();
         $tipos = Tipo::all();
@@ -93,6 +94,11 @@ class FrontController extends Controller
     public function detallesInmuebles($id){
 
         $inmueble = Inmueble::find($id);
+        
+        //Verifica que el inmueble exista
+        if(!$inmueble){
+            abort(404);
+        }
 
         return view('front.detallesInmuebles',['inmueble' => $inmueble]);
     }
@@ -103,19 +109,6 @@ class FrontController extends Controller
     public function busquedaRapida(Request $request){
 
         //Consulta para la busqueda rapida
-        /*
-        $results = DB::table('inmuebles')
-            ->join('estados','inmuebles.estado_id','=','estados.id')
-            ->join('ciudades','inmuebles.ciudad_id','=','ciudades.id')
-            ->join('sectores','inmuebles.sector_id','=','sectores.id')
-            ->join('tipos','inmuebles.tipo_id','=','tipos.id')
-            ->where('estados.estado','LIKE','%'.$request->busqueda.'%')
-            ->orWhere('ciudades.ciudad','LIKE','%'.$request->busqueda.'%')
-            ->orWhere('sectores.sector','LIKE','%'.$request->busqueda.'%')
-            ->orWhere('tipos.tipo','LIKE','%'.$request->busqueda.'%')
-            ->lists('inmuebles.id');
-        */
-
         $results = DB::table('inmuebles')
             ->join('estados','inmuebles.estado_id','=','estados.id')
             ->join('ciudades','inmuebles.ciudad_id','=','ciudades.id')
@@ -131,27 +124,58 @@ class FrontController extends Controller
         //Ejecutar la consulta del modelo si existen resultados
         if(!empty($results)){
 
-            $inmuebles = Inmueble::whereIn('id',$results)->paginate(9);
+            $inmuebles = Inmueble::whereIn('id',$results)->orderBy('id','asc')->paginate(3);
+            $pagination = true;
+            foreach ($inmuebles as $inmueble) {
+                foreach ($inmueble->imagenes as $imagen) {
+                   if($imagen->principal == 'yes'){
+                        $inmueble->imagenes = $imagen->imagen;
+                   }
+                }
+            }
+
         }
         else{
 
             $inmuebles = false;
+            $pagination = false;
         }
 
-        $estados = Estado::all();
-        $negociaciones = Negociacion::all();
-        $tipos = Tipo::all();
+        //Cargar las cantidades de los filtros para la misma vista
+        $propiedades = Inmueble::all();
+        foreach ($propiedades as $propiedad) {
+            
+            $tipos[] = $propiedad->tipo->tipo;
+            $negociaciones[] = $propiedad->negociacion->negociacion;
+            $estados[] = $propiedad->estado->estado;
+            $ciudades[] = $propiedad->ciudad->ciudad;
+            $sectores[] = $propiedad->sector->sector;
+        }
+
+
+        $estados = $this->cantidadFiltro($estados,'estado');
+        $ciudades = $this->cantidadFiltro($ciudades,'ciudad');
+        $sectores = $this->cantidadFiltro($sectores,'sector');
+        $tipos = $this->cantidadFiltro($tipos,'tipo');
+        $negociaciones = $this->cantidadFiltro($negociaciones,'negociacion');
         $banos = $this->cantidadFiltroInmueble(Inmueble::all(),'banos');
         $cuartos = $this->cantidadFiltroInmueble(Inmueble::all(),'cuartos');
+        $estacionamiento = $this->cantidadFiltroInmueble(Inmueble::all(),'estacionamientos');
+        $filtros = false;
 
-        return view('front.resultados',[
-            'inmuebles'     => $inmuebles,
-            'cantidad'      => count($results),
-            'estados'       => $estados,
-            'negociaciones' => $negociaciones,
-            'tipos'         => $tipos,
-            'banos'         => $banos,
-            'cuartos'       => $cuartos
+        return view('front.filtrado',[
+            'inmuebles'       => $inmuebles,
+            'cantidad'        => count($results),
+            'estados'         => $estados,
+            'ciudades'        => $ciudades,
+            'sectores'        => $sectores,
+            'negociaciones'   => $negociaciones,
+            'tipos'           => $tipos,
+            'banos'           => $banos,
+            'cuartos'         => $cuartos,
+            'estacionamiento' => $estacionamiento,
+            'filtros'         => $filtros,
+            'pagination'      => $pagination
             ]);
 
     }
@@ -161,7 +185,7 @@ class FrontController extends Controller
     *
     *
     **/
-    public function busqueda(Request $request){
+    public function busquedaAvanzada(Request $request){
 
 
         $estado_id = $request->estado;
@@ -171,7 +195,7 @@ class FrontController extends Controller
         $negociacion_id = $request->negociacion;
         $cuartos = $request->cuartos;
         $banos = $request->banos;
-        $estacionamientos = $request->estacionamientos;
+        $estacionamientos = $request->estacionamiento;
         $minimo = str_replace('.','',$request->minimo);
         $maximo = str_replace('.','',$request->maximo);
  
@@ -232,29 +256,60 @@ class FrontController extends Controller
         if(!empty($results)){
 
             //Ejecutar consulta y agregar la paginacion
-            $inmuebles = Inmueble::whereIn('id',$results)->paginate(9);
+            $inmuebles = Inmueble::whereIn('id',$results)->orderBy('id','desc')->paginate(3);
+            $pagination = true;
+            foreach ($inmuebles as $inmueble) {
+                foreach ($inmueble->imagenes as $imagen) {
+                   if($imagen->principal == 'yes'){
+                        $inmueble->imagenes = $imagen->imagen;
+                   }
+                }
+            }
+
         }
         else{
 
             $inmuebles = false;
+            $pagination = false;
         
         }
 
-        //Carga de datos para los filtros
-        $estados = Estado::all();
-        $negociaciones = Negociacion::all();
-        $tipos = Tipo::all();
+
+        //Cargar las cantidades de los filtros para la misma vista
+        $propiedades = Inmueble::all();
+        foreach ($propiedades as $propiedad) {
+            
+            $tipos[] = $propiedad->tipo->tipo;
+            $negociaciones[] = $propiedad->negociacion->negociacion;
+            $estados[] = $propiedad->estado->estado;
+            $ciudades[] = $propiedad->ciudad->ciudad;
+            $sectores[] = $propiedad->sector->sector;
+        }
+
+
+        $estados = $this->cantidadFiltro($estados,'estado');
+        $ciudades = $this->cantidadFiltro($ciudades,'ciudad');
+        $sectores = $this->cantidadFiltro($sectores,'sector');
+        $tipos = $this->cantidadFiltro($tipos,'tipo');
+        $negociaciones = $this->cantidadFiltro($negociaciones,'negociacion');
         $banos = $this->cantidadFiltroInmueble(Inmueble::all(),'banos');
         $cuartos = $this->cantidadFiltroInmueble(Inmueble::all(),'cuartos');
+        $estacionamiento = $this->cantidadFiltroInmueble(Inmueble::all(),'estacionamientos');
+        $filtros = false;
 
-        return view('front.resultados',[
-            'inmuebles'     => $inmuebles,
-            'cantidad'      => count($results),
-            'estados'       => $estados,
-            'negociaciones' => $negociaciones,
-            'tipos'         => $tipos,
-            'banos'         => $banos,
-            'cuartos'       => $cuartos
+        return view('front.filtrado',[
+            'inmuebles'       => $inmuebles,
+            'cantidad'        => count($results),
+            'estados'         => $estados,
+            'ciudades'        => $ciudades,
+            'sectores'        => $sectores,
+            'negociaciones'   => $negociaciones,
+            'tipos'           => $tipos,
+            'banos'           => $banos,
+            'cuartos'         => $cuartos,
+            'estacionamiento' => $estacionamiento,
+            'filtros'         => $filtros,
+            'pagination'      => $pagination
             ]);
     }
     /*
@@ -321,6 +376,7 @@ class FrontController extends Controller
         $palabra = str_replace("-en-", "/", $filtrado);
         $palabra = str_replace("-con-", "/", $palabra);
         $palabra = str_replace("-para-", "/", $palabra);
+        $palabra = str_replace("-orden-", "/", $palabra);
         $palabra = str_replace("-", " ", $palabra);
         $palabras = explode("/", $palabra);
         
@@ -353,7 +409,7 @@ class FrontController extends Controller
                 $pos = strpos($palabras[$i], ' ');
                 $estacionamiento = substr($palabras[$i], 0, $pos);
             }
-            if(ends_with($palabras[$i],'menor') or ends_with($palabras[$i],'mayor')){
+            if(ends_with($palabras[$i],'menor') or ends_with($palabras[$i],'mayor') or ends_with($palabras[$i],'fecha')){
                 
                 $orden = $palabras[$i];
             }
@@ -434,6 +490,21 @@ class FrontController extends Controller
         }else{
             $estacionamiento = null;
         }
+        if(!empty($orden)){
+            $orden = $orden;
+            if($orden == 'menor'){
+                $filtros[] = ['filtro' => 'orden', 'valor' => 'Menor precio'];
+            }
+            if($orden == 'mayor'){
+                $filtros[] = ['filtro' => 'orden', 'valor' => 'Mayor precio'];
+            }
+            if($orden == 'fecha'){
+                $filtros[] = ['filtro' => 'orden', 'valor' => 'Más recientes'];
+            }
+            $status = false;
+        }else{
+            $orden = null;
+        }
 
         if($status){
             $filtros = false;
@@ -497,6 +568,7 @@ class FrontController extends Controller
         if(!empty($results)){
             //Ejecutar la consulta completa
             $inmuebles = Inmueble::find($results);
+            $pagination = true;
 
             foreach ($inmuebles as $inmueble) {
             
@@ -518,15 +590,33 @@ class FrontController extends Controller
             $estacionamiento = $this->cantidadFiltroInmueble($inmuebles,'estacionamientos');
             
             //Agregar la paginacion a la consulta
-            $inmuebles = Inmueble::whereIn('id',$results)->orderBy('id','desc')->paginate(6);
+            if(!empty($orden)){
+                switch ($orden) {
+                    case 'fecha':
+                        $inmuebles = Inmueble::whereIn('id',$results)->orderBy('created_at','desc')->paginate(3);
+                    break;
+                }
+            }
+            else{
+
+                $inmuebles = Inmueble::whereIn('id',$results)->orderBy('id','asc')->paginate(3);
+            }
+            
+            foreach ($inmuebles as $inmueble) {
+                foreach ($inmueble->imagenes as $imagen) {
+                   if($imagen->principal == 'yes'){
+                        $inmueble->imagenes = $imagen->imagen;
+                   }
+                }
+            }
 
         }
         else{
 
             $inmuebles = false;
+            $pagination = false;
         
         }
-
 
         return view('front.filtrado',[
             'inmuebles'       => $inmuebles,
@@ -539,7 +629,8 @@ class FrontController extends Controller
             'banos'           => $banos,
             'cuartos'         => $cuartos,
             'estacionamiento' => $estacionamiento,
-            'filtros'         => $filtros
+            'filtros'         => $filtros,
+            'pagination'      => $pagination
             ]);
     
     }

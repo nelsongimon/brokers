@@ -12,25 +12,24 @@
 */
 
 
-
 //Rutas del Frontend --------------------------------------------------------
 
 Route::get('/','FrontController@index');
 
 //Route::get('/resultados', 'FrontController@resultados');
 
-Route::get('/busqueda-avanzada', 'FrontController@busquedaAvanzada');
+Route::get('/busqueda-avanzada', 'FrontController@FormBusquedaAvanzada');
 
 Route::get('/propiedades/{id}/{titulo}', 'FrontController@detallesInmuebles');
 
-Route::put('/propiedades',[
+Route::get('/resultados',[
 	'uses' => 'FrontController@busquedaRapida',
 	'as'   => 'front.busquedaRapida'
 	]);
 
-Route::get('/propiedades',[
-	'uses' => 'FrontController@busqueda',
-	'as'   => 'front.busqueda'
+Route::get('/busqueda',[
+	'uses' => 'FrontController@busquedaAvanzada',
+	'as'   => 'front.busquedaAvanzada'
 	]);
 
 Route::get('/asesores','FrontController@showAsesores');
@@ -219,3 +218,7 @@ Route::group(['prefix'=>'admin', 'middleware' => 'auth'], function(){
 		]);
 
 });
+
+
+
+

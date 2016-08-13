@@ -34,7 +34,7 @@
     <div class="col-xs-12 col-md-12 col-lg-offset-1 col-lg-10">
     <div class="panel panel-default opacity-panel">
       <div class="panel-body">
-        {!! Form::open(['route' => 'front.busqueda', 'method' => 'get']) !!}
+        {!! Form::open(['route' => 'front.busquedaAvanzada', 'method' => 'get']) !!}
             <div class="col-md-3">
                 <div class="form-group">
                   <label class="label-busqueda">Estado</label>
@@ -104,7 +104,7 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="label-busqueda">Min. Estacionamientos</label>
-                  <input type="number" min="0" max="100" class="form-control input-busqueda-avanzada" name="estacionamientos" id="" placeholder="Min. Estacionamientos"/>
+                  <input type="number" min="0" max="100" class="form-control input-busqueda-avanzada" name="estacionamiento" id="" placeholder="Min. Estacionamientos"/>
                 </div>
               </div>
               <div class="col-md-8">
