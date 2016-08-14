@@ -4,6 +4,10 @@
 <title>@yield('title')</title>
 <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta property="og:site_name" content="Brokers Bienes y Raices"/>
+
+  @yield('meta')
+  
   <link href="http://i.imgur.com/qIr1k6S.png" rel="icon" type="image/png" />
 
   <link rel="stylesheet" href="{{ asset('front/assets/bootstrap/css/bootstrap.css') }}" />
@@ -51,7 +55,7 @@
   <div class="header">
     <div class="row">  
       <div class="col-xs-offset-1 col-xs-10">   
-          <a href="#"><img src="{{ asset('front/images/brokers_logo.png') }}" class="logo"></a>
+          <a href="{{ url('/') }}"><img src="{{ asset('front/images/brokers_logo.png') }}" class="logo"></a>
           <ul class="pull-right">
             <li><a href="#"><span class="fa fa-facebook-square redes-header"></span></a></li>
             <li><a href="#"><span class="fa fa-instagram redes-header"></span></a></li>

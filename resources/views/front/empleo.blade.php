@@ -78,16 +78,17 @@
 
     <div id="owl-example" class="owl-carousel">
         
-        @foreach ($destacados as $destacado)
-          
+      @foreach ($destacados as $destacado)
+      @if($destacado->inmueble->status == 'yes')     
       <div class="properties properties-destacados">
           <a href="{{ url('propiedades').'/'.$destacado->inmueble->id.'/'.$destacado->inmueble->slug }}">
           <div class="image-holder"><img src="{{ asset('images/inmuebles').'/Thumb_'.$destacado->imagen }}" class="img-responsive"  alt="properties"/>
-              <div class="precio-carousel">$ {{ number_format($destacado->inmueble->precio->dolares,0,'.',',') }}</div>
+              <div class="precio-carousel">Bs {{ number_format($destacado->inmueble->bolivares,0,',','.') }}</div>
               <div class="negociacion-carousel">{{ $destacado->inmueble->negociacion->negociacion }}</div>
           </div>
           </a>
           <div class="detalles-carousel">
+              @if($destacado->inmueble->cuartos > 0)
               <span>
                 <i class="fa fa-bed"></i> {{ $destacado->inmueble->cuartos }} 
                   @if($destacado->inmueble->cuartos == 1)
@@ -96,13 +97,16 @@
                     Cuartos
                   @endif
               </span>
-              <span><i class="fa fa-tint"></i> </i> {{ $destacado->inmueble->cuartos }} 
+              @endif
+              @if($destacado->inmueble->banos > 0)
+              <span><i class="fa fa-tint"></i> </i> {{ $destacado->inmueble->banos }} 
                   @if($destacado->inmueble->banos == 1)
                     Baño 
                   @else
                     Baños
                   @endif 
-              </span> 
+              </span>
+              @endif 
               <span><i class="fa fa-expand"></i> {{ $destacado->inmueble->area_parcela }}m² </span>    
           </div>
           <div class="titulo-tipo-carousel">
@@ -114,8 +118,8 @@
               </div>
           </div>  
       </div>
-
-        @endforeach
+      @endif
+      @endforeach
 
  
     </div>

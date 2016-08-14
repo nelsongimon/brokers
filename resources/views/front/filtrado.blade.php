@@ -129,6 +129,7 @@
               <ul class="list-filter">
 
                 @for ($i = 0; $i < count($cuartos); $i++)
+                    @if($cuartos[$i]['numero'] > 0)
                     <li>
                       <a href="javascript:void(0)" onclick="addFilter('{{ str_slug($cuartos[$i]['numero'],"-") }}','cuartos')">{{ $cuartos[$i]['numero'] }} 
                       @if($cuartos[$i]['numero'] == 1)
@@ -138,6 +139,7 @@
                       @endif
                       </a> <span class="cantidad-filter">({{ $cuartos[$i]['cantidad'] }})</span>
                     </li>
+                    @endif
                 @endfor
 
               </ul>
@@ -151,6 +153,7 @@
               <ul class="list-filter">
 
                 @for ($i = 0; $i < count($banos); $i++)
+                    @if($banos[$i]['numero'] > 0)
                     <li>
                       <a href="javascript:void(0)" onclick="addFilter('{{ str_slug($banos[$i]['numero'],"-") }}','banos')">{{ $banos[$i]['numero'] }}
                         @if($banos[$i]['numero'] == 1)
@@ -159,6 +162,7 @@
                           Baños
                         @endif 
                       </a> <span class="cantidad-filter">({{ $banos[$i]['cantidad'] }})</span></li>
+                      @endif
                 @endfor
                
               </ul>
@@ -187,15 +191,15 @@
               </ul>
           </div>
         </div>
-        <div class="col-xs-12 col-filter-item">
+        <div class="col-xs-12 col-filter-item" id="seleccion-orden">
           <div class="box-filter-content">
             <div class="box-filtrar-t">
               <i class="fa fa-sort-amount-asc" aria-hidden="true"></i> <span class="font-filter">Ordenado Por</span></span>
             </div>
               <ul class="list-filter">
-                <li><a href="#">Mayor Precio</a></li>
-                <li><a href="#">Menor Precio</a></li>
-                <li><a href="#">Más recientes</a></li>
+                <li><a href="javascript:void(0)" onclick="addFilter('mayor-precio','orden')">Mayor Precio</a></li>
+                <li><a href="javascript:void(0)" onclick="addFilter('menor-precio','orden')">Menor Precio</a></li>
+                <li><a href="javascript:void(0)" onclick="addFilter('mas-recientes','orden')">Más recientes</a></li>
               </ul>
           </div>
         </div>
@@ -210,18 +214,20 @@
         
             @if($inmuebles)
             @foreach ($inmuebles as $inmueble)
+            @if($inmueble->status == 'yes')
             <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="properties properties-resultados">
                   <a href="{{ url('propiedades').'/'.$inmueble->id.'/'.$inmueble->slug }}">
                   <div class="image-holder">
                       
                     <img src="{{ asset('images/inmuebles').'/'.$inmueble->imagenes }}" class="img-responsive" alt="properties"/> 
-                    <div class="precio-resultados">$ {{ number_format($inmueble->precio->dolares,0, ',', '.') }}</div>
+                    <div class="precio-resultados">Bs {{ number_format($inmueble->bolivares,0, ',', '.') }}</div>
                     <div class="negociacion-resultados">{{ $inmueble->negociacion->negociacion }}</div>
                   </div>
                   </a>
                    <div class="detalles-resultados">
-                       <span>
+                        @if($inmueble->cuartos > 0)
+                        <span>
                           <i class="fa fa-bed"></i> {{ $inmueble->cuartos }} 
                           @if($inmueble->cuartos == 1)
                             Cuarto
@@ -229,7 +235,9 @@
                             Cuartos 
                           @endif
                         </span>
-                       <span>
+                        @endif
+                        @if($inmueble->banos > 0)
+                        <span>
                           <i class="fa fa-tint"></i> {{ $inmueble->banos }} 
                           @if($inmueble->banos == 1)
                             Baño 
@@ -237,7 +245,8 @@
                             Baños
                           @endif
                         </span> 
-                       <span><i class="fa fa-expand"></i> {{ $inmueble->area_parcela }}m² </span>    
+                        @endif
+                        <span><i class="fa fa-expand"></i> {{ $inmueble->area_parcela }}m² </span>    
                    </div>
                   <div class="titulo-tipo-resultados">
                     <div class="titulo">
@@ -249,6 +258,7 @@
                   </div> 
                 </div>
             </div>
+            @endif
             @endforeach
             @else
                 <div class="col-xs-12 col-sm-12 col-md-offset-2 col-md-7" style="text-align: center">

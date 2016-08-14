@@ -8,5 +8,10 @@ class Metrica extends Model
 {
     
     protected $table = 'metricas';
+
+
+    public function inmueble(){
+    	return $this->belongsTo('App\Inmueble');
+    }
     
 }

@@ -14,7 +14,6 @@ use App\Ciudad;
 use App\Sector;
 use App\Negociacion;
 use App\Tipo;
-use App\Precio;
 use App\Imagen;
 use App\Asesor;
 use App\Aspirante;
@@ -55,8 +54,8 @@ class FrontController extends Controller
         $estados = Estado::all();
         $tipos = Tipo::all();
         $negos = Negociacion::all();
-        $min_precio = Precio::orderBy('dolares','asc')->limit(1)->lists('dolares');
-        $max_precio = Precio::orderBy('dolares','desc')->limit(1)->lists('dolares');
+        $min_precio = Inmueble::orderBy('bolivares','asc')->limit(1)->lists('bolivares');
+        $max_precio = Inmueble::orderBy('bolivares','desc')->limit(1)->lists('bolivares');
         $destacados = Destacado::all();
 
         //Calculo de los valores iniciales del rango
@@ -206,7 +205,6 @@ class FrontController extends Controller
             ->join('sectores','inmuebles.sector_id','=','sectores.id')
             ->join('tipos','inmuebles.tipo_id','=','tipos.id')
             ->join('negociaciones','inmuebles.negociacion_id','=','negociaciones.id')
-            ->join('precios','inmuebles.id','=','precios.inmueble_id')
             ->where(function($query) use ($estado_id){
                 if(!empty($estado_id)){
                     $query->where('estados.id','=',$estado_id);
@@ -247,7 +245,7 @@ class FrontController extends Controller
                     $query->where('inmuebles.estacionamientos','=',$estacionamientos);
                 }
             })
-            ->whereBetween('precios.dolares', [$minimo, $maximo])
+            ->whereBetween('inmuebles.bolivares', [$minimo, $maximo])
             ->lists('inmuebles.id');
 
 
@@ -409,7 +407,7 @@ class FrontController extends Controller
                 $pos = strpos($palabras[$i], ' ');
                 $estacionamiento = substr($palabras[$i], 0, $pos);
             }
-            if(ends_with($palabras[$i],'menor') or ends_with($palabras[$i],'mayor') or ends_with($palabras[$i],'fecha')){
+            if(ends_with($palabras[$i],'menor precio') or ends_with($palabras[$i],'mayor precio') or ends_with($palabras[$i],'mas recientes')){
                 
                 $orden = $palabras[$i];
             }
@@ -492,13 +490,13 @@ class FrontController extends Controller
         }
         if(!empty($orden)){
             $orden = $orden;
-            if($orden == 'menor'){
+            if($orden == 'menor precio'){
                 $filtros[] = ['filtro' => 'orden', 'valor' => 'Menor precio'];
             }
-            if($orden == 'mayor'){
+            if($orden == 'mayor precio'){
                 $filtros[] = ['filtro' => 'orden', 'valor' => 'Mayor precio'];
             }
-            if($orden == 'fecha'){
+            if($orden == 'mas recientes'){
                 $filtros[] = ['filtro' => 'orden', 'valor' => 'Más recientes'];
             }
             $status = false;
@@ -519,7 +517,6 @@ class FrontController extends Controller
             ->join('sectores','inmuebles.sector_id','=','sectores.id')
             ->join('tipos','inmuebles.tipo_id','=','tipos.id')
             ->join('negociaciones','inmuebles.negociacion_id','=','negociaciones.id')
-            ->join('precios','inmuebles.id','=','precios.inmueble_id')
             ->where(function($query) use ($estado_id){
                 if(!empty($estado_id)){
                     $query->where('estados.id','=',$estado_id);
@@ -591,9 +588,16 @@ class FrontController extends Controller
             
             //Agregar la paginacion a la consulta
             if(!empty($orden)){
+
                 switch ($orden) {
-                    case 'fecha':
+                    case 'mas recientes':
                         $inmuebles = Inmueble::whereIn('id',$results)->orderBy('created_at','desc')->paginate(3);
+                    break;
+                    case 'menor precio':
+                        $inmuebles = Inmueble::whereIn('id',$results)->orderBy('bolivares','asc')->paginate(3);
+                    break;
+                    case 'mayor precio':
+                        $inmuebles = Inmueble::whereIn('id',$results)->orderBy('bolivares','desc')->paginate(3);
                     break;
                 }
             }

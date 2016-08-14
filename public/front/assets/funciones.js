@@ -118,6 +118,9 @@ $(document).ready(function(){
 	if($('#filtro-estacionamiento').data('estacionamiento')){
 		$('#seleccion-estacionamiento').hide();
 	}
+	if($('#filtro-orden').data('orden')){
+		$('#seleccion-orden').hide();
+	}
 	
 
 });
@@ -153,6 +156,9 @@ function addFilter(valor,filtro){
 		if($('#filtro-estacionamiento').data('estacionamiento')){
 			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
 		}
+		if($('#filtro-orden').data('orden')){
+			url += '-orden-'+$('#filtro-orden').data('orden');
+		}
 
 	}
 	if(filtro == 'negociacion'){
@@ -181,6 +187,9 @@ function addFilter(valor,filtro){
 		}
 		if($('#filtro-estacionamiento').data('estacionamiento')){
 			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
+		}
+		if($('#filtro-orden').data('orden')){
+			url += '-orden-'+$('#filtro-orden').data('orden');
 		}	
 	}
 	if(filtro == 'estado' || filtro == 'ciudad' || filtro == 'sector'){
@@ -202,6 +211,9 @@ function addFilter(valor,filtro){
 		}
 		if($('#filtro-estacionamiento').data('estacionamiento')){
 			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
+		}
+		if($('#filtro-orden').data('orden')){
+			url += '-orden-'+$('#filtro-orden').data('orden');
 		}		
 	}
 	if(filtro == 'banos'){
@@ -234,6 +246,9 @@ function addFilter(valor,filtro){
 		}
 		if($('#filtro-estacionamiento').data('estacionamiento')){
 			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
+		}
+		if($('#filtro-orden').data('orden')){
+			url += '-orden-'+$('#filtro-orden').data('orden');
 		}	
 	}
 	if(filtro == 'cuartos'){
@@ -267,6 +282,9 @@ function addFilter(valor,filtro){
 		if($('#filtro-estacionamiento').data('estacionamiento')){
 			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
 		}
+		if($('#filtro-orden').data('orden')){
+			url += '-orden-'+$('#filtro-orden').data('orden');
+		}
 	}
 	if(filtro == 'estacionamiento'){
 		if($('#filtro-tipo').data('tipo')){
@@ -299,6 +317,39 @@ function addFilter(valor,filtro){
 		else{
 			url += '-para-'+valor+'-autos';
 		}
+		if($('#filtro-orden').data('orden')){
+			url += '-orden-'+$('#filtro-orden').data('orden');
+		}
+	}
+	if(filtro == 'orden'){
+		if($('#filtro-tipo').data('tipo')){
+			url += $('#filtro-tipo').data('tipo');
+		}
+		else{
+			url += 'propiedad';
+		}
+		if($('#filtro-negociacion').data('negociacion')){
+			url += '-en-'+$('#filtro-negociacion').data('negociacion');
+		}
+		if($('#filtro-estado').data('estado')){
+			url += '-en-'+$('#filtro-estado').data('estado');
+		}
+		if($('#filtro-ciudad').data('ciudad')){
+			url += '-en-'+$('#filtro-ciudad').data('ciudad');
+		}
+		if($('#filtro-sector').data('sector')){
+			url += '-en-'+$('#filtro-sector').data('sector');
+		}
+		if($('#filtro-banos').data('banos')){
+			url += '-con-'+$('#filtro-banos').data('banos');
+		}
+		if($('#filtro-cuartos').data('cuartos')){
+			url += '-con-'+$('#filtro-cuartos').data('cuartos');
+		}
+		if($('#filtro-estacionamiento').data('estacionamiento')){
+			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
+		}
+		url += '-orden-'+valor;
 	}
 
 	window.location = url;
@@ -334,6 +385,9 @@ function removeFilter(filtro){
 		if($('#filtro-estacionamiento').data('estacionamiento')){
 			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
 		}
+		if($('#filtro-orden').data('orden')){
+			url += '-orden-'+$('#filtro-orden').data('orden');
+		}
 
 		$('#list-filtro-tipo').fadeOut(300);		
 	}
@@ -363,6 +417,9 @@ function removeFilter(filtro){
 		}
 		if($('#filtro-estacionamiento').data('estacionamiento')){
 			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
+		}
+		if($('#filtro-orden').data('orden')){
+			url += '-orden-'+$('#filtro-orden').data('orden');
 		}
 
 		$('#list-filtro-negociacion').fadeOut(300);		
@@ -395,6 +452,9 @@ function removeFilter(filtro){
 		if($('#filtro-estacionamiento').data('estacionamiento')){
 			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
 		}
+		if($('#filtro-orden').data('orden')){
+			url += '-orden-'+$('#filtro-orden').data('orden');
+		}
 
 		$('#list-filtro-estado').fadeOut(300);
 		$('#list-filtro-ciudad').fadeOut(300);		
@@ -426,6 +486,9 @@ function removeFilter(filtro){
 		if($('#filtro-estacionamiento').data('estacionamiento')){
 			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
 		}
+		if($('#filtro-orden').data('orden')){
+			url += '-orden-'+$('#filtro-orden').data('orden');
+		}
 
 		$('#list-filtro-banos').fadeOut(300);	
 	}
@@ -454,6 +517,9 @@ function removeFilter(filtro){
 		}
 		if($('#filtro-estacionamiento').data('estacionamiento')){
 			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
+		}
+		if($('#filtro-orden').data('orden')){
+			url += '-orden-'+$('#filtro-orden').data('orden');
 		}
 
 		$('#list-filtro-cuartos').fadeOut(300);	
@@ -484,8 +550,43 @@ function removeFilter(filtro){
 		if($('#filtro-cuartos').data('cuartos')){
 			url += '-'+$('#filtro-cuartos').data('cuartos');
 		}
+		if($('#filtro-orden').data('orden')){
+			url += '-orden-'+$('#filtro-orden').data('orden');
+		}
 
 		$('#list-filtro-estacionamiento').fadeOut(300);	
+	}
+	if(filtro == 'orden'){
+		if($('#filtro-tipo').data('tipo')){
+			url += $('#filtro-tipo').data('tipo');
+		}
+		else{
+			url += 'propiedad';
+	
+		}
+		if($('#filtro-negociacion').data('negociacion')){
+			url += '-en-'+$('#filtro-negociacion').data('negociacion');
+		}
+		if($('#filtro-estado').data('estado')){
+			url += '-con-'+$('#filtro-estado').data('estado');
+		}
+		if($('#filtro-ciudad').data('ciudad')){
+			url += '-en-'+$('#filtro-ciudad').data('ciudad');
+		}
+		if($('#filtro-sector').data('sector')){
+			url += '-en-'+$('#filtro-sector').data('sector');
+		}
+		if($('#filtro-banos').data('banos')){
+			url += '-con-'+$('#filtro-banos').data('banos');
+		}
+		if($('#filtro-cuartos').data('cuartos')){
+			url += '-'+$('#filtro-cuartos').data('cuartos');
+		}
+		if($('#filtro-estacionamiento').data('estacionamiento')){
+			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
+		}
+
+		$('#list-filtro-orden').fadeOut(300);	
 	}
 
 	window.location = url;

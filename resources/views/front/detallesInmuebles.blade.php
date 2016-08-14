@@ -1,5 +1,18 @@
 @extends('layouts.front')
 
+@section('meta')
+
+  <meta property="og:title" content="{{ $inmueble->titulo }}"/>
+  <meta property="og:url" content="{{ url('propiedades').'/'.$inmueble->id.'/'.$inmueble->slug }}"/>
+  <meta property="og:type" content="article"/>
+  @foreach ($inmueble->imagenes as $imagen)
+    @if($imagen->principal=='yes')                   
+  <meta property="og:image" content="{{ asset('images/inmuebles').'/'.$imagen->imagen }}"/>
+    @endif                                  
+  @endforeach
+  
+@endsection
+
 @section('title')
   {{ $inmueble->titulo }}
 @endsection
@@ -73,12 +86,19 @@
                   <div id="carousel-id" class="carousel slide" data-ride="carousel">
     
                     <div class="carousel-inner">
-                      <div class="item">
-                        <img data-src="holder.js/900x500/auto/#666:#6a6a6a/text:Second slide" alt="Second slide" src="images/properties/2.jpg">
-                      </div>
-                      <div class="item active">
-                        <img data-src="holder.js/900x500/auto/#555:#5a5a5a/text:Third slide" alt="Third slide" src="images/properties/2.jpg">
-                      </div>
+  
+                      @foreach ($inmueble->imagenes as $imagen)
+                        @if($imagen->principal=='yes')
+                        <div class="item active">
+                          <img src="{{ asset('images/inmuebles').'/'.$imagen->imagen }}" alt="{{ $imagen->imagen }}" />
+                        </div>
+                        
+                        @else
+                          <div class="item">
+                            <img src="{{ asset('images/inmuebles').'/'.$imagen->imagen }}" alt="{{ $imagen->imagen }}" />
+                          </div>
+                        @endif
+                      @endforeach
                     </div>
                     <a class="left carousel-control" href="#carousel-id" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
                     <a class="right carousel-control" href="#carousel-id" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
@@ -105,7 +125,7 @@
       <div class="col-sm-12 col-filter-item">
         <div class="panel panel-info panel-modificado">
           <div class="panel-heading">
-            <span class="titulos-detalles-lg"><span class="fa fa-money"></span> Precio {{ $inmueble->negociacion->negociacion }} $ {{ number_format($inmueble->precio->dolares,0,'.',',') }}</span>
+            <span class="titulos-detalles-lg"><span class="fa fa-money"></span> Precio {{ $inmueble->negociacion->negociacion }} Bs {{ number_format($inmueble->bolivares,0,',','.') }}</span>
           </div>
         </div>
       </div>
@@ -117,6 +137,7 @@
           <div class="panel-body">
             <ul class="list-datos-principales texto-detalles-md">
               <li><span class="fa  fa-home"></span> &nbsp;&nbsp; {{ $inmueble->tipo->tipo }}</li>
+              @if($inmueble->cuartos > 0)
               <li><span class="fa fa-bed"></span> &nbsp; {{ $inmueble->cuartos }} 
                   @if($inmueble->cuartos == 1)
                     Cuarto
@@ -124,6 +145,8 @@
                     Cuartos
                   @endif
               </li>
+              @endif
+              @if($inmueble->banos > 0)
               <li><span class="fa fa-tint"></span> &nbsp;&nbsp; {{ $inmueble->banos }} 
                   @if($inmueble->banos == 1)
                     Baño
@@ -131,6 +154,8 @@
                     Baños
                   @endif
               </li>
+              @endif
+              @if($inmueble->estacionamientos > 0)
               <li><span class="fa  fa-automobile"></span> &nbsp; {{ $inmueble->estacionamientos }} 
                   @if($inmueble->estacionamientos == 1)
                     Puesto de Estacionamiento
@@ -138,6 +163,7 @@
                     Puestos de Estacionamiento
                   @endif
               </li>
+              @endif
               <li><span class="fa fa-expand"></span> &nbsp;&nbsp; {{ $inmueble->area_construccion }}m² Área de Construcción</li>
               <li><span class="fa fa-expand"></span> &nbsp;&nbsp; {{ $inmueble->area_parcela }}m² Área de Parcela</li>
             </ul>

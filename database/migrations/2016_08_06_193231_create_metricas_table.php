@@ -15,7 +15,6 @@ class CreateMetricasTable extends Migration
         Schema::create('metricas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('titulo');
-            $table->string('imagen');
             $table->integer('visitas');
             $table->integer('inmueble_id')->unsigned();
             $table->foreign('inmueble_id')

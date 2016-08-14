@@ -14,7 +14,7 @@
 
 @section('page-header','Inmuebles')
 
-@section('optional-description','Crea un nuevo Inmueble y añádelo a este sitio')
+@section('optional-description','Actualiza el grupo de imágenes del inmueble')
 
 @section('content')
 
@@ -39,6 +39,7 @@
                     {!! Form::close() !!}
                     <br>
                     <div class="col-md-12">
+                      <a  href="{{ route('admin.inmuebles.edit',$id) }}" class="btn btn-primary btn-lg pull-left">Cancelar</a>
                       <button type="submit" id="submit" class="btn btn-primary btn-lg pull-right">Guardar</button>
                     </div>
                   </div>

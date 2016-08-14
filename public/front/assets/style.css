@@ -893,6 +893,17 @@ ul#thumbs img{
 	font-family: 'Open Sans', sans-serif;
 }
 
+.ver-todas{
+	color: #322C83;
+	text-decoration: none;
+	font-size: 15px;
+	font-family: 'Open Sans', sans-serif;
+}
+.ver-todas:hover{
+	color: #4136D9;
+	text-decoration: none;
+}
+
 
 /************Pagination Modificada****************************/
 

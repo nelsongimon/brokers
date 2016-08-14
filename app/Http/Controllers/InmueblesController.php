@@ -15,11 +15,11 @@ use App\Asesor;
 use App\Estado;
 use App\Ciudad;
 use App\Sector;
-use App\Precio;
 use App\Localizacion;
 use App\Imagen;
 use App\DolarValor;
 use App\Cliente;
+use App\Metrica;
 use Auth;
 use Session;
 use Image;
@@ -41,7 +41,7 @@ class InmueblesController extends Controller
         $dolar_valor=DolarValor::all();
         $valor=$dolar_valor->last()->valor;
 
-        return view('admin.inmuebles.index',['inmuebles'=>$inmuebles,'valor'=>$valor]);
+        return view('admin.inmuebles.index',['inmuebles' => $inmuebles,'valor' => $valor]);
     }
 
     /**
@@ -94,7 +94,7 @@ class InmueblesController extends Controller
 
         $inmueble=Inmueble::find($inmuebles->last()->id);
 
-        Session::flash('mensaje-success','El inmueble '. $inmueble->titulo .' fue creado con éxito');
+        Session::flash('mensaje-success','El inmueble fue creado con éxito');
         return redirect('/admin/inmuebles');
         
 
@@ -177,6 +177,13 @@ class InmueblesController extends Controller
     {
         
         $inmueble = Inmueble::create($request->all());
+        $inmueble->dolares = $request->dolares;
+
+        $valor = DolarValor::all();
+
+        $inmueble->bolivares = ($request->dolares * $valor->last()->valor);
+        $inmueble->save();
+
         if(isset($request->status)){
             $inmueble->status='yes';
             $inmueble->save();
@@ -185,11 +192,6 @@ class InmueblesController extends Controller
             $inmueble->status = 'no';
             $inmueble->save();
         }
-
-        $precio = new Precio;
-        $precio->dolares = $request->dolares;
-        $precio->inmueble()->associate($inmueble);
-        $precio->save();
 
         $cliente = new Cliente;
         $cliente->nombre=$request->nombre;
@@ -212,8 +214,13 @@ class InmueblesController extends Controller
     public function show($id)
     {
         
-        $inmueble=Inmueble::find($id);
-        return view('admin.inmuebles.show',['inmueble'=>$inmueble]);
+        $inmueble = Inmueble::find($id);
+
+        if(!$inmueble){
+            abort(404);
+        }
+
+        return view('admin.inmuebles.show',['inmueble' => $inmueble]);
         
     }
 
@@ -225,11 +232,15 @@ class InmueblesController extends Controller
      */
     public function edit($id)
     {
-        $inmueble=Inmueble::find($id);
-        $asesores=Asesor::orderBy('nombre','asc')->get();
-        $tipos=Tipo::orderBy('id','asc')->get();
-        $negos=Negociacion::orderBy('id','asc')->get();
-        $estados=Estado::orderBy('estado','asc')->get();
+        $inmueble = Inmueble::find($id);
+        $asesores = Asesor::orderBy('nombre','asc')->get();
+        $tipos = Tipo::orderBy('id','asc')->get();
+        $negos = Negociacion::orderBy('id','asc')->get();
+        $estados = Estado::orderBy('estado','asc')->get();
+
+        if(!$inmueble){
+            abort(404);
+        }
 
         return view('admin.inmuebles.edit',[
             'inmueble' => $inmueble,
@@ -268,7 +279,11 @@ class InmueblesController extends Controller
         $inmueble->asesor_id = $request->asesor_id;
         $inmueble->user_id = $request->user_id;
 
-        $inmueble->precio->dolares = $request->dolares;
+
+
+        $inmueble->dolares = $request->dolares;
+        $valor = DolarValor::all();
+        $inmueble->bolivares = ($request->dolares * $valor->last()->valor);
 
         $inmueble->localizacion->localizacion = $request->localizacion;
         $inmueble->localizacion->latitud = $request->latitud;

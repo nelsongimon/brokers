@@ -17,11 +17,11 @@
 <style type="text/css">
 
   @foreach ($sliders as $slider)
-
+  @if($slider->inmueble->status == 'yes')  
     .bg-img-{{ str_slug($slider->titulo,'-') }} {
       background-image: url({{ asset('images/inmuebles').'/'.$slider->imagen }});
     }
-
+  @endif
   @endforeach
 
 </style>
@@ -36,12 +36,14 @@
   <div id="slider" class="sl-slider-wrapper">
       <div class="sl-slider">
         @foreach ($sliders as $slider)
+        @if($slider->inmueble->status == 'yes') 
           <div class="sl-slide" data-orientation="vertical" data-slice1-rotation="3" data-slice2-rotation="3" data-slice1-scale="2" data-slice2-scale="1">
             <div class="sl-slide-inner">
               <div class="bg-img" style="background-image: url({{ asset('images/inmuebles').'/'.$slider->imagen }})"></div>
               <h2><a href="{{ url('propiedades').'/'.$slider->inmueble->id.'/'.$slider->inmueble->slug }}">{{ str_limit($slider->inmueble->titulo,45) }}</a></h2>
               <blockquote>              
               <p class="location"><span class="glyphicon glyphicon-map-marker"></span> {{ $slider->inmueble->sector->sector.', '.$slider->inmueble->ciudad->ciudad.'. Estado '.$slider->inmueble->estado->estado}}</p>
+              @if($slider->inmueble->banos > 0)
               <p style="font-size: 25px">
                 {{ $slider->inmueble->banos }}
                 @if($slider->inmueble->banos == 1)
@@ -50,6 +52,8 @@
                     Baños
                 @endif
               </p>
+              @endif
+              @if($slider->inmueble->cuartos > 0)
               <p style="font-size: 25px">
                 {{ $slider->inmueble->cuartos }}
                 @if($slider->inmueble->cuartos == 1)
@@ -58,17 +62,21 @@
                     Cuartos
                 @endif
               </p>
-              <p class="precio">$ {{ number_format($slider->inmueble->precio->dolares,0,'.',',') }}</p>
+              @endif
+              <p class="precio">Bs {{ number_format($slider->inmueble->bolivares,0,',','.') }}</p>
               </blockquote>
             </div>
           </div>
+        @endif
         @endforeach
           
       </div><!-- /sl-slider -->
 
       <nav id="nav-dots" class="nav-dots">
         @foreach ($sliders as $slider) 
+        @if($slider->inmueble->status == 'yes') 
           <span></span>
+        @endif
         @endforeach
       </nav>
 
@@ -106,20 +114,21 @@
 <div class="container">
   <div class="properties-listing spacer"> 
     
-    <div class="destacadas">Propiedades destacadas</div>
+    <div class="destacadas">Propiedades destacadas <span>&nbsp;&nbsp;<a href="{{ url('/propiedades') }}" class="ver-todas">Ver todas</a></span></div>
 
     <div id="owl-example" class="owl-carousel">
         
-        @foreach ($destacados as $destacado)
-          
+      @foreach ($destacados as $destacado)
+      @if($destacado->inmueble->status == 'yes')     
       <div class="properties properties-destacados">
           <a href="{{ url('propiedades').'/'.$destacado->inmueble->id.'/'.$destacado->inmueble->slug }}">
           <div class="image-holder"><img src="{{ asset('images/inmuebles').'/Thumb_'.$destacado->imagen }}" class="img-responsive"  alt="properties"/>
-              <div class="precio-carousel">$ {{ number_format($destacado->inmueble->precio->dolares,0,'.',',') }}</div>
+              <div class="precio-carousel">Bs {{ number_format($destacado->inmueble->bolivares,0,',','.') }}</div>
               <div class="negociacion-carousel">{{ $destacado->inmueble->negociacion->negociacion }}</div>
           </div>
           </a>
           <div class="detalles-carousel">
+              @if($destacado->inmueble->cuartos > 0)
               <span>
                 <i class="fa fa-bed"></i> {{ $destacado->inmueble->cuartos }} 
                   @if($destacado->inmueble->cuartos == 1)
@@ -128,13 +137,16 @@
                     Cuartos
                   @endif
               </span>
-              <span><i class="fa fa-tint"></i> </i> {{ $destacado->inmueble->cuartos }} 
+              @endif
+              @if($destacado->inmueble->banos > 0)
+              <span><i class="fa fa-tint"></i> </i> {{ $destacado->inmueble->banos }} 
                   @if($destacado->inmueble->banos == 1)
                     Baño 
                   @else
                     Baños
                   @endif 
               </span> 
+              @endif
               <span><i class="fa fa-expand"></i> {{ $destacado->inmueble->area_parcela }}m² </span>    
           </div>
           <div class="titulo-tipo-carousel">
@@ -146,8 +158,8 @@
               </div>
           </div>  
       </div>
-
-        @endforeach
+      @endif
+      @endforeach
 
  
     </div>

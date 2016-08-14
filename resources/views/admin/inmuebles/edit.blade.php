@@ -11,7 +11,11 @@
 
 @section('page-header','Inmuebles')
 
-@section('optional-description','boton')
+@section('optional-description')
+
+  <a class="btn btn-info" href="{{ url('admin/inmuebles') }}"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver</a>
+
+@endsection
 
 @section('content')
 
@@ -25,7 +29,7 @@
                     <div class="col-md-5 pull-right">
                     {!! Form::open(['route'=>'admin.inmuebles.editImagenes','method'=>'post']) !!}
                         <button type="submit" class="btn btn-block btn-social btn-bitbucket">
-                          <i class="fa fa-camera-retro" aria-hidden="true"></i> Actualizar el grupo de imagenes del inmueble
+                          <i class="fa fa-camera-retro" aria-hidden="true"></i> Actualizar el grupo de imágenes del inmueble
                         </button>
                         <input type="hidden" name="id" value="{{ $inmueble->id }}"></input>
                     
@@ -44,7 +48,7 @@
                     <!-- text input -->
                     <div class="form-group col-md-6">
                       <label>Precio</label>
-                      <input type="text" class="form-control" value="{{ $inmueble->precio->dolares }}" name="dolares">
+                      <input type="text" class="form-control" value="{{ $inmueble->dolares }}" name="dolares">
                     </div>
 
                     <!-- textarea -->
@@ -164,7 +168,6 @@
                           @endforeach
                       </select>
                   </div>
-
                   <legend style="text-align: center;">Datos del Cliente</legend>
                   <div class="form-group col-md-6">
                       <label>Nombre</label>

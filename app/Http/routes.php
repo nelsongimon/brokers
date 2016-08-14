@@ -64,6 +64,8 @@ Route::group(['prefix'=>'admin', 'middleware' => 'auth'], function(){
 
 	Route::get('/home','HomeController@index');
 
+	Route::get('/perfil','HomeController@perfil');
+
 	Route::resource('/usuarios','UsuariosController');
 	Route::get('usuarios/{id}/destroy',[
 		'uses' => 'UsuariosController@destroy',

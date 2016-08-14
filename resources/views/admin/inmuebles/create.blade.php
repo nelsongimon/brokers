@@ -50,13 +50,13 @@
                     <!-- textarea -->
                     <div class="form-group col-md-6">
                       <label>Descripción</label>
-                      <textarea class="form-control" rows="4" name="descripcion" value="{{ old('descripcion') }}" placeholder="Descripción ..."></textarea>
+                      <textarea class="form-control" rows="4" name="descripcion" value="{{ old('descripcion') }}" placeholder="Descripción..."></textarea>
                     </div>
 
                     <!-- textarea -->
                     <div class="form-group col-md-6">
                       <label>Nota</label>
-                      <textarea class="form-control" rows="4" name="nota" value="{{ old('nota') }}" placeholder="Nota ..."></textarea>
+                      <textarea class="form-control" rows="4" name="nota" value="{{ old('nota') }}" placeholder="Nota..."></textarea>
                     </div>
 
                     <!-- text input -->

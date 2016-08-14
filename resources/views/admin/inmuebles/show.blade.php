@@ -21,7 +21,7 @@
 
 		<div class="row">
 
-       		<div class="col-md-6">
+       	<div class="col-md-6">
               <div class="box box-primary">
                 <div class="box-header with-border">
                   <h3 class="box-title">{{ $inmueble->titulo }}</h3>
@@ -55,10 +55,19 @@
                   </div>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
-            </div>
+      </div>
 
 			<div class="col-md-5">
-                <div class="box-body">
+
+              <h2 style="text-align: center; padding: 13px 0px; background: #0E96FF; color:white">{{ $inmueble->metrica->visitas }} 
+              @if($inmueble->metrica->visitas == 1)
+                Visita
+              @else
+                Visitas
+              @endif
+              </h2>
+
+              <div class="box-body">
                   <div class="box box-widget widget-user-2">
                                   <!-- Add the bg color to the header using any of the bg-* classes -->
                     <div class="widget-user-header" style="padding: 10px 40px; background:#325970; border-radius:0px;color:white">
@@ -70,28 +79,53 @@
                         <h3 class="widget-user-username" style="font-size: 20px;">Asesor</h3>
                     </div>
                   </div>           
-                </div>
+              </div>
+
+            
 
 
               <div class="box box-solid">
                 <div class="box-header with-border">
                   
-                  <h3 class="box-title">Detalles</h3>
+                  <h3 class="box-title" style="font-size: 20px">Detalles</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                  <ul style="list-style: none; font-size: 16px">
+                  <ul style="list-style: none; font-size: 18px">
                     <li><i class="fa fa-home" aria-hidden="true"></i> {{ $inmueble->tipo->tipo }}</li>
-                    <li><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> {{ $inmueble->negociacion->negociacion }}</li>
-                    <li><i class="fa fa-money" aria-hidden="true"></i> Precio desde {{ number_format($inmueble->precio->dolares,'0',',','.') }} $  </li>
-                    <li><i class="fa fa-tint" aria-hidden="true"></i> {{ $inmueble->banos }} Baños </li>
-                    <li><i class="fa fa-bed" aria-hidden="true"></i> {{ $inmueble->cuartos }} cuartos</li>
-                    <li><i class="fa fa-car" aria-hidden="true"></i> {{ $inmueble->estacionamientos }} puestos de estacionamientos</li>
-                    <li><i class="fa fa-expand" aria-hidden="true"></i> {{ $inmueble->area_parcela }} metros Tamaño parcela</li>
-                    <li><i class="fa fa-expand" aria-hidden="true"></i> {{ $inmueble->area_construccion }} metros   Tamaño parcela</li>
+                    <li><i class="fa fa-money" aria-hidden="true"></i> &nbsp;{{ $inmueble->negociacion->negociacion }}</li>
+                    @if($inmueble->banos > 0)
+                    <li><i class="fa fa-tint" aria-hidden="true"></i> &nbsp;&nbsp;&nbsp;{{ $inmueble->banos }} 
+                      @if($inmueble->banos == 1)
+                      Baño
+                      @else
+                      Baños
+                      @endif
+                    </li>
+                    @endif
+                    @if($inmueble->cuartos > 0)
+                    <li><i class="fa fa-bed" aria-hidden="true"></i> &nbsp;{{ $inmueble->cuartos }}
+                      @if($inmueble->cuartos == 1)
+                      Cuarto
+                      @else
+                      Cuartos
+                      @endif
+                    </li>
+                    @endif
+                    @if($inmueble->estacionamientos > 0)
+                    <li><i class="fa fa-car" aria-hidden="true"></i> &nbsp;{{ $inmueble->estacionamientos }} 
+                      @if($inmueble->estacionamientos == 1)
+                      puesto de estacionamiento
+                      @else
+                      puestos de estacionamiento
+                      @endif
+                    </li>
+                    @endif
+                    <li><i class="fa fa-expand" aria-hidden="true"></i> &nbsp;&nbsp;{{ $inmueble->area_parcela }}m² Área de Construcción</li>
+                    <li><i class="fa fa-expand" aria-hidden="true"></i> &nbsp;&nbsp;{{ $inmueble->area_construccion }}m² Área de Parcela</li>
                   </ul>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
-            </div>
+        </div>
 
 
     </div>
@@ -101,7 +135,7 @@
               <div class="box box-primary">
                 <div class="box-header with-border">
                   
-                  <h3 class="box-title">Ubicación: {{ $inmueble->sector->sector.', '.$inmueble->ciudad->ciudad.' Estado '.$inmueble->estado->estado }}</h3>
+                  <h3 class="box-title">Ubicación: {{ $inmueble->sector->sector.', '.$inmueble->ciudad->ciudad.'. Estado '.$inmueble->estado->estado }}</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                   <div id="map" style="height: 375px"></div>
@@ -144,6 +178,27 @@
                   </div>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
+              @if(!empty($inmueble->cliente->nombre) or !empty($inmueble->cliente->apellido) or !empty($inmueble->cliente->telefono))
+              <div class="box box-solid">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Datos del cliente</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                  <dl class="dl-horizontal">
+                    <dt>Nombre:</dt>
+                    <dd>{{ $inmueble->cliente->nombre }}</dd>
+                    <dt>Apellido:</dt>
+                    <dd>{{ $inmueble->cliente->apellido }}</dd>
+                    <dt>Teléfono:</dt>
+                    <dd>{{ $inmueble->cliente->telefono }}</dd>
+                    <dt>Email:</dt>
+                    <dd>{{ $inmueble->cliente->email }}</dd>
+                  </dl>
+                </div><!-- /.box-body -->
+              </div>
+              @endif
+
+
             </div> 
 
         </div>

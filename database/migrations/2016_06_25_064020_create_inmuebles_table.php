@@ -15,6 +15,8 @@ class CreateInmueblesTable extends Migration
         Schema::create('inmuebles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('titulo');
+            $table->text('bolivares');
+            $table->text('dolares');
             $table->text('descripcion');
             $table->text('nota');
             $table->float('area_parcela');

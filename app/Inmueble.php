@@ -61,10 +61,6 @@ class Inmueble extends Model
     	return $this->belongsTo('App\Negociacion');
     }
 
-    public function precio(){
-    	return $this->hasOne('App\Precio');
-    }
-
     public function localizacion(){
     	return $this->hasOne('App\Localizacion');
     }
@@ -83,6 +79,10 @@ class Inmueble extends Model
 
     public function imagenes(){
     	return $this->hasMany('App\Imagen');
+    }
+
+    public function metrica(){
+        return $this->hasOne('App\Metrica');
     }
 
 

@@ -33,6 +33,16 @@ class HomeController extends Controller
             'asesores'  => count($asesores)
             ]);
     }
+    /*
+    *
+    *
+    *
+    *
+    */
+    public function perfil(){
+
+        return view('admin.escritorio.perfil');
+    }
 
  
 }

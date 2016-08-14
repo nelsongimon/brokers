@@ -26,9 +26,8 @@
                   <h3 class="box-title">Tabla de Inmuebles</h3>
 					<div class="form-group pull-right">
 						<select class="form-control" name="action">
-		                  	<option value="">Asignación Masiva</option>
-		                  	<option value="slider">Agregar al Slider</option>
-		                  	<option value="destacados">Agregar a Destacados</option>
+		                  	<option value="slider">--Agregar al Slider--</option>
+		                  	<option value="destacados">--Agregar a Destacados--</option>
 	                  	</select>
 					</div>
 	                <button type="submit" class="btn btn-primary pull-right" style="border-radius:0px">Aplicar</button>
@@ -75,8 +74,8 @@
 						 		</td>
 						 		<td>{{ $inmueble->negociacion->negociacion }}</td>
 						 		<td>{{ $inmueble->asesor->nombre.' '.$inmueble->asesor->apellido }}</td>
-								<td>{{ number_format($valor*$inmueble->precio->dolares,0, ',', '.') }}</td>
-						 		<td>{{ number_format($inmueble->precio->dolares,0,'.',',') }}</td>
+								<td>{{ number_format($inmueble->bolivares,0, ',', '.') }}</td>
+						 		<td>{{ number_format($inmueble->dolares,0,'.',',') }}</td>
 						 		<td>
 						 			
 									<a  href="{{ route('admin.inmuebles.show',$inmueble->id) }}" class="btn btn-warning"><i class="fa fa-eye" aria-hidden="true"></i></a>
