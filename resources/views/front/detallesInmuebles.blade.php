@@ -114,7 +114,7 @@
             </div>
             <div class="panel-body">
   
-                    <p class="texto-detalles-xs" style="font-size:18px;margin-bottom: 10px;">{{ $inmueble->sector->sector.', '.$inmueble->ciudad->ciudad.' Estado '.$inmueble->estado->estado }}</p>
+                    <p class="texto-detalles-xs" style="font-size:18px;margin-bottom: 10px;">{{ $inmueble->sector->sector.', '.$inmueble->ciudad->ciudad.'. Estado '.$inmueble->estado->estado }}</p>
                     <div id="map" style="height: 400px"></div>
             </div>
           </div>
@@ -182,6 +182,7 @@
           </div>
         </div>
       </div>
+      @if($inmueble->nota)
       <div class="col-sm-12 col-filter-item">
         <div class="panel panel-info panel-modificado">
           <div class="panel-heading">
@@ -194,24 +195,23 @@
           </div>
         </div>
       </div>
+      @endif
       <div class="col-sm-12 col-filter-item">
         <div class="panel panel-info panel-modificado">
-          <div class="panel-heading">  
-            <span class="titulos-detalles-lg">Asesor {{ $inmueble->asesor->nombre.' '.$inmueble->asesor->apellido }}</span>        
-          </div>
-          <div class="panel-body">
-            <div class="col-sm-3">
-              <img src="{{ asset('images/asesores').'/'.$inmueble->asesor->foto }}" class="img-rounded" width="100%" alt="agent name">
+          <div class="panel-body" style="padding: 5px;">
+            <div class="col-sm-4" style="padding: 0px;">
+              <img src="{{ asset('images/asesores').'/'.$inmueble->asesor->foto }}" class="" height="150px" alt="agent name">
             </div>
             <div class="col-sm-8">
               <div class="contenedor-asesor-info">
-                  <div class="info-asesor"><span class="glyphicon glyphicon-envelope"></span>&nbsp; {{ $inmueble->asesor->email }}</div>
-                  <div class="info-asesor"><span class="fa fa-phone"></span>&nbsp; {{ $inmueble->asesor->telefono }}</div>
+                  <div class="info-asesor" style="font-size: 22px; margin-bottom: 24px; color:#747474;">{{ $inmueble->asesor->nombre.' '.$inmueble->asesor->apellido }}</div>
+                  <div class="info-asesor" style="font-size: 17px;color:#747474;"><span class="glyphicon glyphicon-envelope"></span>&nbsp; {{ $inmueble->asesor->email }}</div>
+                  <div class="info-asesor" style="font-size: 17px;color:#747474;"><span class="fa fa-phone"></span>&nbsp; {{ $inmueble->asesor->telefono }}</div>
               </div>
             </div>
           </div>
           </div>
-        </div>
+      </div>
       </div>
     </div>
   </div>

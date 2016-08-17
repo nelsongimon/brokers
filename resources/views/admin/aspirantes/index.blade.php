@@ -109,3 +109,21 @@
 	
 @endsection
 
+<?php 
+
+    $notificaciones = \App\Notificacion::all();
+
+    foreach ($notificaciones as $notificacion) {
+        if($notificacion->user_id == Auth::user()->id){
+
+            $id = $notificacion->id;
+        }
+    }
+
+    $notificacion = \App\Notificacion::find($id);
+    $notificacion->visto = 'yes';
+    $notificacion->save();
+
+
+?>
+

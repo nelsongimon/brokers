@@ -121,7 +121,7 @@ class AjustesController extends Controller
     **/
     public function mostrarNegociacion(){
 
-        $negos=Negociacion::paginate(2);
+        $negos=Negociacion::paginate(10);
         return view('admin.ajustes.mostrarNegociaciones',['negos'=>$negos]);
     }
     /*

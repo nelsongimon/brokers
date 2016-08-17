@@ -125,6 +125,49 @@ $(document).ready(function(){
 
 });
 
+
+//loader del home de la pagina
+$(document).ready(function(){
+
+    var alto = $('#slider').height();
+    $('#slider').hide();
+    $('#loader').css({"height": (alto/2)+100+"px"});
+    $('#loader').css({"margin-top":(alto/2)-100+"px"}); 
+    $('#loader').html('<i class="fa fa-spinner fa-spin" aria-hidden="true" style="font-size:100px;color:#034F7D"></i>');
+
+}) 
+
+$(window).load(function(){
+
+	$("#loader").fadeOut(function(){
+		$('#slider').fadeIn(100);
+	});
+
+});
+
+//loader de resultados
+$(document).ready(function(){
+
+    var alto = $('#contenedor-inmuebles').height();
+    $('#resultados-inmuebles').hide();
+    $('#loader-resultados').css({"height": (alto/2)+100+"px"});
+    $('#loader-resultados').css({"margin-top":(alto/2)-100+"px"}); 
+    $('#loader-resultados').html('<i class="fa fa-spinner fa-spin" aria-hidden="true" style="font-size:100px;color:#034F7D"></i>');
+
+}) 
+
+$(window).load(function(){
+
+	$("#loader-resultados").fadeOut(function(){
+		$('#resultados-inmuebles').fadeIn(100);
+	});
+
+});
+
+
+
+
+
 //------------------------------Funciones-------------------------------------
 
 
@@ -389,7 +432,7 @@ function removeFilter(filtro){
 			url += '-orden-'+$('#filtro-orden').data('orden');
 		}
 
-		$('#list-filtro-tipo').fadeOut(300);		
+		$('#list-filtro-tipo').fadeOut(100);		
 	}
 
 	if(filtro == 'negociacion'){
@@ -422,7 +465,7 @@ function removeFilter(filtro){
 			url += '-orden-'+$('#filtro-orden').data('orden');
 		}
 
-		$('#list-filtro-negociacion').fadeOut(300);		
+		$('#list-filtro-negociacion').fadeOut(100);		
 	}
 	if(filtro == 'estado' || filtro == 'ciudad' || filtro == 'sector'){
 		if($('#filtro-tipo').data('tipo')){
@@ -456,9 +499,9 @@ function removeFilter(filtro){
 			url += '-orden-'+$('#filtro-orden').data('orden');
 		}
 
-		$('#list-filtro-estado').fadeOut(300);
-		$('#list-filtro-ciudad').fadeOut(300);		
-		$('#list-filtro-sector').fadeOut(300);		
+		$('#list-filtro-estado').fadeOut(100);
+		$('#list-filtro-ciudad').fadeOut(100);		
+		$('#list-filtro-sector').fadeOut(100);		
 	}
 	if(filtro == 'banos'){
 		if($('#filtro-tipo').data('tipo')){
@@ -490,7 +533,7 @@ function removeFilter(filtro){
 			url += '-orden-'+$('#filtro-orden').data('orden');
 		}
 
-		$('#list-filtro-banos').fadeOut(300);	
+		$('#list-filtro-banos').fadeOut(100);	
 	}
 	if(filtro == 'cuartos'){
 		if($('#filtro-tipo').data('tipo')){
@@ -522,7 +565,7 @@ function removeFilter(filtro){
 			url += '-orden-'+$('#filtro-orden').data('orden');
 		}
 
-		$('#list-filtro-cuartos').fadeOut(300);	
+		$('#list-filtro-cuartos').fadeOut(100);	
 	}
 	if(filtro == 'estacionamiento'){
 		if($('#filtro-tipo').data('tipo')){
@@ -554,7 +597,7 @@ function removeFilter(filtro){
 			url += '-orden-'+$('#filtro-orden').data('orden');
 		}
 
-		$('#list-filtro-estacionamiento').fadeOut(300);	
+		$('#list-filtro-estacionamiento').fadeOut(100);	
 	}
 	if(filtro == 'orden'){
 		if($('#filtro-tipo').data('tipo')){
@@ -586,7 +629,7 @@ function removeFilter(filtro){
 			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
 		}
 
-		$('#list-filtro-orden').fadeOut(300);	
+		$('#list-filtro-orden').fadeOut(100);	
 	}
 
 	window.location = url;

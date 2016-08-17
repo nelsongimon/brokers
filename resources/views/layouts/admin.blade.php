@@ -90,24 +90,87 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
               <!-- Notifications Menu -->
               <li class="dropdown notifications-menu">
+                <?php 
+                #----------------------------------------------------------------------------------------------
+                  //Verificacion de nuevo registro
+                  $ingreso = \App\Notificacion::where('user_id','=',Auth::user()->id)->lists('updated_at');
+
+
+                  if(count($ingreso) > 0){
+                    $aspirantes = \App\Aspirante::where('created_at','>',$ingreso[0])->lists('id');  
+                    $aspirantes = count($aspirantes); 
+                  }
+                  else{
+                    $aspirantes = 0;
+                  }
+
+                  // Se actualiza el visto del usuario
+                  if($aspirantes > 0){
+                    $notificaciones = \App\Notificacion::all();
+
+                    foreach ($notificaciones as $notificacion) {
+                        if($notificacion->user_id == Auth::user()->id){
+
+                            $id = $notificacion->id;
+                        }
+                    }
+
+                    $notificacion = \App\Notificacion::find($id);
+                    $notificacion->visto = 'no';
+                    $notificacion->save();
+                  }
+
+
+                  //Notificaciones del sitio
+                  $notificaciones = \App\Notificacion::all();
+                  $verificacion = true;
+                  foreach ($notificaciones as $notificacion) {
+                    if($notificacion->user_id == Auth::user()->id){
+                      $verificacion = false;
+                      $id = $notificacion->id;
+                    }
+                  }
+
+                  if($verificacion){
+                    $notificacion = new \App\Notificacion;
+                    $notificacion->user_id = Auth::user()->id;
+                    $notificacion->ingresos = 1;
+                    $notificacion->save();
+                  }
+                  else{
+                    $notificacion = \App\Notificacion::find($id);
+                    $notificacion->user_id = Auth::user()->id;
+                    $notificacion->ingresos = $notificacion->ingresos + 1;
+                    $notificacion->save();
+                  }
+
+
+                #----------------------------------------------------------------------------------------------
+                ?>
                 <!-- Menu toggle button -->
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-bell-o"></i>
-                  <span class="label label-success">3</span>
+                  @if($notificacion->visto == 'no')
+                  <span class="label label-success">1</span>
+                  @endif
                 </a>
                 <ul class="dropdown-menu">
-                  <li class="header">You have 10 notifications</li>
+                  @if($notificacion->visto == 'no')
+                  <li class="header">tienes 1 notificación</li>
                   <li>
                     <!-- Inner Menu: contains the notifications -->
                     <ul class="menu">
                       <li><!-- start notification -->
-                        <a href="#">
-                          <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                        <a href="{{ url('admin/aspirantes') }}">
+                          <i class="fa fa-users text-aqua"></i> Nuevos aspirantes se registraron
+     
                         </a>
                       </li><!-- end notification -->
                     </ul>
                   </li>
-                  <li class="footer"><a href="#">View all</a></li>
+                  @else
+                  <li class="header">No tienes notificaciones</li>
+                  @endif
                 </ul>
               </li>
              
@@ -156,7 +219,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
               <!-- Control Sidebar Toggle Button -->
               <li>
-                <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                <a href="#" data-toggle="control-sidebar"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
               </li>
             </ul>
           </div>
@@ -220,7 +283,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <li class="treeview">
               <a style="color: white; font-size: 15px;" href="{{ route('admin.aspirantes.index') }}"><i class="fa fa-street-view" aria-hidden="true"></i> <span>Aspirantes</span> <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
-                <li><a style="color: #DDDDDD; font-size: 15px;" href="{{ route('admin.aspirantes.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Todos los aspirantes</a></li>
+                <li><a style="color: #DDDDDD; font-size: 15px;" href="{{ route('admin.aspirantes.index') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Ver aspirantes</a></li>
               </ul>
             </li>
             <li class="treeview">
@@ -265,47 +328,56 @@ scratch. This page gets rid of all links and provides the needed markup only.
           
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; {{ date('Y') }} <a href="#">Brokers Bienes y Raices</a>.</strong> Todos los derechos reservados.
+        <strong>Copyright &copy; {{ date('Y') }} <a href="{{ url('/') }}">Brokers Bienes y Raices</a>.</strong> Todos los derechos reservados.
       </footer>
 
       <!-- Control Sidebar -->
       <aside class="control-sidebar control-sidebar-dark">
         <!-- Create the tabs -->
         <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-          <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-          <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+          <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-chrome" aria-hidden="true"></i>&nbsp;&nbsp; <i class="fa fa-firefox" aria-hidden="true"></i>&nbsp;&nbsp; <i class="fa fa-opera" aria-hidden="true"></i>&nbsp;&nbsp; <i class="fa fa-internet-explorer" aria-hidden="true"></i>&nbsp;&nbsp; <i class="fa fa-safari" aria-hidden="true"></i></a></li>
+
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
           <!-- Home tab content -->
           <div class="tab-pane active" id="control-sidebar-home-tab">
-            <h3 class="control-sidebar-heading">Recent Activity</h3>
+            <h3 class="control-sidebar-heading">Visitar otras páginas</h3>
             <ul class="control-sidebar-menu">
               <li>
-                <a href="javascript::;">
-                  <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+                <a href="{{ url('/asesores') }}" target="_blank">
+                  <i class="menu-icon fa fa-users" style="background: #0070ED; color: white"></i>
                   <div class="menu-info">
-                    <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-                    <p>Will be 23 on April 24th</p>
+                    <h4 class="control-sidebar-subheading">Asesores</h4>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="{{ url('/empleo') }}" target="_blank">
+                  <i class="menu-icon fa fa-suitcase" style="background: #0070ED; color: white"></i>
+                  <div class="menu-info">
+                    <h4 class="control-sidebar-subheading">Empleo</h4>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="{{ url('/busqueda-avanzada') }}" target="_blank">
+                  <i class="menu-icon fa fa-search" style="background: #0070ED; color: white"></i>
+                  <div class="menu-info">
+                    <h4 class="control-sidebar-subheading">Búsqueda Avanzada</h4>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="{{ url('/pasos-para-vender') }}" target="_blank">
+                  <i class="menu-icon fa fa-key" style="background: #0070ED; color: white"></i>
+                  <div class="menu-info">
+                    <h4 class="control-sidebar-subheading">Pasos para vender</h4>
                   </div>
                 </a>
               </li>
             </ul><!-- /.control-sidebar-menu -->
 
-            <h3 class="control-sidebar-heading">Tasks Progress</h3>
-            <ul class="control-sidebar-menu">
-              <li>
-                <a href="javascript::;">
-                  <h4 class="control-sidebar-subheading">
-                    Custom Template Design
-                    <span class="label label-danger pull-right">70%</span>
-                  </h4>
-                  <div class="progress progress-xxs">
-                    <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                  </div>
-                </a>
-              </li>
-            </ul><!-- /.control-sidebar-menu -->
 
           </div><!-- /.tab-pane -->
           <!-- Stats tab content -->

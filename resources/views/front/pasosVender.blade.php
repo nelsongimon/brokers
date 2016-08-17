@@ -4,12 +4,11 @@
 
 @section('css')
 
-<!-- Formulario Rango-->
-<link rel="stylesheet" href="{{ asset('front/assets/noUiSlider/nouislider.css') }}"/>
-
 <!-- Owl stylesheet -->
 <link rel="stylesheet" href="{{ asset('front/assets/owl-carousel/owl.carousel.css') }}">
 <link rel="stylesheet" href="{{ asset('front/assets/owl-carousel/owl.theme.css') }}">
+
+  
 
 
 @endsection
@@ -21,45 +20,42 @@
 
   <div class="inside-banner">
     <div class="container"> 
-        <h2>Asesores Inmobiliarios</h2>
+        <h2>Pasos para vender</h2>
     </div>
   </div>
 
 
-<!-- ------------------------- Asesores -------------------------- -->
+<!-- ----------------- Pasos para vender -------------------------- -->
 
-<div class="container">
-  <div class="spacer agents">
+
+<section class="pasos-vender">
+  <div class="container">
     <div class="row">
-      <div class="col-xs-offset-1 col-xs-10 col-md-offset-1 col-md-10">
-        @foreach ($asesores as $asesor)
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-          <div class="contenedor-asesor">
-            <div class="imagen-asesor">
-              <img src="{{ asset('/images/asesores').'/'.$asesor->foto }}" class="img-responsive"  alt="agent name">
-              <div class="marca-brokers"><img src="{{ asset('front/images/brokers_marca.png') }}" class="logo-marca"></div>
-              <div class="contenedor-asesor-nombre">
-                {{ $asesor->nombre.' '.$asesor->apellido }}
-              </div>
-            </div>
-            <div class="contenedor-asesor-info">
-                <div class="info-asesor"><span class="glyphicon glyphicon-envelope"></span>&nbsp; {{ $asesor->email }}</div>
-                <div class="info-asesor"><span class="fa fa-phone"></span>&nbsp;&nbsp; {{ $asesor->telefono }}</div>
-            </div> 
-          </div>
-        </div>      
-        @endforeach
+      <div class="col-xs-12 col-md-offset-1 col-md-9">
+        <ul class="lista-pasos" style="padding-left: 0px;">
+          <li><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Asesorarse con un corredor inmobiliario</li>
+          <li><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Análisis del mercado</li>
+          <li><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Estimar precio del inmueble</li>
+          <li><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Comercializar y promocionar el inmueble</li>
+          <li><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Documentos para poder vender:
+            <ul>
+              <li><i class="fa fa-file-text-o" aria-hidden="true"></i> Documento de propiedad</li>
+              <li><i class="fa fa-file-text-o" aria-hidden="true"></i> Solvencia municipal</li>
+              <li><i class="fa fa-file-text-o" aria-hidden="true"></i> Ficha catastral</li>
+              <li><i class="fa fa-file-text-o" aria-hidden="true"></i> Declaración de vivienda principal</li>
+              <li><i class="fa fa-file-text-o" aria-hidden="true"></i> Pago planilla forma 20 </li>
+              <li><i class="fa fa-file-text-o" aria-hidden="true"></i> Liberación registrada en caso de haber tenido una hipoteca</li>
+            </ul>
+          </li>
+          <li><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Solvencia de los servicios públicos y condominio</li>
+        </ul>
       </div>
     </div>
   </div>
-</div>
-<!-- ********************************* -->
-<div class="container">
-  <div class="linea"></div>
-</div>
+</section>
 
 
-<!-- ----------------------Propiedades Destacadas-------------------------- -->
+<!-- ---------------------- Propiedades Destacadas ----------------------- -->
 <div class="container">
   <div class="properties-listing spacer"> 
     
@@ -68,7 +64,7 @@
     <div id="owl-example" class="owl-carousel">
         
       @foreach ($destacados as $destacado)
-      @if($destacado->inmueble->status == 'yes')    
+      @if($destacado->inmueble->status == 'yes')     
       <div class="properties properties-destacados">
           <a href="{{ url('propiedades').'/'.$destacado->inmueble->id.'/'.$destacado->inmueble->slug }}">
           <div class="image-holder"><img src="{{ asset('images/inmuebles').'/Thumb_'.$destacado->imagen }}" class="img-responsive"  alt="properties"/>
@@ -114,7 +110,6 @@
     </div>
   </div>
 </div>
-
 @endsection
 
 
@@ -122,5 +117,6 @@
 
   <!-- Owl stylesheet -->
   <script src="{{ asset('front/assets/owl-carousel/owl.carousel.js') }}"></script>
+
 
 @endsection

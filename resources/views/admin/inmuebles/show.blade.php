@@ -59,12 +59,17 @@
 
 			<div class="col-md-5">
 
-              <h2 style="text-align: center; padding: 13px 0px; background: #0E96FF; color:white">{{ $inmueble->metrica->visitas }} 
-              @if($inmueble->metrica->visitas == 1)
-                Visita
-              @else
-                Visitas
-              @endif
+              <h2 style="text-align: center; padding: 13px 0px; background: #0E96FF; color:white">
+                  @if(!empty($inmueble->metrica->visitas))
+                    {{ $inmueble->metrica->visitas }} 
+                    @if($inmueble->metrica->visitas == 1)
+                      Visita
+                    @else
+                      Visitas
+                    @endif
+                  @else
+                      0 Visitas
+                  @endif
               </h2>
 
               <div class="box-body">
@@ -147,6 +152,7 @@
                 <div class="box-body">
                   <div class="box-group" id="accordion">
                     <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
+                    @if($inmueble->nota)
                     <div class="panel box box-primary">
                       <div class="box-header with-border">
                         <h4 class="box-title">
@@ -161,6 +167,7 @@
                         </div>
                       </div>
                     </div>
+                    @endif
                     <div class="panel box box-primary">
                       <div class="box-header with-border">
                         <h4 class="box-title">

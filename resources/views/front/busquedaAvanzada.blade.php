@@ -44,7 +44,7 @@
                         <option value="{{ $estado->id }}">{{ $estado->estado }}</option>
                     @endforeach
                       <input type="hidden" id="token-estado" value="{{ csrf_token() }}"/>
-                      <input type="hidden" id="url-estado" value="{{ route('admin.localizacion.sectores.estadosCiudades') }} "/>
+                      <input type="hidden" id="url-estado" value="{{ route('front.estadosCiudades') }} "/>
                   </select>
                 </div>
               </div>
@@ -55,7 +55,7 @@
                     <option value="">--Todos--</option>
                   </select>
                   <input type="hidden" id="token-ciudad" value="{{ csrf_token() }}"/>
-                  <input type="hidden" id="url-ciudad" value="{{ route('admin.localizacion.sectores.ciudadesSectores') }} "/>
+                  <input type="hidden" id="url-ciudad" value="{{ route('front.ciudadesSectores') }} "/>
                 </div>
               </div>
               <div class="col-md-3">
@@ -103,7 +103,7 @@
               </div>
               <div class="col-md-3">
                 <div class="form-group">
-                  <label class="label-busqueda">Min. Estacionamientos</label>
+                  <label class="label-busqueda">Min. Estacionamiento</label>
                   <input type="number" min="0" max="100" class="form-control input-busqueda-avanzada" name="estacionamiento" id="" placeholder="Min. Estacionamientos"/>
                 </div>
               </div>
@@ -133,7 +133,7 @@
 <div class="container">
   <div class="properties-listing spacer"> 
     
-    <div class="destacadas">Propiedades destacadas</div>
+    <div class="destacadas">Propiedades destacadas <span>&nbsp;<a href="{{ url('/propiedades') }}" class="ver-todas">Ver todas</a></span></div>
 
     <div id="owl-example" class="owl-carousel">
         

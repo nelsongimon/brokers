@@ -16,7 +16,6 @@
 
 Route::get('/','FrontController@index');
 
-//Route::get('/resultados', 'FrontController@resultados');
 
 Route::get('/busqueda-avanzada', 'FrontController@FormBusquedaAvanzada');
 
@@ -36,11 +35,14 @@ Route::get('/asesores','FrontController@showAsesores');
 
 Route::get('/empleo','FrontController@empleo');
 
+Route::get('/pasos-para-vender','FrontController@pasosVender');
+
 Route::post('formulario-empleo',[
 	'uses' => 'FrontController@formEmpleo',
 	'as'   => 'front.empleo'
 
 	]);
+
 
 Route::get('/br-admin',function(){ 
 	return redirect('/admin/home');
@@ -51,6 +53,17 @@ Route::post('/login',[
 	'uses'=>'FrontController@loginAuth', 
 	'as'=>'front.login'
 	]);
+
+Route::post('front/estados/ciudades',[
+			'uses' => 'FrontController@estadosCiudades',
+			'as'   => 'front.estadosCiudades'
+		]);
+
+Route::post('front/ciudades/sectores',[
+			'uses' => 'FrontController@ciudadesSectores',
+			'as'   => 'front.ciudadesSectores'
+		]);
+
 Route::get('/logout','FrontController@logout');
 
 Route::get('/{filtrado}','FrontController@filtrado');
@@ -78,8 +91,6 @@ Route::group(['prefix'=>'admin', 'middleware' => 'auth'], function(){
 		'uses' => 'asesoresController@destroy',
 		'as'   => 'admin.asesores.destroy'
 		]);
-
-
 
 
 
@@ -217,6 +228,11 @@ Route::group(['prefix'=>'admin', 'middleware' => 'auth'], function(){
 	Route::get('destacados/{id}/destroy',[
 		'uses' => 'DestacadosController@destroyDestacados',
 		'as'   => 'admin.destacados.destroy'
+		]);
+
+	Route::post('/editPerfil',[
+		'uses' => 'HomeController@updatePerfil',
+		'as'   => 'admin.home.perfil'
 		]);
 
 });

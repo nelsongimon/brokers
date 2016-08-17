@@ -581,15 +581,18 @@ ul#thumbs img{
 	//border: 2px solid #034F7D;
 	background: #034F7D;
 	box-shadow: inset 0 0 0 0 #034F7D;
-    -webkit-transition: all ease 0.8s;
-    -moz-transition: all ease 0.8s;
-    transition: all ease 0.8s;
+    -webkit-transition: all ease 0.5s;
+    -moz-transition: all ease 0.5s;
+    transition: all ease 0.5s;
 }
+/*
  .input-empleo-button:hover {
        box-shadow: inset 0 70px 0 0 #72b70f;
  }
-
-
+*/
+ .input-empleo-button:hover {
+       background-color: #72b70f;
+ }
  .input-busqueda-avanzada{
 	color: #8F8F8F;
 	background: rgba(255,255,255,1);
@@ -616,13 +619,17 @@ ul#thumbs img{
 	box-shadow: inset 0 0 0 0 #034F7D;
     -webkit-transition: all ease 0.8s;
     -moz-transition: all ease 0.8s;
-    transition: all ease 0.8s;
+    transition: all ease 0.5s;
     font-family: 'Open Sans', sans-serif;
 }
+/*
  .input-busqueda-button:hover {
        box-shadow: inset 0 70px 0 0 #72b70f;
  }
-
+*/
+ .input-busqueda-button:hover {
+       background: #72b70f;
+ }
  .texto-home{
  	font-family: 'Open Sans', sans-serif;
  }
@@ -862,9 +869,9 @@ ul#thumbs img{
 }
 
 .contenedor-asesor-info{
-	margin: 20px 10px;
+	margin: 10px 12px;
 	font-family: 'Open Sans', sans-serif;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 .info-asesor{
 	padding: 1px 0px;
@@ -872,7 +879,7 @@ ul#thumbs img{
 	font-weight: 600;
 	margin-bottom: 12px;
 	text-align: left;
-	color: #A2A2A2;
+	color: #848484;
 	margin:5px;
 }
 .marca-brokers{

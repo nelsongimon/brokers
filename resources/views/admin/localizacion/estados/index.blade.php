@@ -65,7 +65,7 @@
 	                {!! Form::open(['route'=>'admin.localizacion.estados.store','method'=>'post','name'=>'form']) !!}
 	                  <div class="box-body">
 	                    <div class="form-group">
-	                      <label for="exampleInputEmail1">Estado</label>
+	                      <label for="exampleInputEmail1">Estado <span style="color: #FF0000;">*</span></label>
 	                      <input type="text" class="form-control" id="" name="estado" placeholder="Estado">
 	                    </div>
 	     

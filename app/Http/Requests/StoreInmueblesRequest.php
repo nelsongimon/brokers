@@ -27,7 +27,6 @@ class StoreInmueblesRequest extends Request
             'titulo'            => 'required|min:3',
             'dolares'           => 'required|numeric',
             'descripcion'       => 'required',
-            'nota'              => 'required',
             'area_parcela'      => 'required',
             'tipo_id'           => 'required',
             'area_construccion' => 'required',

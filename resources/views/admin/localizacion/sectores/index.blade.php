@@ -69,11 +69,11 @@
 	                {!! Form::open(['route'=>'admin.localizacion.sectores.store','method'=>'post','name'=>'form']) !!}
 	                  <div class="box-body">
 	                    <div class="form-group">
-	                      <label for="">Sector</label>
+	                      <label for="">Sector <span style="color: #FF0000;">*</span></label>
 	                      <input type="text" class="form-control" id="" value="{{ old('sector') }}" name="sector" placeholder="Sector">
 	                    </div>
 	                    <div class="form-group">
-	                      <label for="">Estado</label>
+	                      <label for="">Estado <span style="color: #FF0000;">*</span></label>
 	                      <select name="estado_id" class="form-control" id="select-estado" >
 	                      		<option value="">--Seleccione--</option>
 	                      	@foreach ($estados as $estado)
@@ -86,7 +86,7 @@
 	                      <input type="hidden" id="url-estado" value="{{ route('admin.localizacion.sectores.estadosCiudades') }} "></input>
 	                    </div>
 	                    <div class="form-group">
-	                      <label for="">Ciudad</label>
+	                      <label for="">Ciudad <span style="color: #FF0000;">*</span></label>
 	                      <select name="ciudad_id" class="form-control" id="select-ciudad-solo">
 	                      		<option value="">--Seleccione--</option>         	
 	                      </select>

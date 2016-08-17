@@ -14,10 +14,10 @@
 <!-- ---------------------- banner -------------------------- -->
   <div class="inside-banner">
     <div class="container"> 
-        @if($cantidad == 1)
-        <h2>Existe {{ $cantidad }} propiedad </h2>
+        @if(empty($mensaje))
+        <h2>Propiedades </h2>
         @else
-        <h2>Existen {{ $cantidad }} propiedades </h2>
+        <h2>{{ $mensaje }}</h2>
         @endif
     </div>
   </div>
@@ -208,10 +208,11 @@
 
 
       <!-- -------------------- Inmuebles ------------------------ -->
-      <div class="col-xs-12 col-sm-12 col-md-10">
-        <div class="properties-listing spacer"> 
+      <div class="col-xs-12 col-sm-12 col-md-10" id="contenedor-inmuebles">
 
-        
+        <div id="loader-resultados" style="text-align: center"></div>
+        <div class="properties-listing spacer" id="resultados-inmuebles"> 
+
             @if($inmuebles)
             @foreach ($inmuebles as $inmueble)
             @if($inmueble->status == 'yes')

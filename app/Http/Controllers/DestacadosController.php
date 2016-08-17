@@ -20,6 +20,13 @@ class DestacadosController extends Controller
     */
     public function store(Request $request)
     {
+       
+
+        if(count($request->all()) < 5){
+            Session::flash('mensaje-error','No ha seleccionado ningun inmueble');
+            return redirect('admin/inmuebles');
+            exit;
+        }
 
         $action = $request->action;
 

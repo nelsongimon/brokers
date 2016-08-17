@@ -37,7 +37,7 @@ class InmueblesController extends Controller
 
     public function index()
     {
-        $inmuebles=Inmueble::all();
+        $inmuebles=Inmueble::orderBy('id','desc')->get();
         $dolar_valor=DolarValor::all();
         $valor=$dolar_valor->last()->valor;
 

@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\UpdatePerfilRequest;
 use App\Http\Controllers\Controller;
 use App\Metrica;
 use App\Inmueble;
 use App\DolarValor;
 use App\Asesor;
+use App\User;
+use Auth;
+use Session;
 
 class HomeController extends Controller
 {
@@ -41,7 +45,31 @@ class HomeController extends Controller
     */
     public function perfil(){
 
-        return view('admin.escritorio.perfil');
+        $usuario = User::find(Auth::user()->id);
+        return view('admin.escritorio.perfil', ['usuario' => $usuario]);
+    }
+    /*
+    *
+    *
+    *
+    */
+    public function updatePerfil(UpdatePerfilRequest $request){
+
+        $usuario = User::find($request->id);
+        $usuario->nombre = $request->nombre;
+        $usuario->apellido = $request->apellido;
+        $usuario->perfil = $request->perfil;
+
+        if(!empty($request->password)){
+
+            $usuario->password = bcrypt($request->password);
+        }
+
+        $usuario->save();
+
+        Session::flash('mensaje-success','Su perfil se ha actualizado con éxito');
+        return redirect('/admin/home');
+
     }
 
  

@@ -105,6 +105,16 @@ class FrontController extends Controller
     *
     *
     **/
+    public function pasosVender(){
+
+        $destacados = Destacado::all();
+        return view('front.pasosVender',['destacados' => $destacados]);
+    }
+    /*
+    *
+    *
+    *
+    */
     public function busquedaRapida(Request $request){
 
         //Consulta para la busqueda rapida
@@ -123,7 +133,7 @@ class FrontController extends Controller
         //Ejecutar la consulta del modelo si existen resultados
         if(!empty($results)){
 
-            $inmuebles = Inmueble::whereIn('id',$results)->orderBy('id','asc')->paginate(3);
+            $inmuebles = Inmueble::whereIn('id',$results)->orderBy('id','asc')->paginate(6);
             $pagination = true;
             foreach ($inmuebles as $inmueble) {
                 foreach ($inmueble->imagenes as $imagen) {
@@ -162,9 +172,16 @@ class FrontController extends Controller
         $estacionamiento = $this->cantidadFiltroInmueble(Inmueble::all(),'estacionamientos');
         $filtros = false;
 
+        if(count($results) == 1){
+            $mensaje = 'Existe '.count($results).' propiedad';
+        }
+        else{
+            $mensaje = 'Existen '.count($results).' propiedades';
+        }
+
         return view('front.filtrado',[
             'inmuebles'       => $inmuebles,
-            'cantidad'        => count($results),
+            'mensaje'         => $mensaje,
             'estados'         => $estados,
             'ciudades'        => $ciudades,
             'sectores'        => $sectores,
@@ -187,6 +204,8 @@ class FrontController extends Controller
     public function busquedaAvanzada(Request $request){
 
 
+
+
         $estado_id = $request->estado;
         $ciudad_id = $request->ciudad;
         $sector_id = $request->sector;
@@ -197,6 +216,7 @@ class FrontController extends Controller
         $estacionamientos = $request->estacionamiento;
         $minimo = str_replace('.','',$request->minimo);
         $maximo = str_replace('.','',$request->maximo);
+
  
         //Consulta para la busqueda Avanzada
         $results = DB::table('inmuebles')
@@ -232,29 +252,27 @@ class FrontController extends Controller
             })
             ->where(function($query) use ($cuartos){
                 if(!empty($cuartos)){
-                    $query->where('inmuebles.cuartos','=',$cuartos);
+                    $query->where('inmuebles.cuartos','>=',$cuartos);
                 }
             })
             ->where(function($query) use ($banos){
                 if(!empty($banos)){
-                    $query->where('inmuebles.banos','=',$banos);
+                    $query->where('inmuebles.banos','>=',$banos);
                 }
             })
             ->where(function($query) use ($estacionamientos){
                 if(!empty($estacionamientos)){
-                    $query->where('inmuebles.estacionamientos','=',$estacionamientos);
+                    $query->where('inmuebles.estacionamientos','>=',$estacionamientos);
                 }
             })
             ->whereBetween('inmuebles.bolivares', [$minimo, $maximo])
             ->lists('inmuebles.id');
 
-
-        
         //Ejecutar la consulta del modelo 
         if(!empty($results)){
 
             //Ejecutar consulta y agregar la paginacion
-            $inmuebles = Inmueble::whereIn('id',$results)->orderBy('id','desc')->paginate(3);
+            $inmuebles = Inmueble::whereIn('id',$results)->orderBy('id','desc')->paginate(6);
             $pagination = true;
             foreach ($inmuebles as $inmueble) {
                 foreach ($inmueble->imagenes as $imagen) {
@@ -295,9 +313,16 @@ class FrontController extends Controller
         $estacionamiento = $this->cantidadFiltroInmueble(Inmueble::all(),'estacionamientos');
         $filtros = false;
 
+        if(count($results) == 1){
+            $mensaje = 'Existe '.count($results).' propiedad';
+        }
+        else{
+            $mensaje = 'Existen '.count($results).' propiedades';
+        }
+
         return view('front.filtrado',[
             'inmuebles'       => $inmuebles,
-            'cantidad'        => count($results),
+            'mensaje'         => $mensaje,
             'estados'         => $estados,
             'ciudades'        => $ciudades,
             'sectores'        => $sectores,
@@ -371,6 +396,11 @@ class FrontController extends Controller
     **/
     public function filtrado($filtrado){
 
+
+        if($filtrado == 'propiedades'){
+            $message = true;
+        }
+
         $palabra = str_replace("-en-", "/", $filtrado);
         $palabra = str_replace("-con-", "/", $palabra);
         $palabra = str_replace("-para-", "/", $palabra);
@@ -398,21 +428,23 @@ class FrontController extends Controller
             if(ends_with($palabras[$i],'banos') or ends_with($palabras[$i],'bano')){
                 $pos = strpos($palabras[$i], ' ');
                 $banos = substr($palabras[$i], 0, $pos);
+ 
             }
             if(ends_with($palabras[$i],'cuartos') or ends_with($palabras[$i],'cuarto')){
                 $pos = strpos($palabras[$i], ' ');  
                 $cuartos = substr($palabras[$i], 0, $pos);
+
             }
             if(ends_with($palabras[$i],'autos') or ends_with($palabras[$i],'auto')){
                 $pos = strpos($palabras[$i], ' ');
                 $estacionamiento = substr($palabras[$i], 0, $pos);
+
             }
             if(ends_with($palabras[$i],'menor precio') or ends_with($palabras[$i],'mayor precio') or ends_with($palabras[$i],'mas recientes')){
                 
                 $orden = $palabras[$i];
             }
         }
-
 
         $status = true;
 
@@ -561,7 +593,7 @@ class FrontController extends Controller
 
       
 
-        //Ejecutar la consulta del modelo 
+        //Ejecutar la consulta del modelo si existen resultados
         if(!empty($results)){
             //Ejecutar la consulta completa
             $inmuebles = Inmueble::find($results);
@@ -591,19 +623,19 @@ class FrontController extends Controller
 
                 switch ($orden) {
                     case 'mas recientes':
-                        $inmuebles = Inmueble::whereIn('id',$results)->orderBy('created_at','desc')->paginate(3);
+                        $inmuebles = Inmueble::whereIn('id',$results)->orderBy('created_at','desc')->paginate(6);
                     break;
                     case 'menor precio':
-                        $inmuebles = Inmueble::whereIn('id',$results)->orderBy('bolivares','asc')->paginate(3);
+                        $inmuebles = Inmueble::whereIn('id',$results)->orderBy('bolivares','asc')->paginate(6);
                     break;
                     case 'mayor precio':
-                        $inmuebles = Inmueble::whereIn('id',$results)->orderBy('bolivares','desc')->paginate(3);
+                        $inmuebles = Inmueble::whereIn('id',$results)->orderBy('bolivares','desc')->paginate(6);
                     break;
                 }
             }
             else{
 
-                $inmuebles = Inmueble::whereIn('id',$results)->orderBy('id','asc')->paginate(3);
+                $inmuebles = Inmueble::whereIn('id',$results)->orderBy('id','asc')->paginate(6);
             }
             
             foreach ($inmuebles as $inmueble) {
@@ -619,12 +651,24 @@ class FrontController extends Controller
 
             $inmuebles = false;
             $pagination = false;
+            abort(404);
         
+        }
+
+        if(count($results) == 1){
+            $mensaje = 'Existe '.count($results).' propiedad';
+        }
+        else{
+            $mensaje = 'Existen '.count($results).' propiedades';
+        }
+
+        if(!empty($message)){
+            $mensaje = null;
         }
 
         return view('front.filtrado',[
             'inmuebles'       => $inmuebles,
-            'cantidad'        => count($results),
+            'mensaje'         => $mensaje,
             'estados'         => $estados,
             'ciudades'        => $ciudades,
             'sectores'        => $sectores,
@@ -720,6 +764,46 @@ class FrontController extends Controller
         return redirect('/login');
 
     }
+    /*
+    *
+    *
+    *
+    */
+    public function estadosCiudades(Request $request){
+        
+        if(empty($request->id)){
+            return response()->json([
+                'mensaje'=>'error'
+            ]);
+            exit();
+        }
+        
+        $estado=Estado::find($request->id);
+        return response()->json([
+            'ciudades'=>$estado->ciudades
+            ]);
+    }
+    /*
+    *
+    *
+    *
+    *
+    *
+    */
+    public function ciudadesSectores(Request $request){
+        
+        if(empty($request->id)){
+            return response()->json([
+                'mensaje'=>'error'
+            ]);
+            exit();
+        }
+        
+        $estado=Ciudad::find($request->id);
+        return response()->json([
+            'sectores'=>$estado->sectores
+            ]);
+    }    
 
   
 }

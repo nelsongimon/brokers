@@ -14,7 +14,7 @@
 
 @section('content')
   <div class="row">
-			<div class="col-md-6">
+			<div class="col-md-7">
               <!-- Horizontal Form -->
               <div class="box box-primary">
                 <div class="box-header with-border">
@@ -25,33 +25,33 @@
                 
                   <div class="box-body">
                     <div class="form-group">
-                      <label for="" class="col-sm-2 control-label">Nombre</label>
-                      <div class="col-sm-10">
+                      <label for="" class="col-sm-3 control-label">Nombre <span style="color: #FF0000;">*</span></label>
+                      <div class="col-sm-8">
                         <input type="text" class="form-control" value="{{ old('nombre') }}" name="nombre" placeholder="Nombre">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="" class="col-sm-2 control-label">Apellido</label>
-                      <div class="col-sm-10">
+                      <label for="" class="col-sm-3 control-label">Apellido <span style="color: #FF0000;">*</span></label>
+                      <div class="col-sm-8">
                         <input type="text" class="form-control" value="{{ old('apellido') }}" name="apellido" placeholder="Apellido">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="" class="col-sm-2 control-label">Teléfono</label>
-                      <div class="col-sm-10">
+                      <label for="" class="col-sm-3 control-label">Teléfono <span style="color: #FF0000;">*</span></label>
+                      <div class="col-sm-8">
                      
                         <input type="text"  class="form-control" id="telefono" value="{{ old('telefono') }}" name="telefono" placeholder="Teléfono">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="" class="col-sm-2 control-label">Email</label>
-                      <div class="col-sm-10">
+                      <label for="" class="col-sm-3 control-label">Email <span style="color: #FF0000;">*</span></label>
+                      <div class="col-sm-8">
                         <input type="email" class="form-control" value="{{ old('email') }}"  name="email" placeholder="Email">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="" class="col-sm-2 control-label">Foto</label>
-                      <div class="col-sm-10">
+                      <label for="" class="col-sm-3 control-label">Foto <span style="color: #FF0000;">*</span></label>
+                      <div class="col-sm-8">
                         <input type="file" class=""  name="foto">
                       </div>
                     </div>

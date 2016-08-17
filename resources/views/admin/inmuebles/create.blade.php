@@ -37,19 +37,19 @@
                     <!-- text input -->
                     <legend style="text-align: center;">Datos del Inmuebles</legend>
                     <div class="form-group col-md-6">
-                      <label>Título</label>
+                      <label>Título <span style="color: #FF0000;">*</span></label>
                       <input type="text" class="form-control" value="{{ old('titulo') }}" placeholder="Título" name="titulo">
                     </div>
 
                     <!-- text input -->
                     <div class="form-group col-md-6">
-                      <label>Precio ($)</label>
+                      <label>Precio ($) <span style="color: #FF0000;">*</span></label>
                       <input type="number"  min="0" class="form-control" value="{{ old('dolares') }}" placeholder="Precio" name="dolares">
                     </div>
 
                     <!-- textarea -->
                     <div class="form-group col-md-6">
-                      <label>Descripción</label>
+                      <label>Descripción <span style="color: #FF0000;">*</span></label>
                       <textarea class="form-control" rows="4" name="descripcion" value="{{ old('descripcion') }}" placeholder="Descripción..."></textarea>
                     </div>
 
@@ -61,13 +61,13 @@
 
                     <!-- text input -->
                     <div class="form-group col-md-6">
-                      <label>Tamaño de parcela</label>
+                      <label>Tamaño de parcela <span style="color: #FF0000;">*</span></label>
                       <input type="number"  min="0" class="form-control" value="{{ old('area_parcela') }}" placeholder="Tamaño de parcela (m²)" name="area_parcela">
                     </div>
 
                     <!-- select -->
                     <div class="form-group col-md-6">
-                        <label>Tipo de Inmueble</label>
+                        <label>Tipo de Inmueble <span style="color: #FF0000;">*</span></label>
                         <select class="form-control" name="tipo_id">
                           <option value="">--Seleccione--</option>
                           @foreach ($tipos as $tipo)
@@ -78,13 +78,13 @@
            
                     <!-- text input -->
                     <div class="form-group col-md-6">
-                      <label>Tamaño de construcción</label>
+                      <label>Tamaño de construcción <span style="color: #FF0000;">*</span></label>
                       <input type="number"  min="0" class="form-control" value="{{ old('area_construccion') }}" placeholder="Tamaño de construcción (m²)" name="area_construccion">
                     </div>
 
                     <!-- select -->
                   <div class="form-group col-md-6">
-                      <label>Tipo de Negociación</label>
+                      <label>Tipo de Negociación <span style="color: #FF0000;">*</span></label>
                       <select class="form-control" name="negociacion_id">
                         <option value="">--Seleccione--</option>
                           @foreach ($negos as $nego)
@@ -94,13 +94,13 @@
                   </div>
                        
                     <div class="form-group col-md-6">
-                      <label>Número de cuartos</label>
+                      <label>Número de cuartos <span style="color: #FF0000;">*</span></label>
                       <input type="number"  min="0" class="form-control" value="{{ old('cuartos') }}" placeholder="Número de cuartos" name="cuartos">
                     </div>
 
                     <!-- select -->
                   <div class="form-group col-md-6">
-                      <label>Estado</label>
+                      <label>Estado <span style="color: #FF0000;">*</span></label>
                       <select class="form-control" name="estado_id" id="select-estado">
                         <option value="">--Seleccione--</option>
                           @foreach ($estados as $estado)
@@ -112,13 +112,13 @@
                   </div>
                   
                     <div class="form-group col-md-6">
-                      <label>Número de baños</label>
+                      <label>Número de baños <span style="color: #FF0000;">*</span></label>
                       <input type="number"  min="0" class="form-control" value="{{ old('banos') }}" placeholder="Número de baños" name="banos">
                     </div>
 
                     <!-- select -->
                   <div class="form-group col-md-6">
-                      <label>Ciudad</label>
+                      <label>Ciudad <span style="color: #FF0000;">*</span></label>
                       <select class="form-control" name="ciudad_id" id="select-ciudad">
                         <option value="">--Seleccione--</option>
                   
@@ -129,13 +129,13 @@
                   </div>
                  
                   <div class="form-group col-md-6">
-                      <label>Puestos de estacionamientos</label>
+                      <label>Puestos de estacionamiento <span style="color: #FF0000;">*</span></label>
                       <input type="number"  min="0" class="form-control" value="{{ old('estacionamientos') }}" placeholder="Estacionamientos" name="estacionamientos">
                   </div>
 
                   <!-- select -->
                   <div class="form-group col-md-6">
-                      <label>Sector</label>
+                      <label>Sector <span style="color: #FF0000;">*</span></label>
                       <select class="form-control" name="sector_id" id="select-sector">
                         <option value="">--Seleccione--</option>
                
@@ -144,7 +144,7 @@
 
                     <!-- select -->
                   <div class="form-group col-md-6">
-                      <label>Asesor</label>
+                      <label>Asesor <span style="color: #FF0000;">*</span></label>
                       <select class="form-control" name="asesor_id">
                         <option value="">--Seleccione--</option>
                           @foreach ($asesores as $asesor)
@@ -161,7 +161,7 @@
                       </label>
                   </div>
 
-                  <legend style="text-align: center;">Datos del Cliente</legend>
+                  <legend style="text-align: center;">Datos del Cliente (opcional)</legend>
 
                   <div class="form-group col-md-6">
                       <label>Nombre</label>

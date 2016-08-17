@@ -34,7 +34,7 @@
     <div class="row">
       <div class="col-md-9 col-xs-12">
           <div class="hidden-xs">
-            <p class="texto-empleo">En Brokers Bienes y Raíces estamos en la búsqueda de personas con habilidades profesionales en el ramo inmobiliario o que quieran comenzar una carrera con nosotros. Si eres una persona proactiva, emprendedora y con deseos de superación, completa el siguiente formulario y únete a nuestra gran familia.</p>
+            <p class="texto-empleo">En Brokers Bienes y Raices estamos en la búsqueda de personas con habilidades profesionales en el ramo inmobiliario o que quieran comenzar una carrera con nosotros. Si eres una persona proactiva, emprendedora y con deseos de superación, completa el siguiente formulario y únete a nuestra gran familia.</p>
           </div>
           {!! Form::open(['route' => 'front.empleo', 'method' => 'post', 'files' => 'true']) !!}
             <div class="col-md-6 col-xs-12">
@@ -74,7 +74,7 @@
 <div class="container">
   <div class="properties-listing spacer"> 
     
-    <div class="destacadas">Propiedades destacadas</div>
+    <div class="destacadas">Propiedades destacadas <span>&nbsp;<a href="{{ url('/propiedades') }}" class="ver-todas">Ver todas</a></span></div>
 
     <div id="owl-example" class="owl-carousel">
         

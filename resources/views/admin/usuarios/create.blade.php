@@ -26,32 +26,32 @@
                 
                   <div class="box-body">
                     <div class="form-group">
-                      <label for="" class="col-sm-2 control-label">Nombre</label>
-                      <div class="col-sm-10">
+                      <label for="" class="col-sm-3 control-label">Nombre <span style="color: #FF0000;">*</span></label>
+                      <div class="col-sm-8">
                         <input type="text" class="form-control" value="{{ old('nombre') }}" name="nombre" placeholder="Nombre">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="" class="col-sm-2 control-label">Apellido</label>
-                      <div class="col-sm-10">
+                      <label for="" class="col-sm-3 control-label">Apellido <span style="color: #FF0000;">*</span></label>
+                      <div class="col-sm-8">
                         <input type="text" class="form-control" value="{{ old('apellido') }}" name="apellido" placeholder="Apellido">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="" class="col-sm-2 control-label">Email</label>
-                      <div class="col-sm-10">
+                      <label for="" class="col-sm-3 control-label">Email <span style="color: #FF0000;">*</span></label>
+                      <div class="col-sm-8">
                         <input type="email" class="form-control" value="{{ old('email') }}"  name="email" placeholder="Email">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="" class="col-sm-2 control-label">Password</label>
-                      <div class="col-sm-10">
+                      <label for="" class="col-sm-3 control-label">Password <span style="color: #FF0000;">*</span></label>
+                      <div class="col-sm-8">
                         <input type="password" class="form-control" value="{{ old('password') }}" name="password" placeholder="Password">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="" class="col-sm-2 control-label">Perfil</label>
-                      <div class="col-sm-10">
+                      <label for="" class="col-sm-3 control-label">Perfil <span style="color: #FF0000;">*</span></label>
+                      <div class="col-sm-8">
                         <select name="perfil" class="form-control">
                           <option value="member">Miembro</option>
                           <option value="admin">Administrador</option>                        

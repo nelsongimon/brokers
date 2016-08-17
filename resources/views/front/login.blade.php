@@ -29,11 +29,11 @@
   <body class="hold-transition login-page" style="background-image:url(http://i.imgur.com/is7VvUY.png);background-image:url(http://i.imgur.com/lhK6EAu.png);">
     <div class="login-box">
       <div class="login-logo">
-          <img src="http://i.imgur.com/uMGuEiB.png" width="330px">
+          <img src="http://i.imgur.com/uMGuEiB.png" width="290px">
       </div><!-- /.login-logo -->
       <div class="login-box-body">
 
-        <p class="login-box-msg" style="font-size: 20px; font-weight: bold;">Panel Admin</p>
+        <p class="login-box-msg" style="font-size: 20px; font-weight: bold;">Panel de Admin</p>
         {!! Form::open(['route'=>'front.login', 'method'=>'POST']) !!}
           <div class="form-group has-feedback">
             <input type="email" name="email" class="form-control" placeholder="Email">

@@ -33,6 +33,7 @@
 
 <!-- -----------------------Slider-------------------------- -->
 <div class="container-fluid">
+  <div id="loader" style="text-align: center;"></div>
   <div id="slider" class="sl-slider-wrapper">
       <div class="sl-slider">
         @foreach ($sliders as $slider)
@@ -114,7 +115,7 @@
 <div class="container">
   <div class="properties-listing spacer"> 
     
-    <div class="destacadas">Propiedades destacadas <span>&nbsp;&nbsp;<a href="{{ url('/propiedades') }}" class="ver-todas">Ver todas</a></span></div>
+    <div class="destacadas">Propiedades destacadas <span>&nbsp;<a href="{{ url('/propiedades') }}" class="ver-todas">Ver todas</a></span></div>
 
     <div id="owl-example" class="owl-carousel">
         
@@ -165,13 +166,23 @@
     </div>
   </div>
 </div>
+<!-- ---------------------Pasos para vender----------------------- -->
 
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <a href="{{ url('/pasos-para-vender') }}"><img src="{{ asset('front/images/pasosvender.png') }}" class="img-rounded" width="100%"></a>
+    </div>
+  </div>
+</div>
 
 
 @endsection
 
 
 @section('javascript')
+
+    <script src="{{ asset('front/assets/funciones.js') }}"></script>
 
 	<!-- slitslider -->
     <script type="text/javascript" src="{{ asset('front/assets/slitslider/js/modernizr.custom.79639.js') }}"></script>
