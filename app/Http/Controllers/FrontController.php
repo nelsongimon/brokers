@@ -129,18 +129,19 @@ class FrontController extends Controller
             ->orWhere('tipos.tipo','LIKE','%'.$request->busqueda.'%')
             ->lists('inmuebles.id');
 
-        
+        $contador = 0;
         //Ejecutar la consulta del modelo si existen resultados
         if(!empty($results)){
 
-            $inmuebles = Inmueble::whereIn('id',$results)->orderBy('id','asc')->paginate(6);
-            $pagination = true;
+            $inmuebles = Inmueble::whereIn('id',$results)->where('status','=','yes')->orderBy('id','asc')->paginate(6);
+            $pagination = true;    
             foreach ($inmuebles as $inmueble) {
                 foreach ($inmueble->imagenes as $imagen) {
                    if($imagen->principal == 'yes'){
                         $inmueble->imagenes = $imagen->imagen;
                    }
                 }
+                $contador++;
             }
 
         }
@@ -151,7 +152,7 @@ class FrontController extends Controller
         }
 
         //Cargar las cantidades de los filtros para la misma vista
-        $propiedades = Inmueble::all();
+        $propiedades = Inmueble::where('status','=','yes')->get();
         foreach ($propiedades as $propiedad) {
             
             $tipos[] = $propiedad->tipo->tipo;
@@ -167,16 +168,16 @@ class FrontController extends Controller
         $sectores = $this->cantidadFiltro($sectores,'sector');
         $tipos = $this->cantidadFiltro($tipos,'tipo');
         $negociaciones = $this->cantidadFiltro($negociaciones,'negociacion');
-        $banos = $this->cantidadFiltroInmueble(Inmueble::all(),'banos');
-        $cuartos = $this->cantidadFiltroInmueble(Inmueble::all(),'cuartos');
-        $estacionamiento = $this->cantidadFiltroInmueble(Inmueble::all(),'estacionamientos');
+        $banos = $this->cantidadFiltroInmueble(Inmueble::where('status','=','yes')->get(),'banos');
+        $cuartos = $this->cantidadFiltroInmueble(Inmueble::where('status','=','yes')->get(),'cuartos');
+        $estacionamiento = $this->cantidadFiltroInmueble(Inmueble::where('status','=','yes')->get(),'estacionamientos');
         $filtros = false;
 
-        if(count($results) == 1){
-            $mensaje = 'Existe '.count($results).' propiedad';
+        if($contador == 1){
+            $mensaje = 'Existe '.$contador.' propiedad';
         }
         else{
-            $mensaje = 'Existen '.count($results).' propiedades';
+            $mensaje = 'Existen '.$contador.' propiedades';
         }
 
         return view('front.filtrado',[
@@ -266,6 +267,7 @@ class FrontController extends Controller
                 }
             })
             ->whereBetween('inmuebles.bolivares', [$minimo, $maximo])
+            ->where('inmuebles.status','=','yes')
             ->lists('inmuebles.id');
 
         //Ejecutar la consulta del modelo 
@@ -292,7 +294,7 @@ class FrontController extends Controller
 
 
         //Cargar las cantidades de los filtros para la misma vista
-        $propiedades = Inmueble::all();
+        $propiedades = Inmueble::where('status','=','yes')->get();
         foreach ($propiedades as $propiedad) {
             
             $tipos[] = $propiedad->tipo->tipo;
@@ -308,9 +310,9 @@ class FrontController extends Controller
         $sectores = $this->cantidadFiltro($sectores,'sector');
         $tipos = $this->cantidadFiltro($tipos,'tipo');
         $negociaciones = $this->cantidadFiltro($negociaciones,'negociacion');
-        $banos = $this->cantidadFiltroInmueble(Inmueble::all(),'banos');
-        $cuartos = $this->cantidadFiltroInmueble(Inmueble::all(),'cuartos');
-        $estacionamiento = $this->cantidadFiltroInmueble(Inmueble::all(),'estacionamientos');
+        $banos = $this->cantidadFiltroInmueble(Inmueble::where('status','=','yes')->get(),'banos');
+        $cuartos = $this->cantidadFiltroInmueble(Inmueble::where('status','=','yes')->get(),'cuartos');
+        $estacionamiento = $this->cantidadFiltroInmueble(Inmueble::where('status','=','yes')->get(),'estacionamientos');
         $filtros = false;
 
         if(count($results) == 1){
@@ -589,6 +591,7 @@ class FrontController extends Controller
                     $query->where('inmuebles.estacionamientos','=',$estacionamiento);
                 }
             })
+            ->where('inmuebles.status','=','yes')
             ->lists('inmuebles.id');
 
       
