@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class StoreUsuariosRequest extends Request
+class EmailExistRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,7 @@ class StoreUsuariosRequest extends Request
     public function rules()
     {
         return [
-            'nombre' => 'required|min:2|max:50',
-            'apellido' => 'required|min:2|max:50',
-            'email' => 'required|E-Mail|unique:users',
-            'password' => 'required|min:6',
-            'perfil' => 'required'
+            'email' => 'required|email|exists:users'
         ];
     }
 }

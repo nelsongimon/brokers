@@ -73,6 +73,7 @@ table{background-color: #fff;}
 	color: #FFFFFF;
 	padding-top: 10px;
 	border-top: 2px solid #FFFFFF;
+	background-color: #014976;
 
 
 }
@@ -445,6 +446,15 @@ h2{font-size: 25px;}
 	font-size: 15px;
 	margin-left:5px;
 }
+
+.texto-detalles-xs-ubicacion{
+	font-family: 'Open Sans', sans-serif;
+	color: #676767;
+	margin-left:5px;
+	font-size:18px;
+	margin-bottom: 10px;
+}
+
 .texto-detalles-lg > li{
 	font-family: 'Open Sans', sans-serif;
 	color: #525252;
@@ -558,8 +568,24 @@ ul#thumbs img{
 	font-weight: 600;
 	margin-bottom: 12px;
 	text-align: left;
-	color: #A2A2A2;
+	color:#747474;
+}
 
+.info-asesor-contacto{
+	padding: 1px 0px;
+	font-size: 22px;
+	font-weight: 600;
+	margin-bottom: 24px;
+	text-align: left;
+	color:#747474;
+}
+
+.foto-agente{
+	width:100%;
+}
+
+#map{
+	height:400px;
 }
 
 .input-empleo{
@@ -641,7 +667,8 @@ ul#thumbs img{
 	padding-bottom: 20px;
 	background-image:url('../images/pasos-vender.png');
 	background-size: cover;
-	color: #353535;
+	//color: #353535;
+	color: white;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 20px;
 	line-height: 35px;
@@ -764,8 +791,8 @@ ul#thumbs img{
 	margin: 0px 7px;
 }
 .titulo-tipo-resultados{
-	height: 80px;
-	padding: 12px 10px;
+	height: 70px;
+	padding: 10px 10px;
 }
 
 .titulo-tipo-carousel{
@@ -818,7 +845,7 @@ ul#thumbs img{
 .titulo-tipo-resultados .tipo{
 	font-size: 15px;
 	font-family: 'Open Sans', sans-serif;
-	margin-top: 7px;
+	margin-top: 4px;
 	text-align: left;
 }
 
@@ -1071,6 +1098,18 @@ ul#thumbs img{
 	.negociacion-resultados{
 		font-size: 14px;
 	}
+	.info-asesor-contacto{
+		font-size: 25px;
+	}
+	.info-asesor{
+		font-size: 20px;
+	}
+	.info-asesor-contacto{
+		font-size: 25px;
+	}
+	.info-asesor{
+		font-size: 20px;
+	}
 }
 
 @media screen and (max-width:769px){
@@ -1134,6 +1173,12 @@ ul#thumbs img{
 	}
 	.info-asesor{
 		font-size: 15px;
+	}
+	.info-asesor-contacto{
+		font-size: 25px;
+	}
+	.info-asesor{
+		font-size: 16px;
 	}
 
 
@@ -1205,6 +1250,12 @@ ul#thumbs img{
 		font-size: 18px;
 		line-height: 32px;
 	}
+	.info-asesor-contacto{
+		font-size: 25px;
+	}
+	.info-asesor{
+		font-size: 20px;
+	}
 
 
 }
@@ -1275,6 +1326,21 @@ ul#thumbs img{
 		font-size: 15px;
 		line-height: 25px;
 	}
+	.texto-detalles-xs-ubicacion{
+		font-size: 15px;
+	}
+	#map{
+		height: 270px;
+	}
+	.foto-agente{
+		width:100%;
+	}
+	.info-asesor-contacto{
+		font-size: 25px;
+	}
+	.info-asesor{
+		font-size: 20px;
+	}
 
 }
 
@@ -1307,10 +1373,10 @@ ul#thumbs img{
 		font-size:22px !important; 
 	}
 	.titulo-tipo-carousel .titulo{
-		font-size: 14px;
+		font-size: 15px;
 	}
 	.titulo-tipo-carousel .tipo{
-		font-size: 13px;
+		font-size: 15px;
 	}
 	.detalles-carousel{
 		font-size: 12px;
@@ -1343,6 +1409,15 @@ ul#thumbs img{
 	.pasos-vender{
 		font-size: 13px;
 		line-height: 22px;
+	}
+	.texto-detalles-xs-ubicacion{
+		font-size: 14px;
+	}
+	#map{
+		height: 260px;
+	}
+	.foto-agente{
+		width:100%;
 	}
 
 
@@ -1403,6 +1478,15 @@ ul#thumbs img{
 	.pasos-vender{
 		font-size: 12px;
 		line-height: 20px;
+	}
+	.texto-detalles-xs-ubicacion{
+		font-size: 14px;
+	}
+	#map{
+		height: 250px;
+	}
+	.foto-agente{
+		width:100%;
 	}
 
 

@@ -39,6 +39,8 @@
                 <div class="box-body">
                   {!! Form::open(['route'=>['admin.inmuebles.update',$inmueble->id],'method'=>'put']) !!}
                     <!-- text input -->
+
+                  <fieldset>
                     <legend style="text-align: center;">Datos del Inmuebles</legend>
                     <div class="form-group col-md-6">
                       <label>Título</label>
@@ -168,6 +170,8 @@
                           @endforeach
                       </select>
                   </div>
+                </fieldset>
+                <fieldset>
                   <legend style="text-align: center;">Datos del Cliente</legend>
                   <div class="form-group col-md-6">
                       <label>Nombre</label>
@@ -189,6 +193,8 @@
                       <input type="text" class="form-control" placeholder="Email" value="{{ $inmueble->cliente->email }}" name="email">
                   </div>
                     <!-- text input -->
+                </fieldset>
+                <fieldset>
                   <legend style="text-align: center;">Datos de la Localización</legend>
                   <div class="form-group col-md-12">
                       <label>Ubicación</label>
@@ -200,6 +206,7 @@
                     <input type="hidden" id="longitud" name="longitud" value="{{ $inmueble->localizacion->longitud }}">
                     <input type="hidden" id="zoom" name="zoom" value="{{ $inmueble->localizacion->zoom }}">
                   </div>
+                </fieldset>
 
                   <input type="hidden" name="user_id" value="{{ Auth::user()->id }}"></input>
 

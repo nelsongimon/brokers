@@ -98,7 +98,7 @@
 				                    </div>
 				                    <div class="form-group">
 				                      <label for="">Email</label>            
-				                      <input type="email" class="form-control" id="email" name="email">
+				                      <input type="email" class="form-control" id="email" disabled>
 				                    </div>
 				                	<div class="form-group">
 				                      <label for="">Perfil</label>            

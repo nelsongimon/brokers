@@ -130,7 +130,7 @@ $(document).ready(function(){
 $(document).ready(function(){
 
     var alto = $('#slider').height();
-    $('#slider').hide();
+    //$('#slider').hide();
     $('#loader').css({"height": (alto/2)+100+"px"});
     $('#loader').css({"margin-top":(alto/2)-100+"px"}); 
     $('#loader').html('<i class="fa fa-spinner fa-spin" aria-hidden="true" style="font-size:100px;color:#034F7D"></i>');
@@ -140,7 +140,7 @@ $(document).ready(function(){
 $(window).load(function(){
 
 	$("#loader").fadeOut(function(){
-		$('#slider').fadeIn(100);
+		$('#slider').css({"visibility": "visible"});
 	});
 
 });

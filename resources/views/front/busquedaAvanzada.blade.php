@@ -141,7 +141,7 @@
       @if($destacado->inmueble->status == 'yes')    
       <div class="properties properties-destacados">
           <a href="{{ url('propiedades').'/'.$destacado->inmueble->id.'/'.$destacado->inmueble->slug }}">
-          <div class="image-holder"><img src="{{ asset('images/inmuebles').'/Thumb_'.$destacado->imagen }}" class="img-responsive"  alt="properties"/>
+          <div class="image-holder"><img src="{{ asset('images/inmuebles').'/'.$destacado->imagen }}" class="img-responsive"  alt="properties"/>
               <div class="precio-carousel">Bs {{ number_format($destacado->inmueble->bolivares,0,',','.') }}</div>
               <div class="negociacion-carousel">{{ $destacado->inmueble->negociacion->negociacion }}</div>
           </div>

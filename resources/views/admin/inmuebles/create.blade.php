@@ -35,6 +35,7 @@
                 <div class="box-body">
                   {!! Form::open(['route'=>'admin.inmuebles.store','method'=>'post']) !!}
                     <!-- text input -->
+                  <fieldset>
                     <legend style="text-align: center;">Datos del Inmuebles</legend>
                     <div class="form-group col-md-6">
                       <label>Título <span style="color: #FF0000;">*</span></label>
@@ -160,7 +161,8 @@
                         
                       </label>
                   </div>
-
+                </fieldset>
+                <fieldset>
                   <legend style="text-align: center;">Datos del Cliente (opcional)</legend>
 
                   <div class="form-group col-md-6">
@@ -182,6 +184,7 @@
                       <label>Email</label>
                       <input type="text" class="form-control" placeholder="Email" value="{{ old('email') }}" name="email">
                   </div>
+                </fieldset>
 
                   <div class="form-group col-md-12">
                     <button type="submit" class="btn btn-primary btn-lg pull-right">Siguiente</button>

@@ -34,7 +34,7 @@
 <!-- -----------------------Slider-------------------------- -->
 <div class="container-fluid">
   <div id="loader" style="text-align: center;"></div>
-  <div id="slider" class="sl-slider-wrapper">
+  <div id="slider" class="sl-slider-wrapper" style="visibility: hidden;">
       <div class="sl-slider">
         @foreach ($sliders as $slider)
         @if($slider->inmueble->status == 'yes') 
@@ -97,7 +97,7 @@
         <div class="col-lg-offset-1 col-lg-6">
           {!! Form::open(['route'=>'front.busquedaRapida', 'method'=>'get']) !!}
            <div class="input-group">  
-              <input type="text" class="form-control input-lg" name="busqueda" placeholder="Ingresa Sector, Ciudad, Estado o el tipo de inmueble">
+              <input type="text" class="form-control input-lg" name="busqueda" placeholder="Ingresa el sector, ciudad, estado o el tipo de inmueble">
               <span class="input-group-btn">
                 <button type="submit" class="btn btn-lg" type="button">Buscar</button>
               </span>
@@ -123,7 +123,7 @@
       @if($destacado->inmueble->status == 'yes')     
       <div class="properties properties-destacados">
           <a href="{{ url('propiedades').'/'.$destacado->inmueble->id.'/'.$destacado->inmueble->slug }}">
-          <div class="image-holder"><img src="{{ asset('images/inmuebles').'/Thumb_'.$destacado->imagen }}" class="img-responsive"  alt="properties"/>
+          <div class="image-holder"><img src="{{ asset('images/inmuebles').'/'.$destacado->imagen }}" class="img-responsive"  alt="properties"/>
               <div class="precio-carousel">Bs {{ number_format($destacado->inmueble->bolivares,0,',','.') }}</div>
               <div class="negociacion-carousel">{{ $destacado->inmueble->negociacion->negociacion }}</div>
           </div>
@@ -170,7 +170,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-xs-12 col-sm-4 col-md-3">
       <a href="{{ url('/pasos-para-vender') }}"><img src="{{ asset('front/images/pasosvender.png') }}" class="img-rounded" width="100%"></a>
     </div>
   </div>

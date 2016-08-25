@@ -13,10 +13,9 @@
   <link rel="stylesheet" href="{{ asset('front/assets/bootstrap/css/bootstrap.css') }}" />
  	<link rel="stylesheet" href="{{ asset('front/assets/bootstrap/css/style.css') }}" />
   <link rel="stylesheet" href="{{ asset('front/assets/style.css') }}"/>
-  <link rel="stylesheet" href="{{ asset('front/assets/main.css') }}"/>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
-
   @yield('css')
+  <link rel="stylesheet" href="{{ asset('front/assets/main.css') }}"/>
 
 </head>
 

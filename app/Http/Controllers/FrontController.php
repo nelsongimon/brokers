@@ -129,11 +129,10 @@ class FrontController extends Controller
             ->orWhere('tipos.tipo','LIKE','%'.$request->busqueda.'%')
             ->lists('inmuebles.id');
 
-        $contador = 0;
         //Ejecutar la consulta del modelo si existen resultados
         if(!empty($results)){
 
-            $inmuebles = Inmueble::whereIn('id',$results)->where('status','=','yes')->orderBy('id','asc')->paginate(6);
+            $inmuebles = Inmueble::whereIn('id',$results)->where('status','=','yes')->orderBy('id','asc')->paginate(9);
             $pagination = true;    
             foreach ($inmuebles as $inmueble) {
                 foreach ($inmueble->imagenes as $imagen) {
@@ -141,14 +140,16 @@ class FrontController extends Controller
                         $inmueble->imagenes = $imagen->imagen;
                    }
                 }
-                $contador++;
             }
+            $cantidad = Inmueble::whereIn('id',$results)->where('status','=','yes')->get();
+            $contador = count($cantidad);
 
         }
         else{
 
             $inmuebles = false;
             $pagination = false;
+            $contador = 0;
         }
 
         //Cargar las cantidades de los filtros para la misma vista
@@ -274,7 +275,7 @@ class FrontController extends Controller
         if(!empty($results)){
 
             //Ejecutar consulta y agregar la paginacion
-            $inmuebles = Inmueble::whereIn('id',$results)->orderBy('id','desc')->paginate(6);
+            $inmuebles = Inmueble::whereIn('id',$results)->orderBy('id','asc')->paginate(9);
             $pagination = true;
             foreach ($inmuebles as $inmueble) {
                 foreach ($inmueble->imagenes as $imagen) {
@@ -626,19 +627,19 @@ class FrontController extends Controller
 
                 switch ($orden) {
                     case 'mas recientes':
-                        $inmuebles = Inmueble::whereIn('id',$results)->orderBy('created_at','desc')->paginate(6);
+                        $inmuebles = Inmueble::whereIn('id',$results)->orderBy('created_at','desc')->paginate(9);
                     break;
                     case 'menor precio':
-                        $inmuebles = Inmueble::whereIn('id',$results)->orderBy('bolivares','asc')->paginate(6);
+                        $inmuebles = Inmueble::whereIn('id',$results)->orderBy('bolivares','asc')->paginate(9);
                     break;
                     case 'mayor precio':
-                        $inmuebles = Inmueble::whereIn('id',$results)->orderBy('bolivares','desc')->paginate(6);
+                        $inmuebles = Inmueble::whereIn('id',$results)->orderBy('bolivares','desc')->paginate(9);
                     break;
                 }
             }
             else{
 
-                $inmuebles = Inmueble::whereIn('id',$results)->orderBy('id','asc')->paginate(6);
+                $inmuebles = Inmueble::whereIn('id',$results)->orderBy('id','asc')->paginate(9);
             }
             
             foreach ($inmuebles as $inmueble) {

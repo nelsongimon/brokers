@@ -43,7 +43,7 @@
       <div class="col-sm-12 col-filter-item">
           <div class="panel panel-info panel-modificado">
             <div class="panel-heading">
-              <span class="titulos-detalles-lg">{{ $inmueble->titulo }}</span>
+              <span class="titulos-detalles-lg">{{ str_limit($inmueble->titulo,55) }}</span>
             </div>
             <div class="panel-body">
               <div class="hidden-xs hidden-sm">
@@ -114,8 +114,8 @@
             </div>
             <div class="panel-body">
   
-                    <p class="texto-detalles-xs" style="font-size:18px;margin-bottom: 10px;">{{ $inmueble->sector->sector.', '.$inmueble->ciudad->ciudad.'. Estado '.$inmueble->estado->estado }}</p>
-                    <div id="map" style="height: 400px"></div>
+                    <p class="texto-detalles-xs-ubicacion">{{ $inmueble->sector->sector.', '.$inmueble->ciudad->ciudad.'. Estado '.$inmueble->estado->estado }}</p>
+                    <div id="map"></div>
             </div>
           </div>
         </div>
@@ -196,17 +196,17 @@
         </div>
       </div>
       @endif
-      <div class="col-sm-12 col-filter-item">
+      <div class="col-xs-12 col-sm-12 col-filter-item">
         <div class="panel panel-info panel-modificado">
           <div class="panel-body" style="padding: 5px;">
-            <div class="col-sm-4" style="padding: 0px;">
-              <img src="{{ asset('images/asesores').'/'.$inmueble->asesor->foto }}" class="" height="150px" alt="agent name">
+            <div class="col-xs-12 col-sm-4" style="padding: 0px;">
+              <img src="{{ asset('images/asesores').'/'.$inmueble->asesor->foto }}" class="foto-agente" alt="agent name">
             </div>
-            <div class="col-sm-8">
+            <div class="col-xs-12 col-sm-8">
               <div class="contenedor-asesor-info">
-                  <div class="info-asesor" style="font-size: 22px; margin-bottom: 24px; color:#747474;">{{ $inmueble->asesor->nombre.' '.$inmueble->asesor->apellido }}</div>
-                  <div class="info-asesor" style="font-size: 17px;color:#747474;"><span class="glyphicon glyphicon-envelope"></span>&nbsp; {{ $inmueble->asesor->email }}</div>
-                  <div class="info-asesor" style="font-size: 17px;color:#747474;"><span class="fa fa-phone"></span>&nbsp; {{ $inmueble->asesor->telefono }}</div>
+                  <div class="info-asesor-contacto">{{ $inmueble->asesor->nombre.' '.$inmueble->asesor->apellido }}</div>
+                  <div class="info-asesor"><span class="glyphicon glyphicon-envelope"></span>&nbsp; {{ $inmueble->asesor->email }}</div>
+                  <div class="info-asesor"><span class="fa fa-phone"></span>&nbsp; {{ $inmueble->asesor->telefono }}</div>
               </div>
             </div>
           </div>
@@ -261,7 +261,7 @@
       var myTimer;
       
       $(document).ready(function() {
-        myTimer = setTimeout("showNext()",5000);
+        myTimer = setTimeout("showNext()",2000000);
       showNext(); //loads first image
           $('#thumbs li').bind('click',function(e){
             var count = $(this).attr('rel');

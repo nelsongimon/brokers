@@ -220,8 +220,27 @@
                 <div class="properties properties-resultados">
                   <a href="{{ url('propiedades').'/'.$inmueble->id.'/'.$inmueble->slug }}">
                   <div class="image-holder">
+
+                    <div id="carousel-id-{{ $inmueble->id }}" class="carousel slide" data-ride="carousel">
+                      <div class="carousel-inner">
+                          <div class="item active">
+                            <img src="{{ asset('images/inmuebles').'/'.$inmueble->imagenes }}" class="img-responsive" alt="properties"/>
+                          </div>
+                          <?php
+                              $imagenes = \App\Imagen::where('inmueble_id','=',$inmueble->id)
+                                          ->where('principal','=','no')->limit(3)->lists('imagen');
                       
-                    <img src="{{ asset('images/inmuebles').'/'.$inmueble->imagenes }}" class="img-responsive" alt="properties"/> 
+                          ?>
+                          @for ($i = 0; $i < count($imagenes); $i++)
+                          <div class="item">
+                              <img src="{{ asset('images/inmuebles').'/'.$imagenes[$i] }}" class="img-responsive" alt="properties"/>
+                          </div>
+                          @endfor
+                      </div>
+                      <a class="left carousel-control" href="#carousel-id-{{ $inmueble->id }}" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                      <a class="right carousel-control" href="#carousel-id-{{ $inmueble->id }}" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                    </div>
+
                     <div class="precio-resultados">Bs {{ number_format($inmueble->bolivares,0, ',', '.') }}</div>
                     <div class="negociacion-resultados">{{ $inmueble->negociacion->negociacion }}</div>
                   </div>
@@ -298,5 +317,11 @@
 @section('javascript')
 
   <script src="{{ asset('front/assets/funciones.js') }}"></script>
+
+  <script type="text/javascript">
+    $('.carousel').carousel({
+      interval: false
+    })
+  </script>
 
 @endsection
