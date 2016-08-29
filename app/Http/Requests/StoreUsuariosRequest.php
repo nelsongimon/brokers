@@ -26,7 +26,6 @@ class StoreUsuariosRequest extends Request
         return [
             'nombre' => 'required|min:2|max:50',
             'apellido' => 'required|min:2|max:50',
-            'email' => 'required|E-Mail|unique:users',
             'password' => 'required|min:6',
             'perfil' => 'required'
         ];

@@ -46,8 +46,8 @@ class UsuariosController extends Controller
      */
     public function store(StoreUsuariosRequest $request)
     {
-        $user=User::create($request->all());
-        $user->password=bcrypt($request->password);
+        $user = User::create($request->all());
+        $user->password = bcrypt($request->password);
         $user->save();
         Session::flash('mensaje-success','El usuario '.$user->nombre. ' se ha creado con éxito');
         return redirect('/admin/usuarios');
@@ -73,7 +73,7 @@ class UsuariosController extends Controller
      */
     public function edit($id)
     {
-        $user=User::find($id);
+        $user = User::find($id);
 
         return response()->json([
                 'id'       => $user->id,
@@ -95,7 +95,7 @@ class UsuariosController extends Controller
     public function update(UpdateUsuariosRequest $request)
     {
 
-        $user=User::find($request->id);
+        $user = User::find($request->id);
         $user->fill($request->all());
         $user->save();
         Session::flash('mensaje-success','El usuario '.$user->nombre. ' se ha modificado con éxito');
@@ -111,7 +111,7 @@ class UsuariosController extends Controller
      */
     public function destroy($id)
     {
-        $user=User::find($id);
+        $user = User::find($id);
         $user->delete();
         Session::flash('mensaje-success','El usuario '.$user->nombre. ' se ha eliminado con éxito');
         return redirect('/admin/usuarios');
