@@ -20,6 +20,8 @@ use App\Imagen;
 use App\DolarValor;
 use App\Cliente;
 use App\Metrica;
+use App\Slider;
+use App\Destacado;
 use Auth;
 use Session;
 use Image;
@@ -37,9 +39,9 @@ class InmueblesController extends Controller
 
     public function index()
     {
-        $inmuebles=Inmueble::orderBy('id','desc')->get();
-        $dolar_valor=DolarValor::all();
-        $valor=$dolar_valor->last()->valor;
+        $inmuebles = Inmueble::orderBy('id','desc')->get();
+        $dolar_valor = DolarValor::all();
+        $valor = $dolar_valor->last()->valor;
 
         return view('admin.inmuebles.index',['inmuebles' => $inmuebles,'valor' => $valor]);
     }
@@ -51,10 +53,10 @@ class InmueblesController extends Controller
      */
     public function create()
     {
-        $asesores=Asesor::orderBy('nombre','asc')->get();
-        $tipos=Tipo::orderBy('id','asc')->get();
-        $negos=Negociacion::orderBy('id','asc')->get();
-        $estados=Estado::orderBy('estado','asc')->get();
+        $asesores = Asesor::orderBy('nombre','asc')->get();
+        $tipos = Tipo::orderBy('tipo','asc')->get();
+        $negos = Negociacion::orderBy('negociacion','asc')->get();
+        $estados = Estado::orderBy('estado','asc')->get();
 
         return view('admin.inmuebles.create',[
             'asesores' => $asesores,
@@ -81,23 +83,21 @@ class InmueblesController extends Controller
     public function storeLocalizacion(Request $request){
 
         
-        $inmuebles=Inmueble::all();
+        $inmuebles = Inmueble::all();
         
-        $localizacion= new Localizacion;
+        $localizacion = new Localizacion;
 
-        $localizacion->localizacion=$request->localizacion;
-        $localizacion->latitud=$request->latitud;
-        $localizacion->longitud=$request->longitud;
-        $localizacion->zoom=$request->zoom;
-        $localizacion->inmueble_id=$inmuebles->last()->id;
+        //$localizacion->localizacion=$request->localizacion;
+        $localizacion->latitud = $request->latitud;
+        $localizacion->longitud = $request->longitud;
+        $localizacion->zoom = $request->zoom;
+        $localizacion->inmueble_id = $inmuebles->last()->id;
         $localizacion->save();
 
         $inmueble=Inmueble::find($inmuebles->last()->id);
 
         Session::flash('mensaje-success','El inmueble fue creado con éxito');
         return redirect('/admin/inmuebles');
-        
-
     }
     /*
     *
@@ -116,18 +116,19 @@ class InmueblesController extends Controller
     **/
     public function storeImagenes(Request $request){
 
-
-        
-        $files=$request->file('foto');
-        $count=0;
+        $files = $request->file('foto');
+        $count = 0;
         foreach($files as $file){
             
-            if($count==0){
+            if($count == 0){
+
                 $image = Image::make($file);
                 $file_name = 'Principal_'.time().'_'.$file->getClientOriginalName();
-                $path=public_path().'/images/inmuebles/';
+                $file_name = str_replace(' ','_',$file_name);
+                $path = $this->getPath('test').'/images/inmuebles/';
                 $image->save($path.$file_name);
                 //Redimensionar la imagen
+                /*
                 $dimensiones=getimagesize(asset('images/inmuebles').'/'.$file_name);
                 $ancho=$dimensiones[0]; //Ancho
                 $alto=$dimensiones[1]; //Alto
@@ -137,22 +138,25 @@ class InmueblesController extends Controller
                     $image->resize(300,$alto);
                     $image->save($path.'Thumb_'.$file_name);
                 }
-                $inmuebles=Inmueble::all();
-                $imagen= new Imagen;
+                */
+                $inmuebles = Inmueble::all();
+                $imagen = new Imagen;
                 $imagen->imagen = $file_name;
                 $imagen->principal = 'yes'; 
                 $imagen->inmueble_id = $inmuebles->last()->id;
                 $imagen->save();
+
             }
             else{
 
                 $image = Image::make($file);
                 $file_name = time().'_'.$file->getClientOriginalName();
-                $path=public_path().'/images/inmuebles/';
+                $file_name = str_replace(' ','_',$file_name);
+                $path = $this->getPath('test').'/images/inmuebles/';
                 $image->save($path.$file_name);
 
-                $inmuebles=Inmueble::all();
-                $imagen= new Imagen;
+                $inmuebles = Inmueble::all();
+                $imagen = new Imagen;
                 $imagen->imagen = $file_name;
                 $imagen->principal = 'no'; 
                 $imagen->inmueble_id = $inmuebles->last()->id;
@@ -175,29 +179,37 @@ class InmueblesController extends Controller
      */
     public function store(StoreInmueblesRequest $request)
     {
-        
+
+        if(empty($request->bolivares) && empty($request->dolares)){
+
+            Session::flash('mensaje-error','Debe cargar uno de los dos precios');
+            return redirect('admin/inmuebles/create');
+            exit;
+        }
+
         $inmueble = Inmueble::create($request->all());
-        $inmueble->dolares = $request->dolares;
 
-        $valor = DolarValor::all();
-
-        $inmueble->bolivares = ($request->dolares * $valor->last()->valor);
-        $inmueble->save();
-
-        if(isset($request->status)){
-            $inmueble->status='yes';
-            $inmueble->save();
+        if(!empty($request->bolivares)){
+            
+            $inmueble->bolivares = $request->bolivares;
         }
         else{
-            $inmueble->status = 'no';
-            $inmueble->save();
+
+            $inmueble->dolares = $request->dolares;
+            $valor = DolarValor::all();
+            $inmueble->bolivares = ($request->dolares * $valor->last()->valor);
         }
+ 
+        $inmueble->status ='yes';
+
+        $inmueble->save();
+
 
         $cliente = new Cliente;
-        $cliente->nombre=$request->nombre;
-        $cliente->apellido=$request->apellido;
-        $cliente->telefono=$request->telefono;
-        $cliente->email=$request->email;
+        $cliente->nombre = $request->nombre;
+        $cliente->apellido = $request->apellido;
+        $cliente->telefono = $request->telefono;
+        $cliente->email = $request->email;
         $cliente->inmueble()->associate($inmueble);
         $cliente->save();
 
@@ -234,8 +246,8 @@ class InmueblesController extends Controller
     {
         $inmueble = Inmueble::find($id);
         $asesores = Asesor::orderBy('nombre','asc')->get();
-        $tipos = Tipo::orderBy('id','asc')->get();
-        $negos = Negociacion::orderBy('id','asc')->get();
+        $tipos = Tipo::orderBy('tipo','asc')->get();
+        $negos = Negociacion::orderBy('negociacion','asc')->get();
         $estados = Estado::orderBy('estado','asc')->get();
 
         if(!$inmueble){
@@ -260,6 +272,13 @@ class InmueblesController extends Controller
      */
     public function update(UpdateInmueblesRequest $request,$id)
     {
+
+        if(empty($request->bolivares) && empty($request->dolares)){
+
+            Session::flash('mensaje-error','Debe cargar uno de los dos precios');
+            return redirect('admin/inmuebles/'.$id.'/edit');
+            exit;
+        }
       
         $inmueble = Inmueble::find($id);
 
@@ -279,13 +298,20 @@ class InmueblesController extends Controller
         $inmueble->asesor_id = $request->asesor_id;
         $inmueble->user_id = $request->user_id;
 
+        //Modificacion del precio del inmueble
+        if(!empty($request->bolivares)){
+            
+            $inmueble->bolivares = $request->bolivares;
+            $inmueble->dolares = 0;
+        }
+        else{
 
+            $inmueble->dolares = $request->dolares;
+            $valor = DolarValor::all();
+            $inmueble->bolivares = ($request->dolares * $valor->last()->valor);
+        }
 
-        $inmueble->dolares = $request->dolares;
-        $valor = DolarValor::all();
-        $inmueble->bolivares = ($request->dolares * $valor->last()->valor);
-
-        $inmueble->localizacion->localizacion = $request->localizacion;
+        //$inmueble->localizacion->localizacion = $request->localizacion;
         $inmueble->localizacion->latitud = $request->latitud;
         $inmueble->localizacion->longitud = $request->longitud;
         $inmueble->localizacion->zoom = $request->zoom;
@@ -310,7 +336,7 @@ class InmueblesController extends Controller
     **/
     public function editImagenes(Request $request){
 
-        return view('admin.inmuebles.editImagenes',['id'=>$request->id]);
+        return view('admin.inmuebles.editImagenes',['id' => $request->id]);
         
     }
     /*
@@ -320,32 +346,34 @@ class InmueblesController extends Controller
     **/
     public function updateImagenes(Request $request){
         //borrado de imagenes
-        $inmueble=Inmueble::find($request->id);
-        $files=$inmueble->imagenes;
+        $inmueble = Inmueble::find($request->id);
+        $files = $inmueble->imagenes;
         foreach($files as $file){
             //Borrado de la imagen
             if($file->principal=="yes"){
-                unlink(public_path().'/images/inmuebles/'.$file->imagen);
-                unlink(public_path().'/images/inmuebles/Thumb_'.$file->imagen);
+                unlink($this->getPath('test').'/images/inmuebles/'.$file->imagen);
             }
             else{
-                unlink(public_path().'/images/inmuebles/'.$file->imagen);
+                unlink($this->getPath('test').'/images/inmuebles/'.$file->imagen);
             } 
             
             $file->delete();           
         }
 
         // Carga del nuevo grupo de imagenes
-        $files=$request->file('foto');
-        $count=0;
+        $files = $request->file('foto');
+        $count = 0;
+
         foreach($files as $file){
             
-            if($count==0){
+            if($count == 0){
                 $image = Image::make($file);
                 $file_name = 'Principal_'.time().'_'.$file->getClientOriginalName();
-                $path=public_path().'/images/inmuebles/';
+                $file_name = str_replace(' ','_',$file_name);
+                $path = $this->getPath('test').'/images/inmuebles/';
                 $image->save($path.$file_name);
                 //Redimensionar la imagen
+                /*
                 $dimensiones=getimagesize(asset('images/inmuebles').'/'.$file_name);
                 $ancho=$dimensiones[0]; //Ancho
                 $alto=$dimensiones[1]; //Alto
@@ -355,21 +383,29 @@ class InmueblesController extends Controller
                     $image->resize(300,$alto);
                     $image->save($path.'Thumb_'.$file_name);
                 }
+                */
 
-                $imagen= new Imagen;
+                $imagen = new Imagen;
                 $imagen->imagen = $file_name;
                 $imagen->principal = 'yes'; 
                 $imagen->inmueble_id = $request->id; 
                 $imagen->save();
+
+                $inmueble = Inmueble::find($request->id);
+                $inmueble->slider->imagen = $file_name;
+                $inmueble->destacado->imagen = $file_name;
+                $inmueble->push();
+
             }
             else{
 
                 $image = Image::make($file);
                 $file_name = time().'_'.$file->getClientOriginalName();
-                $path=public_path().'/images/inmuebles/';
+                $file_name = str_replace(' ','_',$file_name);
+                $path=$this->getPath('test').'/images/inmuebles/';
                 $image->save($path.$file_name);
 
-                $imagen=new Imagen;
+                $imagen = new Imagen;
                 $imagen->imagen = $file_name;
                 $imagen->principal = 'no'; 
                 $imagen->inmueble_id = $request->id; 
@@ -389,16 +425,16 @@ class InmueblesController extends Controller
      */
     public function destroy($id)
     {
-       $inmueble=Inmueble::find($id);
-       $files=$inmueble->imagenes;
+       $inmueble = Inmueble::find($id);
+       $files = $inmueble->imagenes;
        foreach($files as $file){
             //Borrado de la imagen
             if($file->principal=="yes"){
-                unlink(public_path().'/images/inmuebles/'.$file->imagen);
-                unlink(public_path().'/images/inmuebles/Thumb_'.$file->imagen);
+                unlink($this->getPath('test').'/images/inmuebles/'.$file->imagen);
+                //unlink(public_path().'/images/inmuebles/Thumb_'.$file->imagen);
             }
             else{
-                unlink(public_path().'/images/inmuebles/'.$file->imagen);
+                unlink($this->getPath('test').'/images/inmuebles/'.$file->imagen);
             }
                         
        }

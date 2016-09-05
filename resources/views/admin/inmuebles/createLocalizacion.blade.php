@@ -27,24 +27,16 @@
         <div class="col-md-11">
               <div class="box box-primary">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Añadir Inmueble</h3>
+                  <h3 class="box-title">Ubicación del Inmueble</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                   {!! Form::open(['route'=>'admin.inmuebles.storeLocalizacion','method'=>'post']) !!}
 
-                  <!-- text input -->
-                  <div class="form-group col-md-12">
-                      <label>Ubicación (descripción)</label>
-                      <input type="text" class="form-control" placeholder="Ubicación" name="localizacion">
-                  </div>
-
                   <input type="hidden" id="latitud" name="latitud" value="8.34247126">
                   <input type="hidden" id="longitud" name="longitud" value="-62.59117818">
-                  <input type="hidden" id="zoom" name="zoom" value="9">
-                 
-                 
+                  <input type="hidden" id="zoom" name="zoom" value="9">                 
 
-                  <div class="form-group col-md-12" >
+                 <div class="form-group col-md-12" >
                     <div id="map" style="height: 375px"></div>
                   </div>
 

@@ -121,21 +121,21 @@
               </ul>
           </div>
         </div>
-        <div class="col-xs-12 col-filter-item" id="seleccion-cuartos">
+        <div class="col-xs-12 col-filter-item" id="seleccion-habitaciones">
           <div class="box-filter-content">
             <div class="box-filtrar-t">
-              <i class="fa fa fa-bed" aria-hidden="true"></i><span class="font-filter"> Cuartos</span></span>
+              <i class="fa fa fa-bed" aria-hidden="true"></i><span class="font-filter"> Habitaciones</span></span>
             </div>
               <ul class="list-filter">
 
                 @for ($i = 0; $i < count($cuartos); $i++)
                     @if($cuartos[$i]['numero'] > 0)
                     <li>
-                      <a href="javascript:void(0)" onclick="addFilter('{{ str_slug($cuartos[$i]['numero'],"-") }}','cuartos')">{{ $cuartos[$i]['numero'] }} 
+                      <a href="javascript:void(0)" onclick="addFilter('{{ str_slug($cuartos[$i]['numero'],"-") }}','habitaciones')">{{ $cuartos[$i]['numero'] }} 
                       @if($cuartos[$i]['numero'] == 1)
-                        Cuarto
+                        Habitación
                       @else
-                        Cuartos
+                        Habitaciones
                       @endif
                       </a> <span class="cantidad-filter">({{ $cuartos[$i]['cantidad'] }})</span>
                     </li>
@@ -246,17 +246,17 @@
                   </div>
                   </a>
                    <div class="detalles-resultados">
-                        @if($inmueble->cuartos > 0)
+                        @if(!empty($inmueble->cuartos))
                         <span>
                           <i class="fa fa-bed"></i> {{ $inmueble->cuartos }} 
                           @if($inmueble->cuartos == 1)
-                            Cuarto
+                            Hab.
                           @else
-                            Cuartos 
+                            Hab.
                           @endif
                         </span>
                         @endif
-                        @if($inmueble->banos > 0)
+                        @if(!empty($inmueble->banos))
                         <span>
                           <i class="fa fa-tint"></i> {{ $inmueble->banos }} 
                           @if($inmueble->banos == 1)
@@ -282,7 +282,7 @@
             @endforeach
             @else
                 <div class="col-xs-12 col-sm-12 col-md-offset-2 col-md-7" style="text-align: center">
-                    <h2 style="font-size: 32px;color:#8E8E8E;line-height: 50px;">No se encontraron resultados. Puede seguir buscando desde nuestros filtros.</h2>
+                    <h2 style="font-size: 32px;color:#8E8E8E;line-height: 50px;">No se encontraron resultados. Puedes seguir buscando desde nuestros filtros.</h2>
                 </div>
             @endif
                

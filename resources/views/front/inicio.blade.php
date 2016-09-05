@@ -1,6 +1,6 @@
 @extends('layouts.front')
 
-@section('title','Brokers Bienes y Raices')
+@section('title','Brokers Bienes Raíces')
 
 @section('css')
 
@@ -44,7 +44,7 @@
               <h2><a href="{{ url('propiedades').'/'.$slider->inmueble->id.'/'.$slider->inmueble->slug }}">{{ str_limit($slider->inmueble->titulo,45) }}</a></h2>
               <blockquote>              
               <p class="location"><span class="glyphicon glyphicon-map-marker"></span> {{ $slider->inmueble->sector->sector.', '.$slider->inmueble->ciudad->ciudad.'. Estado '.$slider->inmueble->estado->estado}}</p>
-              @if($slider->inmueble->banos > 0)
+              @if(!empty($slider->inmueble->banos))
               <p style="font-size: 25px">
                 {{ $slider->inmueble->banos }}
                 @if($slider->inmueble->banos == 1)
@@ -54,13 +54,13 @@
                 @endif
               </p>
               @endif
-              @if($slider->inmueble->cuartos > 0)
+              @if(!empty($slider->inmueble->cuartos))
               <p style="font-size: 25px">
                 {{ $slider->inmueble->cuartos }}
                 @if($slider->inmueble->cuartos == 1)
-                    Cuarto
+                    Habitación
                 @else
-                    Cuartos
+                    Habitaciones
                 @endif
               </p>
               @endif
@@ -129,17 +129,17 @@
           </div>
           </a>
           <div class="detalles-carousel">
-              @if($destacado->inmueble->cuartos > 0)
+              @if(!empty($destacado->inmueble->cuartos))
               <span>
                 <i class="fa fa-bed"></i> {{ $destacado->inmueble->cuartos }} 
                   @if($destacado->inmueble->cuartos == 1)
-                    Cuarto 
+                    Hab. 
                   @else
-                    Cuartos
+                    Hab.
                   @endif
               </span>
               @endif
-              @if($destacado->inmueble->banos > 0)
+              @if(!empty($destacado->inmueble->banos))
               <span><i class="fa fa-tint"></i> </i> {{ $destacado->inmueble->banos }} 
                   @if($destacado->inmueble->banos == 1)
                     Baño 
@@ -148,7 +148,7 @@
                   @endif 
               </span> 
               @endif
-              <span><i class="fa fa-expand"></i> {{ $destacado->inmueble->area_parcela }}m² </span>    
+              <span><i class="fa fa-expand"></i> {{ $destacado->inmueble->area_construccion }}m² </span>    
           </div>
           <div class="titulo-tipo-carousel">
               <div class="titulo">
@@ -170,8 +170,11 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-sm-4 col-md-3">
+    <div class="col-xs-12 col-sm-4 col-md-offset-3 col-md-3">
       <a href="{{ url('/pasos-para-vender') }}"><img src="{{ asset('front/images/pasosvender.png') }}" class="img-rounded" width="100%"></a>
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-3">
+      <a href="{{ url('/tips-para-un-vendedor') }}"><img src="{{ asset('front/images/tipsvendedor.png') }}" class="img-rounded" width="100%"></a>
     </div>
   </div>
 </div>

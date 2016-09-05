@@ -43,12 +43,12 @@
       <div class="col-sm-12 col-filter-item">
           <div class="panel panel-info panel-modificado">
             <div class="panel-heading">
-              <span class="titulos-detalles-lg">{{ str_limit($inmueble->titulo,55) }}</span>
+              <span class="titulos-detalles-lg-inmueble">{{ str_limit($inmueble->titulo,55) }}</span>
             </div>
             <div class="panel-body">
               <div class="hidden-xs hidden-sm">
                   <!-- Gallery image Starts -->
-                  <div class="image-holder">
+                  <div class="image-holder" id="pic-width">
                     <div id="bigPic">
                       @foreach ($inmueble->imagenes as $imagen)
                         @if($imagen->principal=='yes')
@@ -137,17 +137,17 @@
           <div class="panel-body">
             <ul class="list-datos-principales texto-detalles-md">
               <li><span class="fa  fa-home"></span> &nbsp;&nbsp; {{ $inmueble->tipo->tipo }}</li>
-              @if($inmueble->cuartos > 0)
+              @if(!empty($inmueble->cuartos))
               <li><span class="fa fa-bed"></span> &nbsp; {{ $inmueble->cuartos }} 
                   @if($inmueble->cuartos == 1)
-                    Cuarto
+                    Habitación
                   @else
-                    Cuartos
+                    Habitaciones
                   @endif
               </li>
               @endif
-              @if($inmueble->banos > 0)
-              <li><span class="fa fa-tint"></span> &nbsp;&nbsp; {{ $inmueble->banos }} 
+              @if(!empty($inmueble->banos))
+              <li><span class="fa fa-tint"></span> &nbsp;&nbsp;&nbsp; {{ $inmueble->banos }} 
                   @if($inmueble->banos == 1)
                     Baño
                   @else
@@ -155,7 +155,7 @@
                   @endif
               </li>
               @endif
-              @if($inmueble->estacionamientos > 0)
+              @if(!empty($inmueble->estacionamientos))
               <li><span class="fa  fa-automobile"></span> &nbsp; {{ $inmueble->estacionamientos }} 
                   @if($inmueble->estacionamientos == 1)
                     Puesto de Estacionamiento
@@ -165,7 +165,10 @@
               </li>
               @endif
               <li><span class="fa fa-expand"></span> &nbsp;&nbsp; {{ $inmueble->area_construccion }}m² Área de Construcción</li>
+
+              @if(!empty($inmueble->area_parcela))
               <li><span class="fa fa-expand"></span> &nbsp;&nbsp; {{ $inmueble->area_parcela }}m² Área de Parcela</li>
+              @endif
             </ul>
           </div>
         </div>
@@ -225,6 +228,7 @@
   <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpKnb-8ufsQ4kfOnSVHa12H2gbpy2RkFI&callback=initMap">
   </script>
+
 
   <script type="text/javascript">
 

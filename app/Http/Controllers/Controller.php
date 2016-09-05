@@ -10,4 +10,21 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 abstract class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public function getPath($server){
+
+    	if($server == 'local'){
+    		$path = public_path();
+    	}
+
+    	if($server == 'production'){
+    		$path = public_path();
+    	}
+
+    	if($server == 'test'){
+    		$path = str_replace('/brokers','',public_path()).'/brokers';
+    	}
+
+    	return $path;
+    }
 }

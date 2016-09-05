@@ -112,8 +112,8 @@ $(document).ready(function(){
 	if($('#filtro-banos').data('banos')){
 		$('#seleccion-banos').hide();
 	}
-	if($('#filtro-cuartos').data('cuartos')){
-		$('#seleccion-cuartos').hide();
+	if($('#filtro-habitaciones').data('habitaciones')){
+		$('#seleccion-habitaciones').hide();
 	}
 	if($('#filtro-estacionamiento').data('estacionamiento')){
 		$('#seleccion-estacionamiento').hide();
@@ -193,8 +193,8 @@ function addFilter(valor,filtro){
 		if($('#filtro-banos').data('banos')){
 			url += '-con-'+$('#filtro-banos').data('banos');
 		}
-		if($('#filtro-cuartos').data('cuartos')){
-			url += '-con-'+$('#filtro-cuartos').data('cuartos');
+		if($('#filtro-habitaciones').data('habitaciones')){
+			url += '-con-'+$('#filtro-habitaciones').data('habitaciones');
 		}
 		if($('#filtro-estacionamiento').data('estacionamiento')){
 			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
@@ -225,8 +225,8 @@ function addFilter(valor,filtro){
 		if($('#filtro-banos').data('banos')){
 			url += '-con-'+$('#filtro-banos').data('banos');
 		}	
-		if($('#filtro-cuartos').data('cuartos')){
-			url += '-con-'+$('#filtro-cuartos').data('cuartos');
+		if($('#filtro-habitaciones').data('habitaciones')){
+			url += '-con-'+$('#filtro-habitaciones').data('habitaciones');
 		}
 		if($('#filtro-estacionamiento').data('estacionamiento')){
 			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
@@ -249,8 +249,8 @@ function addFilter(valor,filtro){
 		if($('#filtro-banos').data('banos')){
 			url += '-con-'+$('#filtro-banos').data('banos');
 		}
-		if($('#filtro-cuartos').data('cuartos')){
-			url += '-con-'+$('#filtro-cuartos').data('cuartos');
+		if($('#filtro-habitaciones').data('habitaciones')){
+			url += '-con-'+$('#filtro-habitaciones').data('habitaciones');
 		}
 		if($('#filtro-estacionamiento').data('estacionamiento')){
 			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
@@ -284,8 +284,8 @@ function addFilter(valor,filtro){
 		else{
 			url += '-con-'+valor+'-banos';
 		}
-		if($('#filtro-cuartos').data('cuartos')){
-			url += '-con-'+$('#filtro-cuartos').data('cuartos');
+		if($('#filtro-habitaciones').data('habitaciones')){
+			url += '-con-'+$('#filtro-habitaciones').data('habitaciones');
 		}
 		if($('#filtro-estacionamiento').data('estacionamiento')){
 			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
@@ -294,7 +294,7 @@ function addFilter(valor,filtro){
 			url += '-orden-'+$('#filtro-orden').data('orden');
 		}	
 	}
-	if(filtro == 'cuartos'){
+	if(filtro == 'habitaciones'){
 		if($('#filtro-tipo').data('tipo')){
 			url += $('#filtro-tipo').data('tipo');
 		}
@@ -317,10 +317,10 @@ function addFilter(valor,filtro){
 			url += '-con-'+$('#filtro-banos').data('banos');
 		}
 		if(valor == 1){
-			url += '-con-'+valor+'-cuarto';
+			url += '-con-'+valor+'-habitacion';
 		}
 		else{
-			url += '-con-'+valor+'-cuartos';
+			url += '-con-'+valor+'-habitaciones';
 		}
 		if($('#filtro-estacionamiento').data('estacionamiento')){
 			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
@@ -351,8 +351,8 @@ function addFilter(valor,filtro){
 		if($('#filtro-banos').data('banos')){
 			url += '-con-'+$('#filtro-banos').data('banos');
 		}
-		if($('#filtro-cuartos').data('cuartos')){
-			url += '-con-'+$('#filtro-cuartos').data('cuartos');
+		if($('#filtro-habitaciones').data('habitaciones')){
+			url += '-con-'+$('#filtro-habitaciones').data('habitaciones');
 		}
 		if(valor == 1){
 			url += '-para-'+valor+'-auto';
@@ -386,8 +386,8 @@ function addFilter(valor,filtro){
 		if($('#filtro-banos').data('banos')){
 			url += '-con-'+$('#filtro-banos').data('banos');
 		}
-		if($('#filtro-cuartos').data('cuartos')){
-			url += '-con-'+$('#filtro-cuartos').data('cuartos');
+		if($('#filtro-habitaciones').data('habitaciones')){
+			url += '-con-'+$('#filtro-habitaciones').data('habitaciones');
 		}
 		if($('#filtro-estacionamiento').data('estacionamiento')){
 			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
@@ -422,8 +422,8 @@ function removeFilter(filtro){
 		if($('#filtro-banos').data('banos')){
 			url += '-con-'+$('#filtro-banos').data('banos');
 		}
-		if($('#filtro-cuartos').data('cuartos')){
-			url += '-con-'+$('#filtro-cuartos').data('cuartos');
+		if($('#filtro-habitaciones').data('habitaciones')){
+			url += '-con-'+$('#filtro-habitaciones').data('habitaciones');
 		}
 		if($('#filtro-estacionamiento').data('estacionamiento')){
 			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
@@ -455,8 +455,8 @@ function removeFilter(filtro){
 		if($('#filtro-banos').data('banos')){
 			url += '-con-'+$('#filtro-banos').data('banos');
 		}
-		if($('#filtro-cuartos').data('cuartos')){
-			url += '-con-'+$('#filtro-cuartos').data('cuartos');
+		if($('#filtro-habitaciones').data('habitaciones')){
+			url += '-con-'+$('#filtro-habitaciones').data('habitaciones');
 		}
 		if($('#filtro-estacionamiento').data('estacionamiento')){
 			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
@@ -489,8 +489,8 @@ function removeFilter(filtro){
 		if($('#filtro-banos').data('banos')){
 			url += '-con-'+$('#filtro-banos').data('banos');
 		}
-		if($('#filtro-cuartos').data('cuartos')){
-			url += '-con-'+$('#filtro-cuartos').data('cuartos');
+		if($('#filtro-habitaciones').data('habitaciones')){
+			url += '-con-'+$('#filtro-habitaciones').data('habitaciones');
 		}
 		if($('#filtro-estacionamiento').data('estacionamiento')){
 			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
@@ -523,8 +523,8 @@ function removeFilter(filtro){
 		if($('#filtro-sector').data('sector')){
 			url += '-en-'+$('#filtro-sector').data('sector');
 		}
-		if($('#filtro-cuartos').data('cuartos')){
-			url += '-con-'+$('#filtro-cuartos').data('cuartos');
+		if($('#filtro-habitaciones').data('habitaciones')){
+			url += '-con-'+$('#filtro-habitaciones').data('habitaciones');
 		}
 		if($('#filtro-estacionamiento').data('estacionamiento')){
 			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');
@@ -535,7 +535,7 @@ function removeFilter(filtro){
 
 		$('#list-filtro-banos').fadeOut(100);	
 	}
-	if(filtro == 'cuartos'){
+	if(filtro == 'habitaciones'){
 		if($('#filtro-tipo').data('tipo')){
 			url += $('#filtro-tipo').data('tipo');
 		}
@@ -565,7 +565,7 @@ function removeFilter(filtro){
 			url += '-orden-'+$('#filtro-orden').data('orden');
 		}
 
-		$('#list-filtro-cuartos').fadeOut(100);	
+		$('#list-filtro-habitaciones').fadeOut(100);	
 	}
 	if(filtro == 'estacionamiento'){
 		if($('#filtro-tipo').data('tipo')){
@@ -590,8 +590,8 @@ function removeFilter(filtro){
 		if($('#filtro-banos').data('banos')){
 			url += '-con-'+$('#filtro-banos').data('banos');
 		}
-		if($('#filtro-cuartos').data('cuartos')){
-			url += '-'+$('#filtro-cuartos').data('cuartos');
+		if($('#filtro-habitaciones').data('habitaciones')){
+			url += '-'+$('#filtro-habitaciones').data('habitaciones');
 		}
 		if($('#filtro-orden').data('orden')){
 			url += '-orden-'+$('#filtro-orden').data('orden');
@@ -622,8 +622,8 @@ function removeFilter(filtro){
 		if($('#filtro-banos').data('banos')){
 			url += '-con-'+$('#filtro-banos').data('banos');
 		}
-		if($('#filtro-cuartos').data('cuartos')){
-			url += '-'+$('#filtro-cuartos').data('cuartos');
+		if($('#filtro-habitaciones').data('habitaciones')){
+			url += '-'+$('#filtro-habitaciones').data('habitaciones');
 		}
 		if($('#filtro-estacionamiento').data('estacionamiento')){
 			url += '-'+$('#filtro-estacionamiento').data('estacionamiento');

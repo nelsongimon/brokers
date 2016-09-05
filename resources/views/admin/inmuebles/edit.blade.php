@@ -43,19 +43,39 @@
                   <fieldset>
                     <legend style="text-align: center;">Datos del Inmuebles</legend>
                     <div class="form-group col-md-6">
-                      <label>Título</label>
+                      <label>Título <span style="color: #FF0000;">*</span></label>
                       <input type="text" class="form-control" value="{{ $inmueble->titulo }}" name="titulo">
                     </div>
 
                     <!-- text input -->
                     <div class="form-group col-md-6">
-                      <label>Precio</label>
+                      <label>Precio ($)</label>
                       <input type="text" class="form-control" value="{{ $inmueble->dolares }}" name="dolares">
                     </div>
 
+                    <!-- text input -->
+                    <div class="form-group col-md-6">
+                      <label>Precio (Bs)</label>
+                      <input type="text" class="form-control" value="{{ $inmueble->bolivares }}" name="bolivares">
+                    </div>
+
+                    <!-- select -->
+                  <div class="form-group col-md-6">
+                      <label>Asesor <span style="color: #FF0000;">*</span></label>
+                      <select class="form-control" name="asesor_id">
+                          @foreach ($asesores as $asesor)
+                            @if($inmueble->asesor->id==$asesor->id)
+                              <option value="{{ $asesor->id }}" selected>{{ $asesor->nombre.' '.$asesor->apellido }}</option>
+                            @else
+                              <option value="{{ $asesor->id }}">{{ $asesor->nombre.' '.$asesor->apellido }}</option>
+                            @endif
+                          @endforeach
+                      </select>
+                  </div>
+
                     <!-- textarea -->
                     <div class="form-group col-md-6">
-                      <label>Descripción</label>
+                      <label>Descripción <span style="color: #FF0000;">*</span></label>
                       <textarea class="form-control" rows="4" name="descripcion">{{ $inmueble->descripcion }}</textarea>
                     </div>
 
@@ -67,17 +87,17 @@
 
                     <!-- text input -->
                     <div class="form-group col-md-6">
-                      <label>Tamaño de parcela</label>
+                      <label>Tamaño de parcela <span style="color: #FF0000;">*</span></label>
                       <input type="text" class="form-control" value="{{ $inmueble->area_parcela }}" name="area_parcela">
                     </div>
 
                     <!-- select -->
                     <div class="form-group col-md-6">
-                        <label>Tipo de Inmueble</label>
+                        <label>Tipo de Inmueble <span style="color: #FF0000;">*</span></label>
                         <select class="form-control" name="tipo_id">
                           @foreach ($tipos as $tipo)
                             @if($inmueble->tipo->tipo==$tipo->tipo)
-                              <option value="{{ $tipo->id }}">{{ $tipo->tipo }}</option>
+                              <option value="{{ $tipo->id }}" selected>{{ $tipo->tipo }}</option>
                             @else
                               <option value="{{ $tipo->id }}">{{ $tipo->tipo }}</option>
                             @endif
@@ -93,11 +113,11 @@
 
                     <!-- select -->
                   <div class="form-group col-md-6">
-                      <label>Tipo de Negociación</label>
+                      <label>Tipo de Negociación <span style="color: #FF0000;">*</span></label>
                       <select class="form-control" name="negociacion_id">
                           @foreach ($negos as $nego)
                             @if($inmueble->negociacion->negociacion==$nego->negociacion)
-                              <option value="{{ $nego->id }}">{{ $nego->negociacion }}</option>
+                              <option value="{{ $nego->id }}" selected>{{ $nego->negociacion }}</option>
                             @else
                               <option value="{{ $nego->id }}">{{ $nego->negociacion }}</option>
                             @endif
@@ -106,17 +126,17 @@
                   </div>
                        
                     <div class="form-group col-md-6">
-                      <label>Número de cuartos</label>
+                      <label>Número de habitaciones</label>
                       <input type="number"  min="0" class="form-control" value="{{ $inmueble->cuartos }}" name="cuartos">
                     </div>
 
                     <!-- select -->
                   <div class="form-group col-md-6">
-                      <label>Estado</label>
+                      <label>Estado <span style="color: #FF0000;">*</span></label>
                       <select class="form-control" name="estado_id" id="select-estado">
                           @foreach ($estados as $estado)
                             @if($inmueble->sector->estado->estado==$estado->estado)
-                              <option value="{{ $estado->id }}">{{ $estado->estado }}</option>
+                              <option value="{{ $estado->id }}" selected>{{ $estado->estado }}</option>
                             @else
                               <option value="{{ $estado->id }}">{{ $estado->estado }}</option>
                             @endif
@@ -133,7 +153,7 @@
 
                     <!-- select -->
                   <div class="form-group col-md-6">
-                      <label>Ciudad</label>
+                      <label>Ciudad <span style="color: #FF0000;">*</span></label>
                       <select class="form-control" name="ciudad_id" id="select-ciudad">
                         <option value="{{ $inmueble->sector->ciudad->id }}">{{ $inmueble->sector->ciudad->ciudad }}</option>
                   
@@ -150,26 +170,14 @@
 
                   <!-- select -->
                   <div class="form-group col-md-6">
-                      <label>Sector</label>
+                      <label>Sector <span style="color: #FF0000;">*</span></label>
                       <select class="form-control" name="sector_id" id="select-sector">
                         <option value="{{ $inmueble->sector->id }}">{{ $inmueble->sector->sector }}</option>
                
                       </select>
                   </div>
 
-                    <!-- select -->
-                  <div class="form-group col-md-6">
-                      <label>Asesor</label>
-                      <select class="form-control" name="asesor_id">
-                          @foreach ($asesores as $asesor)
-                            @if($inmueble->asesor->id==$asesor->id)
-                              <option value="{{ $asesor->id }}">{{ $asesor->nombre.' '.$asesor->apellido }}</option>
-                            @else
-                              <option value="{{ $asesor->id }}">{{ $asesor->nombre.' '.$asesor->apellido }}</option>
-                            @endif
-                          @endforeach
-                      </select>
-                  </div>
+
                 </fieldset>
                 <fieldset>
                   <legend style="text-align: center;">Datos del Cliente</legend>
@@ -196,10 +204,7 @@
                 </fieldset>
                 <fieldset>
                   <legend style="text-align: center;">Datos de la Localización</legend>
-                  <div class="form-group col-md-12">
-                      <label>Ubicación</label>
-                      <input type="text" class="form-control" value="{{ $inmueble->localizacion->localizacion }}" name="localizacion">
-                  </div>
+
                   <div class="form-group col-md-12">
                     <div id="map" style="height: 350px"></div>
                     <input type="hidden" id="latitud" name="latitud" value="{{ $inmueble->localizacion->latitud }}">

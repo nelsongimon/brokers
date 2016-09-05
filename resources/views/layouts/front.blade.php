@@ -4,7 +4,7 @@
 <title>@yield('title')</title>
 <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta property="og:site_name" content="Brokers Bienes y Raices"/>
+  <meta property="og:site_name" content="Brokers Bienes Raices"/>
 
   @yield('meta')
   
@@ -73,7 +73,7 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-6">
-        © Copyright {{ date('Y') }} brokersbienesyraices.com.ve
+        © Copyright {{ date('Y') }} brokersbienesraices.com
       </div>
       <div class="col-xs-12  col-sm-4 col-md-offset-2 col-md-3">
         <span>Siguenos </span> 

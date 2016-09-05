@@ -1,6 +1,6 @@
 @extends('layouts.front')
 
-@section('title','Brokers Bienes y Raices')
+@section('title','Brokers Bienes Raíces')
 
 @section('css')
 
@@ -34,7 +34,7 @@
     <div class="row">
       <div class="col-md-9 col-xs-12">
           <div class="hidden-xs">
-            <p class="texto-empleo">En Brokers Bienes y Raices estamos en la búsqueda de personas con habilidades profesionales en el ramo inmobiliario o que quieran comenzar una carrera con nosotros. Si eres una persona proactiva, emprendedora y con deseos de superación, completa el siguiente formulario y únete a nuestra gran familia.</p>
+            <p class="texto-empleo">En Brokers Bienes Raices estamos en la búsqueda de personas con habilidades profesionales en el ramo inmobiliario o que quieran comenzar una carrera con nosotros. Si eres una persona proactiva, emprendedora y con deseos de superación, completa el siguiente formulario y únete a nuestra gran familia.</p>
           </div>
           {!! Form::open(['route' => 'front.empleo', 'method' => 'post', 'files' => 'true']) !!}
             <div class="col-md-6 col-xs-12">
@@ -88,17 +88,17 @@
           </div>
           </a>
           <div class="detalles-carousel">
-              @if($destacado->inmueble->cuartos > 0)
+              @if(!empty($destacado->inmueble->cuartos))
               <span>
                 <i class="fa fa-bed"></i> {{ $destacado->inmueble->cuartos }} 
                   @if($destacado->inmueble->cuartos == 1)
-                    Cuarto 
+                    Hab. 
                   @else
-                    Cuartos
+                    Hab.
                   @endif
               </span>
               @endif
-              @if($destacado->inmueble->banos > 0)
+              @if(!empty($destacado->inmueble->banos))
               <span><i class="fa fa-tint"></i> </i> {{ $destacado->inmueble->banos }} 
                   @if($destacado->inmueble->banos == 1)
                     Baño 
@@ -107,7 +107,7 @@
                   @endif 
               </span>
               @endif 
-              <span><i class="fa fa-expand"></i> {{ $destacado->inmueble->area_parcela }}m² </span>    
+              <span><i class="fa fa-expand"></i> {{ $destacado->inmueble->area_construccion }}m² </span>    
           </div>
           <div class="titulo-tipo-carousel">
               <div class="titulo">

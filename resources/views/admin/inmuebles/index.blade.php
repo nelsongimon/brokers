@@ -52,7 +52,7 @@
 						 		<td style="text-align: center">
 						 			@foreach ($inmueble->imagenes as $imagen)
 						 				@if($imagen->principal=='yes')
-											<img src="{{ asset('images/inmuebles').'/Thumb_'.$imagen->imagen }}" width="75px">
+											<img src="{{ asset('images/inmuebles').'/'.$imagen->imagen }}" width="75px">
 						 				@endif
 						 			@endforeach
 						 		</td>
@@ -75,14 +75,18 @@
 						 		<td>{{ $inmueble->negociacion->negociacion }}</td>
 						 		<td>{{ $inmueble->asesor->nombre.' '.$inmueble->asesor->apellido }}</td>
 								<td>{{ number_format($inmueble->bolivares,0, ',', '.') }}</td>
-						 		<td>{{ number_format($inmueble->dolares,0,'.',',') }}</td>
+						 		<td>
+						 			@if(!empty($inmueble->dolares))
+										{{ number_format($inmueble->dolares,0,'.',',') }}
+						 			@else
+										----------
+						 			@endif
+						 		</td>
 						 		<td>
 						 			
 									<a  href="{{ route('admin.inmuebles.show',$inmueble->id) }}" class="btn btn-warning"><i class="fa fa-eye" aria-hidden="true"></i></a>
 		
 						    		<a href="{{ route('admin.inmuebles.edit',$inmueble->id) }}" class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true" ></i></a>
-
-						    		<button onclick="eliminarInmueble('{{ route('admin.inmuebles.destroy',$inmueble->id) }}')" data-toggle="modal" data-target="#eliminar-inmueble" class="btn btn-danger" ><i class="fa fa-trash" aria-hidden="true" ></i></button> 
 
 						 		</td>
 						 	</tr>
@@ -95,26 +99,6 @@
              </div>
              
           </div>
- 	
-
-
-	<div class="modal modal-danger fade" id="eliminar-inmueble">	
-		<div class="modal-dialog">
-			<div class="modal-content col-xs-offset-2 col-xs-8" style="padding: 0px">
-		        <div class="modal-header">
-		            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-		            <h4 class="modal-title">Advertencia</h4>
-		        </div>
-		        <div class="modal-body">
-		            <p>¿Realmente desea eliminar este Inmueble?</p>
-		        </div>
-		        <div class="modal-footer">
-		            <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
-		            <a id="button-eliminar-inmueble" href="#" class="btn btn-outline">Aceptar</a>
-		        </div>
-		    </div>
-	    </div>
-	</div>
 	
 
 @endsection

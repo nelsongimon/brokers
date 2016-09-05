@@ -1,6 +1,6 @@
 @extends('layouts.front')
 
-@section('title','Brokers Bienes y Raices')
+@section('title','Brokers Bienes Raíces')
 
 @section('css')
 
@@ -77,17 +77,17 @@
           </div>
           </a>
           <div class="detalles-carousel">
-              @if($destacado->inmueble->cuartos > 0)
+              @if(!empty($destacado->inmueble->cuartos))
               <span>
                 <i class="fa fa-bed"></i> {{ $destacado->inmueble->cuartos }} 
                   @if($destacado->inmueble->cuartos == 1)
-                    Cuarto 
+                    Hab. 
                   @else
-                    Cuartos
+                    Hab.
                   @endif
               </span>
               @endif
-              @if($destacado->inmueble->banos > 0)
+              @if(!empty($destacado->inmueble->banos))
               <span><i class="fa fa-tint"></i> </i> {{ $destacado->inmueble->banos }} 
                   @if($destacado->inmueble->banos == 1)
                     Baño 
@@ -96,7 +96,7 @@
                   @endif 
               </span>
               @endif 
-              <span><i class="fa fa-expand"></i> {{ $destacado->inmueble->area_parcela }}m² </span>    
+              <span><i class="fa fa-expand"></i> {{ $destacado->inmueble->area_construccion }}m² </span>    
           </div>
           <div class="titulo-tipo-carousel">
               <div class="titulo">

@@ -13,6 +13,8 @@
   
   <a class="btn btn-info" href="{{ url('admin/inmuebles') }}"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver</a>
 
+  <button data-toggle="modal" data-target="#eliminar-inmueble" class="btn btn-danger" ><i class="fa fa-trash" aria-hidden="true" ></i> Eliminar</button> 
+
 @endsection
 
 @section('content')
@@ -85,10 +87,7 @@
                     </div>
                   </div>           
               </div>
-
-            
-
-
+    
               <div class="box box-solid">
                 <div class="box-header with-border">
                   
@@ -98,7 +97,7 @@
                   <ul style="list-style: none; font-size: 18px">
                     <li><i class="fa fa-home" aria-hidden="true"></i> {{ $inmueble->tipo->tipo }}</li>
                     <li><i class="fa fa-money" aria-hidden="true"></i> &nbsp;{{ $inmueble->negociacion->negociacion }}</li>
-                    @if($inmueble->banos > 0)
+                    @if(!empty($inmueble->banos))
                     <li><i class="fa fa-tint" aria-hidden="true"></i> &nbsp;&nbsp;&nbsp;{{ $inmueble->banos }} 
                       @if($inmueble->banos == 1)
                       Baño
@@ -107,16 +106,16 @@
                       @endif
                     </li>
                     @endif
-                    @if($inmueble->cuartos > 0)
+                    @if(!empty($inmueble->cuartos))
                     <li><i class="fa fa-bed" aria-hidden="true"></i> &nbsp;{{ $inmueble->cuartos }}
                       @if($inmueble->cuartos == 1)
-                      Cuarto
+                      Habitación
                       @else
-                      Cuartos
+                      Habitaciones
                       @endif
                     </li>
                     @endif
-                    @if($inmueble->estacionamientos > 0)
+                    @if(!empty($inmueble->estacionamientos))
                     <li><i class="fa fa-car" aria-hidden="true"></i> &nbsp;{{ $inmueble->estacionamientos }} 
                       @if($inmueble->estacionamientos == 1)
                       puesto de estacionamiento
@@ -125,8 +124,12 @@
                       @endif
                     </li>
                     @endif
-                    <li><i class="fa fa-expand" aria-hidden="true"></i> &nbsp;&nbsp;{{ $inmueble->area_parcela }}m² Área de Construcción</li>
-                    <li><i class="fa fa-expand" aria-hidden="true"></i> &nbsp;&nbsp;{{ $inmueble->area_construccion }}m² Área de Parcela</li>
+
+                    @if(!empty($inmueble->area_parcela))
+                    <li><i class="fa fa-expand" aria-hidden="true"></i> &nbsp;&nbsp;{{ $inmueble->area_parcela }}m² Área de Parcela</li>
+                    @endif
+                    
+                    <li><i class="fa fa-expand" aria-hidden="true"></i> &nbsp;&nbsp;{{ $inmueble->area_construccion }}m² Área de Construcción</li>
                   </ul>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
@@ -213,7 +216,23 @@
 	</div>
  
 
-
+  <div class="modal modal-danger fade" id="eliminar-inmueble">  
+    <div class="modal-dialog">
+      <div class="modal-content col-xs-offset-2 col-xs-8" style="padding: 0px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Advertencia</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Realmente desea eliminar este Inmueble?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
+                <a id="button-eliminar-inmueble" href="{{ route('admin.inmuebles.destroy',$inmueble->id) }}" class="btn btn-outline">Aceptar</a>
+            </div>
+        </div>
+      </div>
+  </div>
 
 	
 

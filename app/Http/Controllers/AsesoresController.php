@@ -44,14 +44,23 @@ class AsesoresController extends Controller
     public function store(StoreAsesoresRequest $request)
     {
         //Manipulacion de imagen
-        $file=$request->file('foto');
-        $image=Image::make($request->file('foto'));
-        $file_name=time().'_'.$file->getClientOriginalName();
-        $path=public_path().'/images/asesores/';
-        $image->save($path.$file_name);
+        /*
+        $file = $request->file('foto');
+        dd($request->file('foto'));
+        $file_name = time().'_'.$file->getClientOriginalName();
+        $path = public_path().'/images/asesores/';
+        $file->move($path,$file_name);
+        */
 
+        $file = $request->file('foto');
+        $image = Image::make($request->file('foto'));
+        $file_name = time().'_'.$file->getClientOriginalName();
+        $path = $this->getPath('test').'/images/asesores/';
+        $image->save($path.$file_name);
+        
         //Redimensionar la imagen
-        $dimensiones=getimagesize(asset('images/asesores').'/'.$file_name);
+        /*
+        $dimensiones=getimagesize($path.$file_name);
         $ancho=$dimensiones[0]; //Ancho
         $alto=$dimensiones[1]; //Alto
         if($ancho > 400){
@@ -60,11 +69,12 @@ class AsesoresController extends Controller
             $image->resize(400,$alto);
             $image->save($path.$file_name);
         }
+        */
 
         //fin de la manipulacion de imagen
         
         $asesor=Asesor::create($request->all());
-        $asesor->foto=$file_name;
+        $asesor->foto = $file_name;
         $asesor->save();
         Session::flash('mensaje-success','El Asesor '
             .$asesor->nombre.' '.$asesor->apellido. ' se ha añadido con éxito');
@@ -80,7 +90,7 @@ class AsesoresController extends Controller
      */
     public function show($id)
     {
-        $asesor=Asesor::find($id);
+        $asesor = Asesor::find($id);
 
         return response()->json([
                 'nombre'    => $asesor->nombre,
@@ -101,7 +111,7 @@ class AsesoresController extends Controller
      */
     public function edit($id)
     {
-        $asesor=Asesor::find($id);
+        $asesor = Asesor::find($id);
 
         return response()->json([
                 'nombre'   => $asesor->nombre,
@@ -121,21 +131,23 @@ class AsesoresController extends Controller
      */
     public function update(UpdateAsesoresRequest $request, $id)
     {
-        $asesor=Asesor::find($request->id);
+        $asesor = Asesor::find($request->id);
         $asesor->fill($request->all());
 
         //Actualizacion de la imagen
         if($request->file('foto')){
 
-            unlink(public_path().'/images/asesores/'.$asesor->foto);
+            unlink($this->getPath('test').'/images/asesores/'.$asesor->foto);
             //Manipulacion de imagen
-            $file=$request->file('foto');
-            $image=Image::make($request->file('foto'));
-            $file_name=time().'_'.$file->getClientOriginalName();
-            $path=public_path().'/images/asesores/';
+            $file = $request->file('foto');
+            $image = Image::make($request->file('foto'));
+            $file_name = time().'_'.$file->getClientOriginalName();
+            $path = $this->getPath('test').'/images/asesores/';
             $image->save($path.$file_name);
+            $asesor->foto = $file_name;
 
             //Redimensionar la imagen
+            /*
             $dimensiones=getimagesize(asset('images/asesores').'/'.$file_name);
             $ancho=$dimensiones[0]; //Ancho
             $alto=$dimensiones[1]; //Alto
@@ -145,7 +157,7 @@ class AsesoresController extends Controller
                 $image->resize(400,$alto);
                 $image->save($path.$file_name);
             }
-            $asesor->foto = $file_name;
+            */
         }
 
         $asesor->save();
@@ -163,10 +175,11 @@ class AsesoresController extends Controller
      */
     public function destroy($id)
     {
-        $asesor=Asesor::find($id);
+
+        $asesor = Asesor::find($id);
     
         //Borrado de la imagen
-        if(unlink(public_path().'/images/asesores/'.$asesor->foto)){
+        if(unlink($this->getPath('test').'/images/asesores/'.$asesor->foto)){
 
             $asesor->delete();
             Session::flash('mensaje-success','El Asesor '

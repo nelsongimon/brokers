@@ -23,7 +23,7 @@ class UsuariosController extends Controller
      */
     public function index()
     {
-        $users=User::all();
+        $users = User::all();
         return view('admin.usuarios.index',['users' => $users]);
         
     }

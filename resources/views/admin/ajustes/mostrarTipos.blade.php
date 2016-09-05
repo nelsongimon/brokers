@@ -15,12 +15,11 @@
 @section('content')
 
 
-	<section class="content">
+
           <div class="row">
 			<div class="col-md-6">
 				
-				
-	            <div class="box">
+	            <div class="box box-primary">
 	                <div class="box-header with-border">
 	                  <h3 class="box-title">Tipos de inmueble</h3>
 	                  <button class="btn btn-info pull-right" id="botan-mostar-form-tipo"><i class="fa fa-plus" aria-hidden="true"></i> Añadir</button>
@@ -85,7 +84,7 @@
                 {!! Form::close() !!} 
       		</div>	
           </div>
- 	</section>
+
 
 
 

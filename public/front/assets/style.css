@@ -304,7 +304,7 @@ h2{font-size: 25px;}
 }
 
 .fondo-busqueda{
-	background-image: url(../images/4.jpg);
+	background-image: url(../images/busqueda.jpg);
 	background-size: cover;
 	padding-top: 55px;
 	padding-bottom: 55px;
@@ -429,10 +429,19 @@ h2{font-size: 25px;}
 .titulos-detalles-lg{
 	font-family: 'Open Sans', sans-serif;
 	color: black;
-	font-size: 21px;
+	font-size: 20px;
 	margin-left:15px;
 	color: #5B5B5B;
 }
+
+.titulos-detalles-lg-inmueble{
+	font-family: 'Open Sans', sans-serif;
+	color: black;
+	font-size: 18px;
+	margin-left:15px;
+	color: #5B5B5B;
+}
+
 .texto-detalles-md > li{
 	font-family: 'Open Sans', sans-serif;
 	color: #676767;
@@ -518,16 +527,29 @@ footer{
 	margin-bottom:10px;
 
 }
+/*
 .foto-detalle{
 	display: block;
     height: auto;
     max-width: 95%;
 }
-
+*/
+.foto-detalle{
+	display: block;
+    height: 460px;
+    max-width: 95%;
+}
+/*
 #bigPic img{
 	position:absolute;
 	display:none;
 }
+*/
+#bigPic img{
+	position:absolute;
+	display:none;
+}
+
 ul#thumbs li.selected{
 	border:2px solid #526AFC;	
 	background:#fff;
@@ -549,8 +571,8 @@ ul#thumbs li{
 }
 ul#thumbs img{
 	float:left;
-	width:80px;
-	//height:80px;
+	//width:60px;
+	height:45px;
 	line-height:80px;
 	overflow:hidden;
 	//position:relative;
@@ -663,11 +685,11 @@ ul#thumbs img{
 	color: #808080;
 }
 .pasos-vender{
-	padding-top: 35px;
-	padding-bottom: 20px;
+	padding-top: 50px;
+	padding-bottom: 50px;
 	background-image:url('../images/pasos-vender.png');
 	background-size: cover;
-	//color: #353535;
+	//background: #51636d;
 	color: white;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 20px;
@@ -801,13 +823,13 @@ ul#thumbs img{
 }
 
 .titulo-tipo-resultados .titulo{
-	font-size: 16px;
+	font-size: 14px;
 	font-family: 'Open Sans', sans-serif;
 	text-align: left;
 }
 
 .titulo-tipo-carousel .titulo{
-	font-size: 16px;
+	font-size: 14px;
 	font-family: 'Open Sans', sans-serif;
 	text-align: left;
 }
@@ -843,14 +865,14 @@ ul#thumbs img{
 }
 
 .titulo-tipo-resultados .tipo{
-	font-size: 15px;
+	font-size: 14px;
 	font-family: 'Open Sans', sans-serif;
 	margin-top: 4px;
 	text-align: left;
 }
 
 .titulo-tipo-carousel .tipo{
-	font-size: 15px;
+	font-size: 14px;
 	font-family: 'Open Sans', sans-serif;
 	margin-top: 7px;
 	text-align: left;
@@ -902,7 +924,7 @@ ul#thumbs img{
 }
 .info-asesor{
 	padding: 1px 0px;
-	font-size: 16px;
+	font-size: 15px;
 	font-weight: 600;
 	margin-bottom: 12px;
 	text-align: left;
@@ -936,6 +958,25 @@ ul#thumbs img{
 .ver-todas:hover{
 	color: #4136D9;
 	text-decoration: none;
+}
+
+.tips-vendedor{
+	padding-top: 60px;
+	padding-bottom: 30px;
+	background: #51636d;
+	background-image:url('../images/pasos-vender.png');
+	background-size: cover;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.vendedor-titulo{
+	font-size: 23px;
+	color: white;
+}
+
+.vendedor-texto{
+	font-size: 19px;
+	color: white;
 }
 
 

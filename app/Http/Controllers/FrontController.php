@@ -51,18 +51,19 @@ class FrontController extends Controller
     **/
     public function FormBusquedaAvanzada(){
 
-        $estados = Estado::all();
-        $tipos = Tipo::all();
-        $negos = Negociacion::all();
-        $min_precio = Inmueble::orderBy('bolivares','asc')->limit(1)->lists('bolivares');
-        $max_precio = Inmueble::orderBy('bolivares','desc')->limit(1)->lists('bolivares');
+        $estados = Estado::orderBy('estado','asc')->get();
+        $tipos = Tipo::orderBy('tipo','asc')->get();
+        $negos = Negociacion::orderBy('negociacion','asc')->get();
+        $min_precio = Inmueble::where('status','=','yes')->orderBy('bolivares','asc')->limit(1)->lists('bolivares');
+        $max_precio = Inmueble::where('status','=','yes')->orderBy('bolivares','desc')->limit(1)->lists('bolivares');
         $destacados = Destacado::all();
 
+        /*
         //Calculo de los valores iniciales del rango
         $dif = $max_precio[0] - $min_precio[0];
-        $min_star = $min_precio[0] + $dif/2 - $dif/4;
-        $max_star = $max_precio[0] - $dif/2 + $dif/4;
-
+        $min_start = $min_precio[0] + $dif/2 - $dif/4;
+        $max_start = $max_precio[0] - $dif/2 + $dif/4;
+        */
 
 
         return view('front.busquedaAvanzada',[
@@ -71,8 +72,8 @@ class FrontController extends Controller
             'negos'      => $negos,
             'min_precio' => $min_precio[0],
             'max_precio' => $max_precio[0],
-            'min_star'   => $min_star,
-            'max_star'   => $max_star,
+            'min_start'  => $min_precio[0],
+            'max_start'  => $max_precio[0],
             'destacados' => $destacados
             ]);
     }
@@ -109,6 +110,15 @@ class FrontController extends Controller
 
         $destacados = Destacado::all();
         return view('front.pasosVender',['destacados' => $destacados]);
+    }
+    /*
+    *
+    *
+    **/
+    public function tipsVendedor(){
+
+        $destacados = Destacado::all();
+        return view('front.tipsVendedor',['destacados' => $destacados]);
     }
     /*
     *
@@ -181,6 +191,10 @@ class FrontController extends Controller
             $mensaje = 'Existen '.$contador.' propiedades';
         }
 
+        if(count($results) == 0){
+            $mensaje = 'No se encontro ninguna propiedad';
+        }
+
         return view('front.filtrado',[
             'inmuebles'       => $inmuebles,
             'mensaje'         => $mensaje,
@@ -204,8 +218,6 @@ class FrontController extends Controller
     *
     **/
     public function busquedaAvanzada(Request $request){
-
-
 
 
         $estado_id = $request->estado;
@@ -323,6 +335,10 @@ class FrontController extends Controller
             $mensaje = 'Existen '.count($results).' propiedades';
         }
 
+        if(count($results) == 0){
+            $mensaje = 'No se encontro ninguna propiedad';
+        }
+
         return view('front.filtrado',[
             'inmuebles'       => $inmuebles,
             'mensaje'         => $mensaje,
@@ -433,7 +449,7 @@ class FrontController extends Controller
                 $banos = substr($palabras[$i], 0, $pos);
  
             }
-            if(ends_with($palabras[$i],'cuartos') or ends_with($palabras[$i],'cuarto')){
+            if(ends_with($palabras[$i],'habitaciones') or ends_with($palabras[$i],'habitacion')){
                 $pos = strpos($palabras[$i], ' ');  
                 $cuartos = substr($palabras[$i], 0, $pos);
 
@@ -502,10 +518,10 @@ class FrontController extends Controller
         if(!empty($cuartos)){
             $cuartos = $cuartos;
             if($cuartos == 1){
-                $filtros[] = ['filtro' => 'cuartos', 'valor' => $cuartos.' Cuarto'];
+                $filtros[] = ['filtro' => 'habitaciones', 'valor' => $cuartos.' Habitación'];
             }
             else{
-                $filtros[] = ['filtro' => 'cuartos', 'valor' => $cuartos.' Cuartos'];
+                $filtros[] = ['filtro' => 'habitaciones', 'valor' => $cuartos.' Habitaciones'];
             }
             $status = false;
         }else{
@@ -718,7 +734,7 @@ class FrontController extends Controller
 
         $file = $request->file('curriculum');
         $file_name = time().'_'.$file->getClientOriginalname();
-        $path = public_path().'/archivos';
+        $path = $this->getPath('test').'/archivos';
         $archivo = explode('.', $file_name);
         $extension = end($archivo);
         
@@ -777,14 +793,14 @@ class FrontController extends Controller
         
         if(empty($request->id)){
             return response()->json([
-                'mensaje'=>'error'
+                'mensaje' => 'error'
             ]);
             exit();
         }
-        
-        $estado=Estado::find($request->id);
+
+        $ciudades = Ciudad::where('estado_id','=',$request->id)->orderBy('ciudad','asc')->get();
         return response()->json([
-            'ciudades'=>$estado->ciudades
+            'ciudades' => $ciudades
             ]);
     }
     /*
@@ -798,14 +814,14 @@ class FrontController extends Controller
         
         if(empty($request->id)){
             return response()->json([
-                'mensaje'=>'error'
+                'mensaje' => 'error'
             ]);
             exit();
         }
         
-        $estado=Ciudad::find($request->id);
+        $sectores = Sector::where('ciudad_id','=',$request->id)->orderBy('sector','asc')->get();
         return response()->json([
-            'sectores'=>$estado->sectores
+            'sectores' => $sectores
             ]);
     }    
 

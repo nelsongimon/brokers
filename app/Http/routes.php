@@ -37,6 +37,8 @@ Route::get('/empleo','FrontController@empleo');
 
 Route::get('/pasos-para-vender','FrontController@pasosVender');
 
+Route::get('/tips-para-un-vendedor','FrontController@tipsVendedor');
+
 Route::post('formulario-empleo',[
 	'uses' => 'FrontController@formEmpleo',
 	'as'   => 'front.empleo'
@@ -94,7 +96,7 @@ Route::group(['prefix'=>'admin', 'middleware' => 'auth'], function(){
 
 	Route::resource('/asesores','AsesoresController');
 	Route::get('asesores/{id}/destroy',[
-		'uses' => 'asesoresController@destroy',
+		'uses' => 'AsesoresController@destroy',
 		'as'   => 'admin.asesores.destroy'
 		]);
 

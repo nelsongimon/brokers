@@ -39,9 +39,9 @@ class SectoresController extends Controller
             exit();
         }
         
-        $estado=Estado::find($request->id);
+        $ciudades = Ciudad::where('estado_id','=',$request->id)->orderBy('ciudad','asc')->get();
         return response()->json([
-            'ciudades'=>$estado->ciudades
+            'ciudades' => $ciudades
             ]);
     }
     /*
@@ -58,9 +58,9 @@ class SectoresController extends Controller
             exit();
         }
         
-        $estado=Ciudad::find($request->id);
+        $sectores = Sector::where('ciudad_id','=',$request->id)->orderBy('sector','asc')->get();
         return response()->json([
-            'sectores'=>$estado->sectores
+            'sectores' => $sectores
             ]);
     }
 

@@ -20,49 +20,40 @@
 
   <div class="inside-banner">
     <div class="container"> 
-        <h2>Pasos para vender</h2>
+        <h2>Tips para un vendedor</h2>
     </div>
   </div>
 
 
-<!-- ----------------- Pasos para vender -------------------------- -->
+<!-- ---------------------- Tips para un vendedor -------------------------- -->
 
 
-<section class="pasos-vender">
-  <div class="container">
-    <div class="row">
-
-      <div class="col-xs-12 col-offset-md-1 col-md-6">
-        <ul class="lista-pasos" style="padding-left: 0px;">
-          <li><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Documentos para poder vender:
-            <ul>
-              <li><i class="fa fa-file-text-o" aria-hidden="true"></i> Documento de propiedad</li>
-              <li><i class="fa fa-file-text-o" aria-hidden="true"></i> Solvencia municipal</li>
-              <li><i class="fa fa-file-text-o" aria-hidden="true"></i> Ficha catastral</li>
-              <li><i class="fa fa-file-text-o" aria-hidden="true"></i> Declaración de vivienda principal</li>
-              <li><i class="fa fa-file-text-o" aria-hidden="true"></i> Pago planilla forma 30 </li>
-              <li><i class="fa fa-file-text-o" aria-hidden="true"></i> Liberación registrada en caso de haber tenido una hipoteca</li>
-            </ul>
-          </li>
-        </ul>
+  <section class="tips-vendedor">
+    <div class="container">
+  
+      <div class="row">
+      
+        <div class="col-xs-12 col-md-offset-1 col-md-5">
+          <h2 class="vendedor-titulo"><i class="fa fa-check-circle" style="color:#72b70f;" aria-hidden="true"></i>&nbsp; Decisión</h2>
+          <p class="vendedor-texto">Todos los involucrados en el inmueble estén de acuerdo en la venta del inmueble</p>
+        </div>
+        <div class="col-xs-12 col-md-5">
+          <h2 class="vendedor-titulo"><i class="fa fa-check-circle" style="color:#72b70f;" aria-hidden="true"></i>&nbsp; Dinero</h2>
+          <p class="vendedor-texto">Uso que le darán al capital recibido por la venta del inmueble</p>
+        </div>
+        <div class="col-xs-12 col-md-offset-1 col-md-5">
+          <h2 class="vendedor-titulo"><i class="fa fa-check-circle" style="color:#72b70f;" aria-hidden="true"></i>&nbsp; Deseo</h2>
+          <p class="vendedor-texto">Todos los involucrados en el inmueble quieren vender dicho inmueble para cambiarlo por uno mejor o hacer una mejor inversión</p>
+        </div>
+        <div class="col-xs-12 col-md-5">
+          <h2 class="vendedor-titulo"><i class="fa fa-check-circle" style="color:#72b70f;" aria-hidden="true"></i>&nbsp; Precio del inmueble</h2>
+          <p class="vendedor-texto">Ajustarse al precio del mercado para poder tener una venta efectiva</p>
+        </div>
       </div>
-
-      <div class="col-xs-12 col-md-5">
-        <ul class="lista-pasos" style="padding-left: 0px;">
-          <li><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Asesorarse con un corredor inmobiliario</li>
-          <li><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Análisis del mercado</li>
-          <li><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Estimar precio del inmueble</li>
-          <li><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Comercializar y promocionar el inmueble</li>
-          <li><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Solvencia de los servicios públicos y condominio</li>
-        </ul>
-      </div>
-
-
-
-
     </div>
-  </div>
-</section>
+  </section>
+
+
 
 
 <!-- ---------------------- Propiedades Destacadas ----------------------- -->

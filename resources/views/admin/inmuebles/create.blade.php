@@ -44,9 +44,26 @@
 
                     <!-- text input -->
                     <div class="form-group col-md-6">
-                      <label>Precio ($) <span style="color: #FF0000;">*</span></label>
+                      <label>Precio ($)</label>
                       <input type="number"  min="0" class="form-control" value="{{ old('dolares') }}" placeholder="Precio" name="dolares">
                     </div>
+
+                    <!-- text input -->
+                    <div class="form-group col-md-6">
+                      <label>Precio (Bs)</label>
+                      <input type="number"  min="0" class="form-control" value="{{ old('bolivares') }}" placeholder="Precio" name="bolivares">
+                    </div>
+
+                  <!-- select -->
+                  <div class="form-group col-md-6">
+                      <label>Asesor <span style="color: #FF0000;">*</span></label>
+                      <select class="form-control" name="asesor_id">
+                        <option value="">--Seleccione--</option>
+                          @foreach ($asesores as $asesor)
+                            <option value="{{ $asesor->id }}">{{ $asesor->nombre.' '.$asesor->apellido }}</option>
+                          @endforeach
+                      </select>
+                  </div>
 
                     <!-- textarea -->
                     <div class="form-group col-md-6">
@@ -62,7 +79,7 @@
 
                     <!-- text input -->
                     <div class="form-group col-md-6">
-                      <label>Tamaño de parcela <span style="color: #FF0000;">*</span></label>
+                      <label>Tamaño de parcela</label>
                       <input type="number"  min="0" class="form-control" value="{{ old('area_parcela') }}" placeholder="Tamaño de parcela (m²)" name="area_parcela">
                     </div>
 
@@ -95,7 +112,7 @@
                   </div>
                        
                     <div class="form-group col-md-6">
-                      <label>Número de cuartos <span style="color: #FF0000;">*</span></label>
+                      <label>Número de habitaciones</label>
                       <input type="number"  min="0" class="form-control" value="{{ old('cuartos') }}" placeholder="Número de cuartos" name="cuartos">
                     </div>
 
@@ -113,7 +130,7 @@
                   </div>
                   
                     <div class="form-group col-md-6">
-                      <label>Número de baños <span style="color: #FF0000;">*</span></label>
+                      <label>Número de baños</label>
                       <input type="number"  min="0" class="form-control" value="{{ old('banos') }}" placeholder="Número de baños" name="banos">
                     </div>
 
@@ -130,7 +147,7 @@
                   </div>
                  
                   <div class="form-group col-md-6">
-                      <label>Puestos de estacionamiento <span style="color: #FF0000;">*</span></label>
+                      <label>Puestos de estacionamiento</label>
                       <input type="number"  min="0" class="form-control" value="{{ old('estacionamientos') }}" placeholder="Estacionamientos" name="estacionamientos">
                   </div>
 
@@ -142,26 +159,8 @@
                
                       </select>
                   </div>
-
-                    <!-- select -->
-                  <div class="form-group col-md-6">
-                      <label>Asesor <span style="color: #FF0000;">*</span></label>
-                      <select class="form-control" name="asesor_id">
-                        <option value="">--Seleccione--</option>
-                          @foreach ($asesores as $asesor)
-                            <option value="{{ $asesor->id }}">{{ $asesor->nombre.' '.$asesor->apellido }}</option>
-                          @endforeach
-                      </select>
-                  </div>
-
-                    <!-- checkbox -->
-                  <div class="form-group col-md-6">
-                      <label class="">
-                        <input type="checkbox" class="minimal" name="status" checked> &nbsp;&nbsp;&nbsp; Disponible
-                        
-                      </label>
-                  </div>
                 </fieldset>
+
                 <fieldset>
                   <legend style="text-align: center;">Datos del Cliente (opcional)</legend>
 
