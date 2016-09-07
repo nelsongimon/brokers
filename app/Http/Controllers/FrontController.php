@@ -734,7 +734,7 @@ class FrontController extends Controller
 
         $file = $request->file('curriculum');
         $file_name = time().'_'.$file->getClientOriginalname();
-        $path = $this->getPath('test').'/archivos';
+        $path = $this->getPath('local').'/archivos';
         $archivo = explode('.', $file_name);
         $extension = end($archivo);
         

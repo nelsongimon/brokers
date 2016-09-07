@@ -87,7 +87,7 @@
 
                     <!-- text input -->
                     <div class="form-group col-md-6">
-                      <label>Tamaño de parcela <span style="color: #FF0000;">*</span></label>
+                      <label>Tamaño de parcela</label>
                       <input type="text" class="form-control" value="{{ $inmueble->area_parcela }}" name="area_parcela">
                     </div>
 
@@ -107,7 +107,7 @@
            
                     <!-- text input -->
                     <div class="form-group col-md-6">
-                      <label>Tamaño de construcción</label>
+                      <label>Tamaño de construcción <span style="color: #FF0000;">*</span></label>
                       <input type="text" class="form-control" value="{{ $inmueble->area_construccion }}" name="area_construccion">
                     </div>
 

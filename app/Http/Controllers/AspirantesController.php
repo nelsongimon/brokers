@@ -90,7 +90,7 @@ class AspirantesController extends Controller
 
         $aspirante = Aspirante::find($id);
 
-        if(unlink($this->getPath('test').'/archivos/'.$aspirante->curriculum)){
+        if(unlink($this->getPath('local').'/archivos/'.$aspirante->curriculum)){
 
             $aspirante->delete();
             Session::flash('mensaje-success','El aspirante fue elimanado con éxito');

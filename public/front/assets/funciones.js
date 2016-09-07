@@ -149,7 +149,7 @@ $(window).load(function(){
 $(document).ready(function(){
 
     var alto = $('#contenedor-inmuebles').height();
-    $('#resultados-inmuebles').hide();
+    //$('#resultados-inmuebles').hide();
     $('#loader-resultados').css({"height": (alto/2)+100+"px"});
     $('#loader-resultados').css({"margin-top":(alto/2)-100+"px"}); 
     $('#loader-resultados').html('<i class="fa fa-spinner fa-spin" aria-hidden="true" style="font-size:100px;color:#034F7D"></i>');
@@ -159,7 +159,7 @@ $(document).ready(function(){
 $(window).load(function(){
 
 	$("#loader-resultados").fadeOut(function(){
-		$('#resultados-inmuebles').fadeIn(100);
+		$('#resultados-inmuebles').css({"visibility": "visible"});
 	});
 
 });

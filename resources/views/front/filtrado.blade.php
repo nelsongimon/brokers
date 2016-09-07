@@ -211,7 +211,7 @@
       <div class="col-xs-12 col-sm-12 col-md-10" id="contenedor-inmuebles">
 
         <div id="loader-resultados" style="text-align: center"></div>
-        <div class="properties-listing spacer" id="resultados-inmuebles"> 
+        <div class="properties-listing spacer" id="resultados-inmuebles" style="visibility: hidden"> 
 
             @if($inmuebles)
             @foreach ($inmuebles as $inmueble)
@@ -266,7 +266,7 @@
                           @endif
                         </span> 
                         @endif
-                        <span><i class="fa fa-expand"></i> {{ $inmueble->area_parcela }}m² </span>    
+                        <span><i class="fa fa-expand"></i> {{ $inmueble->area_construccion }}m² </span>    
                    </div>
                   <div class="titulo-tipo-resultados">
                     <div class="titulo">

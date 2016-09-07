@@ -328,7 +328,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; {{ date('Y') }} <a href="{{ url('/') }}">Brokers Bienes Raices</a>.</strong> Todos los derechos reservados.
+        <strong>Copyright &copy; {{ date('Y') }} <a href="{{ url('/') }}">Brokers Bienes Raíces</a>.</strong> Todos los derechos reservados.
       </footer>
 
       <!-- Control Sidebar -->

@@ -229,7 +229,6 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpKnb-8ufsQ4kfOnSVHa12H2gbpy2RkFI&callback=initMap">
   </script>
 
-
   <script type="text/javascript">
 
       var currentImage;
@@ -253,6 +252,8 @@
               currentIndex = index;
               $('#thumbs li').removeClass('selected');
               $($('#thumbs li')[index]).addClass('selected');
+              /********************************/
+              altoImagen($(indexImage));
           }
       }
       
@@ -272,6 +273,15 @@
             showImage(parseInt(count)-1);
           });
     });
+
+
+    function altoImagen(imagen){
+
+      if(imagen.height() > 465){
+        $('.foto-detalle').css({'height':465+'px'});
+      }
+
+    }
 
         //Manipulacion de mapas
         function initMap() {

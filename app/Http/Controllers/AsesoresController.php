@@ -43,15 +43,8 @@ class AsesoresController extends Controller
      */
     public function store(StoreAsesoresRequest $request)
     {
+        
         //Manipulacion de imagen
-        /*
-        $file = $request->file('foto');
-        dd($request->file('foto'));
-        $file_name = time().'_'.$file->getClientOriginalName();
-        $path = public_path().'/images/asesores/';
-        $file->move($path,$file_name);
-        */
-
         $file = $request->file('foto');
         $image = Image::make($request->file('foto'));
         $file_name = time().'_'.$file->getClientOriginalName();
@@ -59,8 +52,7 @@ class AsesoresController extends Controller
         $image->save($path.$file_name);
         
         //Redimensionar la imagen
-        /*
-        $dimensiones=getimagesize($path.$file_name);
+        $dimensiones=getimagesize(asset('images/asesores').'/'.$file_name);
         $ancho=$dimensiones[0]; //Ancho
         $alto=$dimensiones[1]; //Alto
         if($ancho > 400){
@@ -69,7 +61,6 @@ class AsesoresController extends Controller
             $image->resize(400,$alto);
             $image->save($path.$file_name);
         }
-        */
 
         //fin de la manipulacion de imagen
         

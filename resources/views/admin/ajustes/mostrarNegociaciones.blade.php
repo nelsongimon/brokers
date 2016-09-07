@@ -43,7 +43,7 @@
 		                      <td>
 		                      	<button class="btn btn-success" onclick="editarNegociacion('{{ route('admin.ajustes.negociacion.edit',$nego->id) }}','{{ csrf_token() }}')" ><i class="fa fa-pencil" aria-hidden="true" ></i></button>
 
-					    		<a href="{{ route('admin.ajustes.negociacion.delete',$nego->id) }}" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true" ></i></a>  
+					    		<button onclick="eliminarNegociacion('{{ route('admin.ajustes.negociacion.delete',$nego->id) }}')" class="btn btn-danger" data-toggle="modal" data-target="#eliminar-negociacion"><i class="fa fa-trash" aria-hidden="true" ></i></button>  
 		                      </td>
 		                    </tr>
 		                    @endforeach
@@ -88,7 +88,23 @@
 
 
 
-
+	<div class="modal modal-danger fade" id="eliminar-negociacion">	
+		<div class="modal-dialog">
+			<div class="modal-content col-xs-offset-2 col-xs-8" style="padding: 0px">
+		        <div class="modal-header">
+		            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+		            <h4 class="modal-title">Advertencia</h4>
+		        </div>
+		        <div class="modal-body">
+		            <p>¿Realmente desea eliminar este tipo de negociación?</p>
+		        </div>
+		        <div class="modal-footer">
+		            <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
+		            <a id="button-eliminar-negociacion" href="#" class="btn btn-outline">Aceptar</a>
+		        </div>
+		    </div>
+	    </div>
+	</div>
 	
 
 @endsection

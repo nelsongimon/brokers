@@ -73,7 +73,7 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-6">
-        © Copyright {{ date('Y') }} brokersbienesraices.com
+        © Copyright {{ date('Y') }} brokersbrv.com
       </div>
       <div class="col-xs-12  col-sm-4 col-md-offset-2 col-md-3">
         <span>Siguenos </span> 

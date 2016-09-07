@@ -527,18 +527,19 @@ footer{
 	margin-bottom:10px;
 
 }
-/*
 .foto-detalle{
 	display: block;
     height: auto;
     max-width: 95%;
+
+}
+/*
+.foto-detalle-b{
+	display: block;
+    height: 465px;
 }
 */
-.foto-detalle{
-	display: block;
-    height: 460px;
-    max-width: 95%;
-}
+
 /*
 #bigPic img{
 	position:absolute;
@@ -970,12 +971,12 @@ ul#thumbs img{
 }
 
 .vendedor-titulo{
-	font-size: 23px;
+	font-size: 22px;
 	color: white;
 }
 
 .vendedor-texto{
-	font-size: 19px;
+	font-size: 18px;
 	color: white;
 }
 

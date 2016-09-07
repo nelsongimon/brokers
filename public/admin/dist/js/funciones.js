@@ -487,6 +487,14 @@ function eliminarAspirante(url){
 	$('#button-eliminar-aspirante').attr('href',url);
 }
 
+function eliminarTipo(url){
+	$('#button-eliminar-tipo').attr('href',url);
+}
+
+function eliminarNegociacion(url){
+	$('#button-eliminar-negociacion').attr('href',url);
+}
+
 function moverMarker(marker, map){
 
 	$('#latitud').val(marker.lat());
