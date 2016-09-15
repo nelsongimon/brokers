@@ -56,9 +56,9 @@
       <div class="col-xs-offset-1 col-xs-10">   
           <a href="{{ url('/') }}"><img src="{{ asset('front/images/brokers_logo.png') }}" class="logo"></a>
           <ul class="pull-right">
-            <li><a href="#"><span class="fa fa-facebook-square redes-header"></span></a></li>
-            <li><a href="#"><span class="fa fa-instagram redes-header"></span></a></li>
-            <li><a href="#"><span class="fa fa-twitter-square redes-header"></span></a></li>          
+            <li><a target="_blank" href="https://www.facebook.com/brokersbrv"><span class="fa fa-facebook-square redes-header"></span></a></li>
+            <li><a target="_blank" href="https://www.instagram.com/brokersbrv/"><span class="fa fa-instagram redes-header"></span></a></li>
+            <li><a target="_blank" href="https://twitter.com/brokersbrv/"><span class="fa fa-twitter-square redes-header"></span></a></li>          
           </ul>
         </div>
     </div>
@@ -77,9 +77,9 @@
       </div>
       <div class="col-xs-12  col-sm-4 col-md-offset-2 col-md-3">
         <span>Siguenos </span> 
-          <a href="#"><span class="fa fa-facebook-square redes-footer"></span></a>
-          <a href="#"><span class="fa fa-instagram redes-footer"></span></a>
-          <a href="#"><span class="fa fa-twitter-square redes-footer"></span></a>  
+          <a target="_blank" href="https://www.facebook.com/brokersbrv"><span class="fa fa-facebook-square redes-footer"></span></a>
+          <a target="_blank" href="https://www.instagram.com/brokersbrv"><span class="fa fa-instagram redes-footer"></span></a>
+          <a target="_blank" href="https://twitter.com/brokersbrv"><span class="fa fa-twitter-square redes-footer"></span></a>  
       </div>
     </div>
   </div>

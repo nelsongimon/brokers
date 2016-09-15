@@ -10,7 +10,7 @@
 
 @section('page-header','Tipos de Negociaciones')
 
-@section('optional-description','Gestione las opciones para los tipos de Negociaciones');
+@section('optional-description','Gestiona las opciones para los tipos de Negociación');
 
 @section('content')
 

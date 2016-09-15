@@ -10,7 +10,7 @@
 
 @section('page-header','Ciudades')
 
-@section('optional-description','Gestione las opciones de las Ciudades');
+@section('optional-description',' ');
 
 @section('content')
 

@@ -125,10 +125,10 @@ class InmueblesController extends Controller
                 $image = Image::make($file);
                 $file_name = 'Principal_'.time().'_'.$file->getClientOriginalName();
                 $file_name = str_replace(' ','_',$file_name);
-                $path = $this->getPath('local').'/images/inmuebles/';
+                $path = $this->getPath('production').'/images/inmuebles/';
                 $image->save($path.$file_name);
                 //Redimensionar la imagen
-                /*
+            
                 $dimensiones=getimagesize(asset('images/inmuebles').'/'.$file_name);
                 $ancho=$dimensiones[0]; //Ancho
                 $alto=$dimensiones[1]; //Alto
@@ -138,7 +138,7 @@ class InmueblesController extends Controller
                     $image->resize(300,$alto);
                     $image->save($path.'Thumb_'.$file_name);
                 }
-                */
+    
                 $inmuebles = Inmueble::all();
                 $imagen = new Imagen;
                 $imagen->imagen = $file_name;
@@ -152,7 +152,7 @@ class InmueblesController extends Controller
                 $image = Image::make($file);
                 $file_name = time().'_'.$file->getClientOriginalName();
                 $file_name = str_replace(' ','_',$file_name);
-                $path = $this->getPath('local').'/images/inmuebles/';
+                $path = $this->getPath('production').'/images/inmuebles/';
                 $image->save($path.$file_name);
 
                 $inmuebles = Inmueble::all();
@@ -350,11 +350,12 @@ class InmueblesController extends Controller
         $files = $inmueble->imagenes;
         foreach($files as $file){
             //Borrado de la imagen
-            if($file->principal=="yes"){
-                unlink($this->getPath('local').'/images/inmuebles/'.$file->imagen);
+            if($file->principal == "yes"){
+                unlink($this->getPath('production').'/images/inmuebles/'.$file->imagen);
+                //unlink($this->getPath('production').'/images/inmuebles/Thumb_'.$file->imagen);
             }
             else{
-                unlink($this->getPath('local').'/images/inmuebles/'.$file->imagen);
+                unlink($this->getPath('production').'/images/inmuebles/'.$file->imagen);
             } 
             
             $file->delete();           
@@ -370,10 +371,10 @@ class InmueblesController extends Controller
                 $image = Image::make($file);
                 $file_name = 'Principal_'.time().'_'.$file->getClientOriginalName();
                 $file_name = str_replace(' ','_',$file_name);
-                $path = $this->getPath('local').'/images/inmuebles/';
+                $path = $this->getPath('production').'/images/inmuebles/';
                 $image->save($path.$file_name);
                 //Redimensionar la imagen
-                /*
+                
                 $dimensiones=getimagesize(asset('images/inmuebles').'/'.$file_name);
                 $ancho=$dimensiones[0]; //Ancho
                 $alto=$dimensiones[1]; //Alto
@@ -383,7 +384,7 @@ class InmueblesController extends Controller
                     $image->resize(300,$alto);
                     $image->save($path.'Thumb_'.$file_name);
                 }
-                */
+                
 
                 $imagen = new Imagen;
                 $imagen->imagen = $file_name;
@@ -392,8 +393,17 @@ class InmueblesController extends Controller
                 $imagen->save();
 
                 $inmueble = Inmueble::find($request->id);
-                $inmueble->slider->imagen = $file_name;
-                $inmueble->destacado->imagen = $file_name;
+
+                if(!empty($inmueble->slider->imagen)){
+
+                    $inmueble->slider->imagen = $file_name;
+                }
+                
+                if(!empty($inmueble->destacado->imagen)){
+
+                    $inmueble->destacado->imagen = $file_name;
+                }
+                
                 $inmueble->push();
 
             }
@@ -402,7 +412,7 @@ class InmueblesController extends Controller
                 $image = Image::make($file);
                 $file_name = time().'_'.$file->getClientOriginalName();
                 $file_name = str_replace(' ','_',$file_name);
-                $path=$this->getPath('local').'/images/inmuebles/';
+                $path=$this->getPath('production').'/images/inmuebles/';
                 $image->save($path.$file_name);
 
                 $imagen = new Imagen;
@@ -430,11 +440,11 @@ class InmueblesController extends Controller
        foreach($files as $file){
             //Borrado de la imagen
             if($file->principal=="yes"){
-                unlink($this->getPath('local').'/images/inmuebles/'.$file->imagen);
-                //unlink(public_path().'/images/inmuebles/Thumb_'.$file->imagen);
+                unlink($this->getPath('production').'/images/inmuebles/'.$file->imagen);
+                unlink($this->getPath('production').'/images/inmuebles/Thumb_'.$file->imagen);
             }
             else{
-                unlink($this->getPath('local').'/images/inmuebles/'.$file->imagen);
+                unlink($this->getPath('production').'/images/inmuebles/'.$file->imagen);
             }
                         
        }
@@ -448,18 +458,18 @@ class InmueblesController extends Controller
     *
     *
     */
-    public function updalocalatus(Request $request){
-        $inmueble=Inmueble::find($request->id);
-        if($inmueble->status=='yes'){
-            $inmueble->status='no';
+    public function updateStatus(Request $request){
+        $inmueble = Inmueble::find($request->id);
+        if($inmueble->status == 'yes'){
+            $inmueble->status = 'no';
             $inmueble->save();
         }
         else{
-            $inmueble->status='yes';
+            $inmueble->status = 'yes';
             $inmueble->save();
         }
         return response()->json([
-            'status'=>$inmueble->status
+            'status' => $inmueble->status
             ]);
     }
 }

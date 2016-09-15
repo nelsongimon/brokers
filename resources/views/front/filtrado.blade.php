@@ -228,7 +228,7 @@
                           </div>
                           <?php
                               $imagenes = \App\Imagen::where('inmueble_id','=',$inmueble->id)
-                                          ->where('principal','=','no')->limit(3)->lists('imagen');
+                                          ->where('principal','=','no')->limit(2)->lists('imagen');
                       
                           ?>
                           @for ($i = 0; $i < count($imagenes); $i++)

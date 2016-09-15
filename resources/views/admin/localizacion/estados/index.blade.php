@@ -10,7 +10,7 @@
 
 @section('page-header','Estados')
 
-@section('optional-description','Gestione las opciones los Estados');
+@section('optional-description',' ');
 
 @section('content')
 

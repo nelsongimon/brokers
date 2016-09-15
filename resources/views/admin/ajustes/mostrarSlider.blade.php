@@ -10,7 +10,7 @@
 
 @section('page-header','Slider')
 
-@section('optional-description','Visualice y elimine los inmuebles que se mostrarán en el slider');
+@section('optional-description','Visualiza los inmuebles que se mostrarán en el Slider');
 
 @section('content')
 
@@ -36,7 +36,7 @@
 	                    </tr>
 	                    	@foreach($sliders as $slider)
 					        <tr style="font-size:15px;">
-		                      <td style="text-align:center"><img src="{{ asset('images/inmuebles').'/'.$slider->imagen }}" width="75px"></td>
+		                      <td style="text-align:center"><img src="{{ asset('images/inmuebles').'/Thumb_'.$slider->imagen }}" width="75px"></td>
 		                      <td>{{ $slider->titulo }}</td>
 		                      <td>
 		                     

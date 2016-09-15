@@ -123,7 +123,7 @@ class SectoresController extends Controller
     public function update(Request $request)
     {
         $sector=Sector::find($request->id);
-        $sector->sector=$request->sector;
+        $sector->sector = $request->sector;
         $sector->save();
         Session::flash('mensaje-success',$sector->sector.' fue actualizado con éxito');
         return redirect('admin/localizacion/sectores');

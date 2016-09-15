@@ -10,7 +10,7 @@
 
 @section('page-header','Tipos de inmueble')
 
-@section('optional-description','Gestione las opciones para los tipos de inmueble');
+@section('optional-description','Gestiona las opciones para los Tipos de Inmueble');
 
 @section('content')
 

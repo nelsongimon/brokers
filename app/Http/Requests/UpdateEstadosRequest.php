@@ -24,7 +24,7 @@ class UpdateEstadosRequest extends Request
     public function rules()
     {
         return [
-            'estado' => 'required|unique:estados'      
+            'estado' => 'required'      
         ];
     }
 }

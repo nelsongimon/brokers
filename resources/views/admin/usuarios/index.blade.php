@@ -12,7 +12,7 @@
 
 @section('page-header','Usuarios')
 
-@section('optional-description','Visualiza a todos los usuarios')
+@section('optional-description','Visualiza a todos los Usuarios')
 
 @section('content')
 

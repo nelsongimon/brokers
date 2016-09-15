@@ -12,7 +12,7 @@
 
 @section('page-header','Asesores')
 
-@section('optional-description','Administra a todos los Asesores')
+@section('optional-description','Visualiza a todos los Asesores')
 
 @section('content')
 

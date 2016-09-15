@@ -10,7 +10,7 @@
 
 @section('page-header','Sectores')
 
-@section('optional-description','Gestione las opciones de los Sectores');
+@section('optional-description',' ');
 
 @section('content')
 

@@ -52,7 +52,7 @@
 						 		<td style="text-align: center">
 						 			@foreach ($inmueble->imagenes as $imagen)
 						 				@if($imagen->principal=='yes')
-											<img src="{{ asset('images/inmuebles').'/'.$imagen->imagen }}" width="75px">
+											<img src="{{ asset('images/inmuebles').'/Thumb_'.$imagen->imagen }}" width="75px">
 						 				@endif
 						 			@endforeach
 						 		</td>

@@ -29,7 +29,7 @@
 <!-- ---------------------- banner -------------------------- -->
   <div class="inside-banner">
     <div class="container"> 
-        <h2>Detalles del inmueble</h2>
+        <h2>Detalles del Inmueble</h2>
     </div>
   </div>
 

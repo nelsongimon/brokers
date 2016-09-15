@@ -1280,13 +1280,13 @@ ul#thumbs img{
 		font-size: 16px;
 	}
 	.titulo-tipo-carousel .titulo{
-		font-size: 13px;
+		font-size: 18px;
 	}
 	.titulo-tipo-carousel .tipo{
-		font-size: 12px;
+		font-size: 17px;
 	}
 	.detalles-carousel{
-		font-size: 10px;
+		font-size: 17px;
 	}
 	.pasos-vender{
 		font-size: 18px;
@@ -1296,7 +1296,13 @@ ul#thumbs img{
 		font-size: 25px;
 	}
 	.info-asesor{
-		font-size: 20px;
+		font-size: 14px;
+	}
+	.precio-carousel{
+		font-size: 18px;
+	}
+	.negociacion-carousel{
+		font-size: 18px;
 	}
 
 
@@ -1381,7 +1387,7 @@ ul#thumbs img{
 		font-size: 25px;
 	}
 	.info-asesor{
-		font-size: 20px;
+		font-size: 12px;
 	}
 
 }
@@ -1421,7 +1427,7 @@ ul#thumbs img{
 		font-size: 15px;
 	}
 	.detalles-carousel{
-		font-size: 12px;
+		font-size: 13px;
 	}
 	.titulo-tipo-resultados .titulo{
 		font-size: 13px;
@@ -1461,6 +1467,12 @@ ul#thumbs img{
 	.foto-agente{
 		width:100%;
 	}
+	.precio-carousel{
+		font-size: 15px;
+	}
+	.negociacion-carousel{
+		font-size: 15px;
+	}
 
 
 }
@@ -1485,7 +1497,7 @@ ul#thumbs img{
 		font-size: 13px;
 	}
 	.info-asesor{
-		font-size: 14px;
+		font-size: 9px;
 	}
 	footer{
 		font-size: 12px;

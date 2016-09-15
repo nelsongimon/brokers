@@ -10,7 +10,7 @@
 
 @section('page-header','Precio del dolar')
 
-@section('optional-description','Visualice y actualice el precio del dolar')
+@section('optional-description','Visualiza y actualiza el Precio del Dolar')
 
 @section('content')
 

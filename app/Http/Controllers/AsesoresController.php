@@ -48,7 +48,7 @@ class AsesoresController extends Controller
         $file = $request->file('foto');
         $image = Image::make($request->file('foto'));
         $file_name = time().'_'.$file->getClientOriginalName();
-        $path = $this->getPath('test').'/images/asesores/';
+        $path = $this->getPath('production').'/images/asesores/';
         $image->save($path.$file_name);
         
         //Redimensionar la imagen
@@ -128,27 +128,27 @@ class AsesoresController extends Controller
         //Actualizacion de la imagen
         if($request->file('foto')){
 
-            unlink($this->getPath('test').'/images/asesores/'.$asesor->foto);
+            unlink($this->getPath('production').'/images/asesores/'.$asesor->foto);
             //Manipulacion de imagen
             $file = $request->file('foto');
             $image = Image::make($request->file('foto'));
             $file_name = time().'_'.$file->getClientOriginalName();
-            $path = $this->getPath('test').'/images/asesores/';
+            $path = $this->getPath('production').'/images/asesores/';
             $image->save($path.$file_name);
             $asesor->foto = $file_name;
 
             //Redimensionar la imagen
-            /*
+            
             $dimensiones=getimagesize(asset('images/asesores').'/'.$file_name);
-            $ancho=$dimensiones[0]; //Ancho
-            $alto=$dimensiones[1]; //Alto
+            $ancho = $dimensiones[0]; //Ancho
+            $alto = $dimensiones[1]; //Alto
             if($ancho > 400){
                 $pro=$ancho/400;
                 $alto=$alto/$pro;
                 $image->resize(400,$alto);
                 $image->save($path.$file_name);
             }
-            */
+            
         }
 
         $asesor->save();
@@ -170,7 +170,7 @@ class AsesoresController extends Controller
         $asesor = Asesor::find($id);
     
         //Borrado de la imagen
-        if(unlink($this->getPath('test').'/images/asesores/'.$asesor->foto)){
+        if(unlink($this->getPath('production').'/images/asesores/'.$asesor->foto)){
 
             $asesor->delete();
             Session::flash('mensaje-success','El Asesor '

@@ -24,7 +24,7 @@ class UpdateCiudadesRequest extends Request
     public function rules()
     {
         return [
-            'ciudad' => 'required|unique:ciudades'
+            'ciudad' => 'required'
         ];
     }
 }

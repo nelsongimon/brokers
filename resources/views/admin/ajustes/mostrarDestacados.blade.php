@@ -10,7 +10,7 @@
 
 @section('page-header','Destacados')
 
-@section('optional-description','Visualice y elimine los inmuebles que se mostrarán en destacados');
+@section('optional-description','Visualiza los inmuebles que se mostrarán en Destacados');
 
 @section('content')
 
@@ -36,7 +36,7 @@
 	                    </tr>
 	                    	@foreach($destacados as $destacado)
 					        <tr style="font-size:15px;">
-		                      <td style="text-align:center"><img src="{{ asset('images/inmuebles').'/'.$destacado->imagen }}" width="75px"></td>
+		                      <td style="text-align:center"><img src="{{ asset('images/inmuebles').'/Thumb_'.$destacado->imagen }}" width="75px"></td>
 		                      <td>{{ $destacado->titulo }}</td>
 		                      <td>
 		                     
